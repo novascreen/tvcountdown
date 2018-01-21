@@ -8,8 +8,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import withStyles, { WithStyles, StyleRulesCallback } from 'material-ui/styles/withStyles';
-import './App.css';
-import withRoot from './withRoot';
+import withRoot from '../../withRoot';
 
 const styles: StyleRulesCallback<'root'> = theme => ({
   root: {
