@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { Fragment } from 'react';
-import { withTheme } from 'material-ui/styles';
-import { WithTheme } from 'material-ui/styles/withTheme';
+import withTheme, { WithTheme } from 'material-ui/styles/withTheme';
 
 const attributeProps = [
   'p',
@@ -38,20 +36,34 @@ const attributes = [
 ];
 
 interface BoxProps {
-  fragment?: boolean;
+  p?: number;
+  pH?: number;
+  pV?: number;
+  pT?: number;
+  pR?: number;
+  pB?: number;
+  pL?: number;
+  m?: number;
+  mH?: number;
+  mV?: number;
+  mT?: number;
+  mR?: number;
+  mB?: number;
+  mL?: number;
+  childrenOnly?: boolean;
   color?: string;
   border?: number;
   borderWidth?: number;
   borderRadius?: number;
   style?: React.CSSProperties;
-  children?: React.ReactChildren;
+  children?: React.ReactNode;
 }
 
 const Box = (
   withTheme()
 )(({
   theme,
-  fragment = false,
+  childrenOnly = false,
   color,
   border,
   borderWidth = 1,
@@ -59,8 +71,8 @@ const Box = (
   style,
   children,
   ...props
-}: BoxProps & WithTheme) => {
-  if (fragment) { return <Fragment>{children}</Fragment>; }
+}: WithTheme & BoxProps) => {
+  if (childrenOnly) { return React.Children.only(children); }
 
   const spacing = {};
   attributeProps.forEach((prop, i) => {
@@ -71,26 +83,30 @@ const Box = (
     }
   });
 
+  const primaryMain = (theme.palette.primary as { main: string }).main;
+  const secondaryMain = (theme.palette.secondary as { main: string }).main;
+  const errorMain = (theme.palette.error as { main: string }).main;
+
   const colors = {
     default: {
       color: theme.palette.getContrastText(theme.palette.grey[100]),
       backgroundColor: theme.palette.grey[100],
     },
     primary: {
-      color: theme.palette.getContrastText(theme.palette.primary[500]),
-      backgroundColor: theme.palette.primary[500],
+      color: theme.palette.getContrastText(primaryMain),
+      backgroundColor: primaryMain,
     },
     accent: {
-      color: theme.palette.getContrastText(theme.palette.secondary[500]),
-      backgroundColor: theme.palette.secondary[500],
+      color: theme.palette.getContrastText(secondaryMain),
+      backgroundColor: secondaryMain,
     },
   };
 
   const borders = {
     default: theme.palette.text.divider,
-    error: theme.palette.error[500],
-    primary: theme.palette.primary[500],
-    accent: theme.palette.secondary[500],
+    error: errorMain,
+    primary: primaryMain,
+    accent: secondaryMain,
   };
 
   const borderStyles = border && borders[border] ? {

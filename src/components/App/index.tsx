@@ -1,69 +1,16 @@
 import * as React from 'react';
-import Button from 'material-ui/Button';
-import Dialog, {
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-} from 'material-ui/Dialog';
-import Typography from 'material-ui/Typography';
-import withStyles, { WithStyles, StyleRulesCallback } from 'material-ui/styles/withStyles';
+import { Fragment } from 'react';
 import withRoot from '../../withRoot';
+import AppBar from '../AppBar';
 
-const styles: StyleRulesCallback<'root'> = theme => ({
-  root: {
-    textAlign: 'center',
-    paddingTop: theme.spacing.unit * 20,
-  },
-});
-
-type State = {
-  open: boolean;
-};
-
-class App extends React.Component<WithStyles<'root'>, State> {
-  state = {
-    open: false,
-  };
-
-  handleClose = () => {
-    this.setState({
-      open: false,
-    });
-  }
-
-  handleClick = () => {
-    this.setState({
-      open: true,
-    });
-  }
-
+class App extends React.Component {
   render() {
     return (
-      <div className={this.props.classes.root}>
-        <Dialog open={this.state.open} onClose={this.handleClose}>
-          <DialogTitle>Super Secret Password</DialogTitle>
-          <DialogContent>
-            <DialogContentText>1-2-3-4-5</DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button color="primary" onClick={this.handleClose}>
-              OK
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Typography type="display1" gutterBottom>
-          Material-UI
-        </Typography>
-        <Typography type="subheading" gutterBottom>
-          example project
-        </Typography>
-        <Button raised color="accent" onClick={this.handleClick}>
-          Super Secret Password
-        </Button>
-      </div>
+      <Fragment>
+        <AppBar />
+      </Fragment>
     );
   }
 }
 
-export default withRoot(withStyles(styles)<{}>(App));
+export default withRoot(App);
