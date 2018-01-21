@@ -1,13 +1,78 @@
 # import Post from "./generated/prisma.graphql"
 
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
+  search(query: String!): [Show]
+  show(id: Int!): Show
+  scheduleByDate(date: String!): [Episode]
 }
 
-type Mutation {
-  createDraft(title: String!, text: String): Post
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
+type Schedule {
+  time: String
+  days: [String]
+}
+
+type Rating {
+  Rating: Int
+}
+
+type Country {
+  name: String
+  code: String
+  timezone: String
+}
+
+type Network {
+  id: Int
+  name: String
+  country: Country
+}
+
+type Externals {
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+type Image {
+  medium: String
+  original: String
+}
+
+# Details for an episode
+type Episode {
+  id: Int
+  url: String
+  name: String
+  season: Int
+  number: Int
+  airdate: String
+  airtime: String
+  airstamp: String
+  runtime: Int
+  image: Image
+  summary: String
+  show: Show
+}
+
+# Information for a show including list of episodes
+type Show {
+  id: Int
+  url: String
+  name: String
+  type: String
+  language: String
+  genres: [String]
+  status: String
+  runtime: Int
+  premiered: String
+  schedule: Schedule
+  rating: Rating
+  weight: Int
+  network: Network
+  webChannel: String
+  externals: Externals
+  image: Image
+  summary: String
+  updated: Int
+  episodes: [Episode]
 }

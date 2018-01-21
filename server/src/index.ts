@@ -1,41 +1,22 @@
-import { GraphQLServer } from 'graphql-yoga'
-import { importSchema } from 'graphql-import'
-import { Prisma } from './generated/prisma'
-import { Context } from './utils'
+import { GraphQLServer } from 'graphql-yoga';
+import { importSchema } from 'graphql-import';
+import { Prisma } from './generated/prisma';
+import { Context } from './utils';
+import { getShowById, getScheduleByDate, search } from './tvmaze/api';
 
 const resolvers = {
   Query: {
-    feed(parent, args, context: Context, info) {
-      return context.db.query.posts({ where: { isPublished: true } }, info)
+    search(parent, { query }: { query: String }) {
+      return search(query);
     },
-    drafts(parent, args, context: Context, info) {
-      return context.db.query.posts({ where: { isPublished: false } }, info)
+    show(parent, { id }: { id: String }) {
+      return getShowById(id);
     },
-    post(parent, { id }, context: Context, info) {
-      return context.db.query.post({ where: { id: id } }, info)
-    },
+    scheduleByDate(parent, { date }: { date: String }) {
+      return getScheduleByDate(date);
+    }
   },
-  Mutation: {
-    createDraft(parent, { title, text }, context: Context, info) {
-      return context.db.mutation.createPost(
-        { data: { title, text } },
-        info,
-      )
-    },
-    deletePost(parent, { id }, context: Context, info) {
-      return context.db.mutation.deletePost({ where: { id } }, info)
-    },
-    publish(parent, { id }, context: Context, info) {
-      return context.db.mutation.updatePost(
-        {
-          where: { id },
-          data: { isPublished: true },
-        },
-        info,
-      )
-    },
-  },
-}
+};
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
@@ -48,6 +29,7 @@ const server = new GraphQLServer({
       debug: true, // log all GraphQL queries & mutations
     }),
   }),
-})
+});
 
-server.start(() => console.log('Server is running on http://localhost:4000'))
+// tslint:disable-next-line no-console
+server.start(() => console.log('Server is running on http://localhost:4000'));
