@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import withRoot from '../../withRoot';
 import AppBar from '../AppBar';
 
-class App extends React.Component {
+export class App extends React.Component {
   render() {
     return (
       <Fragment>

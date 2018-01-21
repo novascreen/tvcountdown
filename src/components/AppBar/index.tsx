@@ -23,9 +23,9 @@ const styles = {
 
 type PropsWithStyles = WithStyles<'root' | 'flex'>;
 
-const AppBar = (
-  withStyles(styles)
-)<{}>(({ classes }: PropsWithStyles) => {
+export const AppBar: React.SFC<PropsWithStyles> = ({
+  classes
+}) => {
   return (
     <div className={classes.root}>
       <MUIAppBar position="static">
@@ -43,6 +43,8 @@ const AppBar = (
       </MUIAppBar>
     </div>
   );
-});
+};
 
-export default AppBar;
+export default (
+  withStyles(styles)
+)<{}>(AppBar);

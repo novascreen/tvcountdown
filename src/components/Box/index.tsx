@@ -59,9 +59,7 @@ interface BoxProps {
   children?: React.ReactNode;
 }
 
-const Box = (
-  withTheme()
-)(({
+export const Box: React.SFC<WithTheme & BoxProps> = ({
   theme,
   childrenOnly = false,
   color,
@@ -71,7 +69,7 @@ const Box = (
   style,
   children,
   ...props
-}: WithTheme & BoxProps) => {
+}) => {
   if (childrenOnly) { return React.Children.only(children); }
 
   const spacing = {};
@@ -133,8 +131,8 @@ const Box = (
       {children}
     </div>
   );
-});
+};
 
-Box.displayName = 'BoxComposed';
-
-export default Box;
+export default (
+  withTheme()
+)(Box);
