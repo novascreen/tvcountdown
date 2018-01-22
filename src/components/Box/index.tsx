@@ -81,9 +81,9 @@ export const Box: React.SFC<WithTheme & BoxProps> = ({
     }
   });
 
-  const primaryMain = (theme.palette.primary as { main: string }).main;
-  const secondaryMain = (theme.palette.secondary as { main: string }).main;
-  const errorMain = (theme.palette.error as { main: string }).main;
+  const primaryMain = theme.palette.primary.main;
+  const secondaryMain = theme.palette.secondary.main;
+  const errorMain = theme.palette.error.main;
 
   const colors = {
     default: {
@@ -94,17 +94,17 @@ export const Box: React.SFC<WithTheme & BoxProps> = ({
       color: theme.palette.getContrastText(primaryMain),
       backgroundColor: primaryMain,
     },
-    accent: {
+    secondary: {
       color: theme.palette.getContrastText(secondaryMain),
       backgroundColor: secondaryMain,
     },
   };
 
   const borders = {
-    default: theme.palette.text.divider,
+    default: theme.palette.text.disabled,
     error: errorMain,
     primary: primaryMain,
-    accent: secondaryMain,
+    secondary: secondaryMain,
   };
 
   const borderStyles = border && borders[border] ? {

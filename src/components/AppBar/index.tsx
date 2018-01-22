@@ -31,14 +31,14 @@ export const AppBar: React.SFC<PropsWithStyles> = ({
       <MUIAppBar position="static">
         <Toolbar>
           <Box mL={-1.5} mR={2.5}>
-            <IconButton color="contrast" aria-label="Menu">
+            <IconButton color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
           </Box>
           <Typography type="title" color="inherit" className={classes.flex}>
             Title
           </Typography>
-          <Button color="contrast">Login</Button>
+          <Button color="inherit">Login</Button>
         </Toolbar>
       </MUIAppBar>
     </div>
