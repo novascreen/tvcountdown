@@ -2,6 +2,7 @@ var path = require('path');
 
 module.exports = {
   title: 'TVEpisodes',
+  skipComponentsWithoutExample: true,
   components: 'src/components/**/*.{ts,tsx}',
   propsParser: require('react-docgen-typescript').parse,
   webpackConfig: require('react-scripts-ts/config/webpack.config.dev.js'),
