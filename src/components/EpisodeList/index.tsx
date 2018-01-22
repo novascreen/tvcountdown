@@ -7,7 +7,7 @@ import { Episode } from '../../models/graphql';
 import Typography from 'material-ui/Typography/Typography';
 
 interface Props {
-  episodes: [Episode];
+  episodes: Episode[];
 }
 
 export const EpisodeList: React.SFC<Props> = ({
