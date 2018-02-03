@@ -17,8 +17,8 @@ export const EpisodeList: React.SFC<Props> = ({
   return (
     <List>
       {episodes.map(episode => {
-        const episodeSeason = episode.season.toString().padStart(2, '0');
-        const episodeNumber = episode.number.toString().padStart(2, '0');
+        const episodeSeason = (episode.season || 0).toString().padStart(2, '0');
+        const episodeNumber = (episode.number || 0).toString().padStart(2, '0');
         return (
           <ListItem key={episode.id}>
             <Grid container>
