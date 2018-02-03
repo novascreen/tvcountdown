@@ -9,4 +9,8 @@ module.exports = {
   styleguideComponents: {
 		Wrapper: path.join(__dirname, 'src/styleguide/Wrapper'),
 	},
+  sections: [{
+    name: 'UI Components',
+    components: 'src/components/UI/**/*.{ts,tsx}'
+  }]
 }
