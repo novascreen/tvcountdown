@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { graphql, QueryProps } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Episode } from '../../models/graphql';
-import { EpisodeList } from '../EpisodeList/index';
+
+import { Episode } from 'models/graphql';
+import { EpisodeList } from 'components/EpisodeList/index';
 
 type InputProps = {
   date: string;

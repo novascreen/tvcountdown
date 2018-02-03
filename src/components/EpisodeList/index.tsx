@@ -3,8 +3,9 @@ import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 import Grid from 'material-ui/Grid/Grid';
 import { FormattedDate, FormattedTime, FormattedRelative } from 'react-intl';
-import { Episode } from '../../models/graphql';
 import Typography from 'material-ui/Typography/Typography';
+
+import { Episode } from 'models/graphql';
 
 interface Props {
   episodes: Episode[];
