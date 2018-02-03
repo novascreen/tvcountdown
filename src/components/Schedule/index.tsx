@@ -10,11 +10,18 @@ type InputProps = {
 };
 
 type Response = {
-  scheduleByDate: Episode[];
+  scheduleByDate?: Episode[];
 };
 
-export const Schedule: React.SFC<QueryProps & InputProps & Response> = ({
-  loading, error, scheduleByDate
+type MyQueryProps = {
+  error?: Error,
+  loading?: boolean,
+};
+
+export const Schedule: React.SFC<MyQueryProps & InputProps & Response> = ({
+  error,
+  loading = false,
+  scheduleByDate = [],
 }) => {
   if (loading) { return <div>Loading</div>; }
   if (error || !scheduleByDate) { return <h1>ERROR</h1>; }

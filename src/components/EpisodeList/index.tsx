@@ -8,11 +8,11 @@ import Typography from 'material-ui/Typography/Typography';
 import { Episode } from 'models/graphql';
 
 interface Props {
-  episodes: Episode[];
+  episodes?: Episode[];
 }
 
 export const EpisodeList: React.SFC<Props> = ({
-  episodes
+  episodes = [],
 }) => {
   return (
     <List>
