@@ -13,6 +13,12 @@
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
+    "baseUrl": "src",
+    "paths": {
+      "*": [
+        "*"
+      ]
+    },
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
