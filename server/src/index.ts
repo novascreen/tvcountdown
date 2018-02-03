@@ -4,15 +4,17 @@ import { Prisma } from './generated/prisma';
 import { Context } from './utils';
 import { getShowById, getScheduleByDate, search } from './tvmaze/api';
 
+type Parent = any;
+
 const resolvers = {
   Query: {
-    search(parent, { query }: { query: String }) {
+    search(parent: Parent, { query }: { query: String }) {
       return search(query);
     },
-    show(parent, { id }: { id: String }) {
+    show(parent: Parent, { id }: { id: String }) {
       return getShowById(id);
     },
-    scheduleByDate(parent, { date }: { date: String }) {
+    scheduleByDate(parent: Parent, { date }: { date: String }) {
       return getScheduleByDate(date);
     }
   },
