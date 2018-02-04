@@ -11,11 +11,11 @@ type InputProps = {
 };
 
 type Mutation = {
-  onToggle: (showId: number) => void,
+  onToggle?: (showId: number) => void,
 };
 
 type Response = {
-  favorites: Favorites;
+  favorites?: Favorites;
 };
 
 export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
@@ -34,7 +34,7 @@ export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
 export default compose(
   graphql<QueryProps, InputProps, Response>(TOGGLE_FAVORITE, {
     props: ({ mutate }) => ({
-      onToggle: (showId: number) => mutate && mutate({ variables: { showId } }),
+      onToggle: (showId: number) => mutate ? mutate({ variables: { showId } }) : undefined,
     })
   }),
   graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
