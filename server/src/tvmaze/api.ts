@@ -23,5 +23,7 @@ export const getEpisodes = (showId: String) => (
 export const getScheduleByDate = (
   date: String,
   country: String = COUNTRYCODE) => (
-  fetch(`${BASE_URL}/schedule?country=${country}&date=${date}`).then(getJSON).catch(console.error)
+  fetch(`${BASE_URL}/schedule?country=${country}&date=${date}`)
+    .then(getJSON)
+    .catch(console.error)
 );
