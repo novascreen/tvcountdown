@@ -1,10 +1,10 @@
 export type Show = {
-  id: string;
+  id: number;
   name: string;
 };
 
 export type Episode = {
-  id: string;
+  id: number;
   name: string;
   season?: number;
   number?: number;

@@ -39,6 +39,7 @@ const GET_EPISODES = gql`
       number
       airstamp
       show {
+        id
         name
       }
     }

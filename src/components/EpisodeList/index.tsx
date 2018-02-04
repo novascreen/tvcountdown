@@ -4,8 +4,10 @@ import ListItem from 'material-ui/List/ListItem';
 import Grid from 'material-ui/Grid/Grid';
 import { FormattedDate, FormattedTime, FormattedRelative } from 'react-intl';
 import Typography from 'material-ui/Typography/Typography';
+import ListItemSecondaryAction from 'material-ui/List/ListItemSecondaryAction';
 
 import { Episode } from 'models/graphql';
+import FavoriteToggle from 'components/FavoriteToggle';
 
 interface Props {
   episodes?: Episode[];
@@ -20,7 +22,7 @@ export const EpisodeList: React.SFC<Props> = ({
         const episodeSeason = (episode.season || 0).toString().padStart(2, '0');
         const episodeNumber = (episode.number || 0).toString().padStart(2, '0');
         return (
-          <ListItem key={episode.id}>
+          <ListItem key={`${episode.id}-${episode.airstamp}`}>
             <Grid container>
               <Grid item xs={6}>
                 <Typography>{episode.show.name}</Typography>
@@ -37,6 +39,9 @@ export const EpisodeList: React.SFC<Props> = ({
                 </Typography>
               </Grid>
             </Grid>
+            <ListItemSecondaryAction>
+              <FavoriteToggle showId={episode.show.id} />
+            </ListItemSecondaryAction>
           </ListItem>
         );
       })}
