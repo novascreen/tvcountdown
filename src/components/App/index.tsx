@@ -6,6 +6,7 @@ import withRoot from 'withRoot';
 import AppBar from 'components/AppBar';
 import ScheduleDate from 'components/ScheduleDate';
 import Schedule from 'components/Schedule';
+import Grid from 'material-ui/Grid/Grid';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -48,8 +49,14 @@ export class App extends React.Component {
     return (
       <Fragment>
         <AppBar />
-        <ScheduleDate value={dateValue} onChange={this.handleDateChange} />
-        <Schedule date={date} />
+        <main>
+          <Grid container justify="center">
+            <Grid item  style={{ width: '100%', maxWidth: 800 }}>
+              <ScheduleDate value={dateValue} onChange={this.handleDateChange} />
+              <Schedule date={date} />
+            </Grid>
+          </Grid>
+        </main>
       </Fragment>
     );
   }

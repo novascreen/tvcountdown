@@ -33,7 +33,7 @@ export const AppBar: React.SFC<PropsWithStyles> = ({
             </IconButton>
           </Box>
           <Typography type="title" color="inherit" className={classes.flex}>
-            Title
+            Schedule
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

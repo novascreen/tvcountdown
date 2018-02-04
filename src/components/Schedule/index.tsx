@@ -3,7 +3,8 @@ import { graphql, QueryProps } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { Episode } from 'models/graphql';
-import { EpisodeList } from 'components/EpisodeList/index';
+import Loading from 'components/UI/Loading';
+import EpisodeList from 'components/EpisodeList';
 
 type InputProps = {
   date: string;
@@ -23,7 +24,7 @@ export const Schedule: React.SFC<MyQueryProps & InputProps & Response> = ({
   loading = false,
   scheduleByDate = [],
 }) => {
-  if (loading) { return <div>Loading</div>; }
+  if (loading) { return <Loading />; }
   if (error || !scheduleByDate) { return <h1>ERROR</h1>; }
   return (
     <EpisodeList episodes={scheduleByDate} />

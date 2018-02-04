@@ -25,7 +25,7 @@ export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
 }) => {
   const isFavorite = favorites.includes(showId);
   return (
-    <IconButton onClick={() => onToggle(showId)}>
+    <IconButton onClick={() => onToggle(showId)} color="secondary">
       {isFavorite ? <Star /> : <StarBorder />}
     </IconButton>
   );
