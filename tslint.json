@@ -30,11 +30,11 @@
             "static-before-instance",
             "variables-before-functions"
         ],
-        "no-any": { "severity": "warning" },
+        "no-any": false,
         "no-arg": true,
         "no-bitwise": true,
         "no-console": [
-            true,
+            false,
             "log",
             "error",
             "debug",
