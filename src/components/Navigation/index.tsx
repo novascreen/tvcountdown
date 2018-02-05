@@ -25,13 +25,13 @@ const items: NavigationItem[] = [{
 type Props = {
   position?: | 'top' | 'bottom',
   value?: string,
-  onChange: () => void,
+  onChange?: () => void,
 };
 
 export const Navigation = ({
   position = 'top',
   value = 'schedule',
-  onChange,
+  onChange = () => null,
 }: Props) => {
   const Component = position === 'top' ? TopNavigation : BottomNavigation;
   return <Component {...{ items, value, onChange }} />;
