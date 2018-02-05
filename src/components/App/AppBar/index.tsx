@@ -10,6 +10,7 @@ import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
 
 import Navigation from 'components/App/Navigation';
+import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
 
 const styles = (theme: any) => ({
@@ -38,26 +39,35 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
   classes,
   width,
   page,
-  onPageChange
+  onPageChange,
 }) => {
   const smallScreen = width === 'xs';
   return (
     <Fragment>
       <MUIAppBar position="fixed">
         <Toolbar>
-          <Grid container alignItems="center">
-            <Box mR={2}>
-              <Typography type="title" color="inherit">TVEpisodes</Typography>
-            </Box>
-            {!smallScreen &&
-              <Navigation
-                position="top"
-                value={page}
-                onChange={onPageChange}
-              />
-            }
+          <Grid container alignItems="center" justify="space-between">
+            <Grid item>
+              <Grid container alignItems="center">
+                <Box mR={2}>
+                  <Typography type="title" color="inherit">TVEpisodes</Typography>
+                </Box>
+                {!smallScreen &&
+                  <Navigation
+                    position="top"
+                    value={page}
+                    onChange={onPageChange}
+                  />
+                }
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Grid container alignItems="center" justify="flex-end">
+                <Search />
+                <Button color="inherit">Login</Button>
+              </Grid>
+            </Grid>
           </Grid>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </MUIAppBar>
       <div className={classes.spacer} />
