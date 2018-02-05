@@ -1,47 +1,78 @@
 import * as React from 'react';
+import { Fragment } from 'react';
+import { compose } from 'react-apollo';
 import MUIAppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
+import Grid from 'material-ui/Grid/Grid';
+import Typography from 'material-ui/Typography/Typography';
+import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
 
+import Navigation from 'components/Navigation';
 import Box from 'components/UI/Box';
 
-const styles = {
+const styles = (theme: any) => ({
+  '@global': {
+    html: {
+      overflowX: 'hidden',
+    },
+  },
   root: {
     width: '100%',
   },
+  spacer: theme.mixins.toolbar,
   flex: {
     flex: 1,
   },
+});
+
+type Props = {
+  page: string,
+  onPageChange: () => void,
 };
 
-type PropsWithStyles = WithStyles<'root' | 'flex'>;
+type PropsWithStyles = WithStyles<'root' | 'spacer' | 'flex'>;
 
-export const AppBar: React.SFC<PropsWithStyles> = ({
-  classes
+export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
+  classes,
+  width,
+  page,
+  onPageChange
 }) => {
+  const smallScreen = width === 'xs';
   return (
-    <div className={classes.root}>
-      <MUIAppBar position="static">
+    <Fragment>
+      <MUIAppBar position="fixed">
         <Toolbar>
-          <Box mL={-1.5} mR={2.5}>
-            <IconButton color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-          </Box>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            Schedule
-          </Typography>
+          <Grid container alignItems="center">
+            <Box mR={2}>
+              <Typography type="title" color="inherit">TVEpisodes</Typography>
+            </Box>
+            {!smallScreen &&
+              <Navigation
+                position="top"
+                value={page}
+                onChange={onPageChange}
+              />
+            }
+          </Grid>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </MUIAppBar>
-    </div>
+      <div className={classes.spacer} />
+      {smallScreen &&
+        <Navigation
+          position="bottom"
+          value={page}
+          onChange={onPageChange}
+        />
+      }
+    </Fragment>
   );
 };
 
-export default (
-  withStyles(styles)
-)<{}>(AppBar);
+export default compose(
+  withStyles(styles),
+  withWidth(),
+)(AppBar);

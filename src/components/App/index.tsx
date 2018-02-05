@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { Fragment } from 'react';
 import * as moment from 'moment';
+import Grid from 'material-ui/Grid/Grid';
 
 import withRoot from 'withRoot';
 import AppBar from 'components/AppBar';
 import ScheduleDate from 'components/ScheduleDate';
 import Schedule from 'components/Schedule';
-import Grid from 'material-ui/Grid/Grid';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 export class App extends React.Component {
   state = {
-    dateValue: 'today'
+    dateValue: 'today',
+    page: 'schedule',
   };
 
   getDate() {
@@ -38,17 +39,23 @@ export class App extends React.Component {
     }
   }
 
-  handleDateChange = (event: any, value: string) => {
-    console.log(value);
+  handleDateChange = (e: any, value: string) => {
     this.setState({ dateValue: value });
   }
 
+  handlePageChange = (e: any, value: string) => {
+    this.setState({ page: value });
+  }
+
   render() {
-    const { dateValue } = this.state;
+    const { dateValue, page } = this.state;
     const date = this.getDate();
     return (
       <Fragment>
-        <AppBar />
+        <AppBar
+          page={page}
+          onPageChange={this.handlePageChange}
+        />
         <main>
           <Grid container justify="center">
             <Grid item  style={{ width: '100%', maxWidth: 800 }}>

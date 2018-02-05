@@ -11,6 +11,7 @@ const ScheduleDate = (props: TabsProps) => (
         textColor="primary"
         centered
         scrollable
+        scrollButtons="off"
         fullWidth
         {...props}
       >
