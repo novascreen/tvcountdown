@@ -4,9 +4,9 @@ import * as moment from 'moment';
 import Grid from 'material-ui/Grid/Grid';
 
 import withRoot from 'withRoot';
-import AppBar from 'components/AppBar';
 import ScheduleDate from 'components/ScheduleDate';
 import Schedule from 'components/Schedule';
+import AppBar from './AppBar';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 

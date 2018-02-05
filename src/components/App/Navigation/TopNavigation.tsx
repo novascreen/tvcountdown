@@ -4,8 +4,8 @@ import Tab from 'material-ui/Tabs/Tab';
 import Grid from 'material-ui/Grid/Grid';
 import withStyles, { WithStyles, StyleRules } from 'material-ui/styles/withStyles';
 
-import { NavigationItem } from 'components/Navigation';
 import Box from 'components/UI/Box';
+import { NavigationItem } from './index';
 
 const styles: StyleRules<'indicator'> = {
   indicator: {

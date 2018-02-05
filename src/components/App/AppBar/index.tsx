@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography/Typography';
 import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
 
-import Navigation from 'components/Navigation';
+import Navigation from 'components/App/Navigation';
 import Box from 'components/UI/Box';
 
 const styles = (theme: any) => ({

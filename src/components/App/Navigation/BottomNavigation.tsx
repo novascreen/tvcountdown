@@ -4,7 +4,7 @@ import BottomNavigationAction from 'material-ui/BottomNavigation/BottomNavigatio
 import AppBar from 'material-ui/AppBar/AppBar';
 import withStyles, { WithStyles, StyleRules } from 'material-ui/styles/withStyles';
 
-import { NavigationItem } from 'components/Navigation';
+import { NavigationItem } from './index';
 
 const styles: StyleRules<'root'> = {
   root: {
