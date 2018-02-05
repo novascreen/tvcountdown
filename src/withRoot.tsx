@@ -20,10 +20,6 @@ const stateLink = withClientState({
   ...R.mergeDeepRight(favorites, {}),
   cache,
 });
-console.log({
-  ...R.mergeDeepRight(favorites, {}),
-  cache,
-});
 const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
 
 const client = new ApolloClient({
