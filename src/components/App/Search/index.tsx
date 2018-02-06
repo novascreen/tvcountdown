@@ -3,17 +3,23 @@ import { Fragment } from 'react';
 import SearchIcon from 'material-ui-icons/Search';
 import Close from 'material-ui-icons/Close';
 import IconButton from 'material-ui/IconButton/IconButton';
-import Snackbar from 'material-ui/Snackbar/Snackbar';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
+import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
+import Slide from 'material-ui/transitions/Slide';
+import { compose } from 'react-apollo';
+import Grid from 'material-ui/Grid/Grid';
+
+// import Box from 'components/UI/Box';
+import AutoSuggest from './AutoSuggest';
 
 const styles = (theme: any) => ({
   search: {
     position: 'absolute',
-    width: '100vw',
-    height: 'auto',
+    width: '100%',
     top: 0,
-    left: 0,
     right: 0,
+    zIndex: 1,
+    background: theme.palette.primary.main,
     ...theme.mixins.toolbar,
   },
 });
@@ -42,29 +48,30 @@ export class Search extends React.Component<PropsWithStyles> {
         <IconButton color="inherit" onClick={this.handleOpen}>
           <SearchIcon />
         </IconButton>
-        <Snackbar
-          className={classes.search}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={open}
-          message={(
-            <Fragment>
-              Hello
-              <IconButton
-                onClick={this.handleClose}
+          <Slide direction="left" in={open}>
+            <ClickAwayListener onClickAway={() => null}>
+              <Grid
+                className={classes.search}
+                container
+                justify="space-between"
+                alignItems="center"
+                spacing={0}
               >
-                <Close />
-              </IconButton>
-            </Fragment>
-          )}
-        />
+                <AutoSuggest />
+                <IconButton
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <Close />
+                </IconButton>
+              </Grid>
+            </ClickAwayListener>
+          </Slide>
       </Fragment>
     );
   }
 }
 
-export default (
+export default compose(
   withStyles(styles)
-)<{}>(Search);
+)(Search);

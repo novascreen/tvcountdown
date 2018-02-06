@@ -8,12 +8,13 @@ import Grid from 'material-ui/Grid/Grid';
 import Typography from 'material-ui/Typography/Typography';
 import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
+import { Theme } from 'material-ui/styles/createMuiTheme';
 
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
 
-const styles = (theme: any) => ({
+const styles = (theme: Theme) => ({
   '@global': {
     html: {
       overflowX: 'hidden',
