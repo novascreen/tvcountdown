@@ -35,7 +35,7 @@ const attributes = [
   ['marginLeft'],
 ];
 
-interface BoxProps {
+interface BoxProps<T> extends React.HTMLAttributes<T> {
   p?: number;
   pH?: number;
   pV?: number;
@@ -59,7 +59,7 @@ interface BoxProps {
   children?: React.ReactNode;
 }
 
-export const Box: React.SFC<WithTheme & BoxProps> = ({
+export const Box: React.SFC<WithTheme & BoxProps<{}>> = ({
   theme,
   childrenOnly = false,
   color,
@@ -78,6 +78,7 @@ export const Box: React.SFC<WithTheme & BoxProps> = ({
       attributes[i].forEach((attr) => {
         spacing[attr] = theme.spacing.unit * props[prop];
       });
+      delete props[prop];
     }
   });
 
@@ -120,6 +121,7 @@ export const Box: React.SFC<WithTheme & BoxProps> = ({
 
   return (
     <div
+      {...props}
       style={{
         ...style,
         ...spacing,
