@@ -16,9 +16,6 @@ type Styles =
 const styles = (theme: Theme): StyleRules<Styles> => ({
   container: {
     flexGrow: 1,
-    // position: 'relative',
-    // height: 200,
-    // width: 200,
   },
   suggestionsContainerOpen: {
     position: 'absolute',
@@ -41,6 +38,7 @@ function renderInput(inputProps: ReactAutosuggest.InputProps<any>): JSX.Element 
   return (
     <TextField
       fullWidth
+      inputRef={inputProps.ref}
       inputProps={inputProps}
     />
   );
