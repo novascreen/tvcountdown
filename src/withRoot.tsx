@@ -29,7 +29,7 @@ const client = new ApolloClient({
 
 // A theme with custom primary and secondary color.
 // It's optional.
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
   palette: {
     primary: {
       light: teal[300],

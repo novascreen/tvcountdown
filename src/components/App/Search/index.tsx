@@ -65,6 +65,7 @@ export class Search extends React.Component<WithStyles<Styles>> {
     { suggestion },
   ) => {
     console.log(suggestion);
+    this.handleClose();
   }
 
   handleChange = (e: any) => this.setState({ value: e.target.value });

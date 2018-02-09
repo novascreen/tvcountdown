@@ -3,10 +3,16 @@ export type Image = {
   original?: string
 };
 
+export type Network = {
+  name?: string
+};
+
 export type Show = {
   id: number
   name: string
+  premiered?: string
   image?: Image
+  network?: Network
 };
 
 export type Episode = {

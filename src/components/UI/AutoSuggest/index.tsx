@@ -19,10 +19,13 @@ const styles = (theme: Theme): StyleRules<Styles> => ({
   },
   suggestionsContainerOpen: {
     position: 'absolute',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 3,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     left: 0,
     right: 0,
+    maxWidth: 400,
   },
   suggestion: {
     display: 'block',
@@ -72,15 +75,8 @@ const AutoSuggest: React.SFC<Props & WithStyles<Styles>> = ({
     }}
     renderSuggestionsContainer={renderSuggestionsContainer}
     renderInputComponent={renderInput}
-    // suggestions={suggestions}
-    // onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-    // onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-    // getSuggestionValue={getSuggestionValue}
-    // renderSuggestion={renderSuggestion}
     inputProps={{
       placeholder: 'Search',
-      // value: this.state.value,
-      // onChange: this.handleChange,
       ...inputProps,
     }}
     {...props}
