@@ -7,8 +7,6 @@ it('renders without crashing', () => {
     <AppBar
       classes={{ root: '', flex: '', spacer: '' }}
       width="xs"
-      page="schedule"
-      onPageChange={() => null}
     />
   );
 });

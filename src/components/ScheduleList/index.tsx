@@ -19,7 +19,7 @@ type MyQueryProps = {
   loading?: boolean,
 };
 
-export const Schedule: React.SFC<MyQueryProps & InputProps & Response> = ({
+export const ScheduleList: React.SFC<MyQueryProps & InputProps & Response> = ({
   error,
   loading = false,
   scheduleByDate = [],
@@ -52,4 +52,4 @@ export default graphql<QueryProps, InputProps, Response>(GET_EPISODES, {
     variables: { date }
   }),
   props: ({ data }) => ({ ...data })
-})(Schedule);
+})(ScheduleList);

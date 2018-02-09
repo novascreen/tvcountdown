@@ -5,6 +5,7 @@ import { SvgIconProps } from 'material-ui/SvgIcon';
 
 import TopNavigation from './TopNavigation';
 import BottomNavigation from './BottomNavigation';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 export type NavigationItem = {
   label: string,
@@ -15,26 +16,38 @@ export type NavigationItem = {
 const items: NavigationItem[] = [{
   label: 'Schedule',
   Icon: Schedule,
-  value: 'schedule',
+  value: '/',
 }, {
   label: 'Favorites',
   Icon: Star,
-  value: 'favorites',
+  value: '/favorites',
 }];
 
 type Props = {
   position?: | 'top' | 'bottom',
-  value?: string,
-  onChange?: () => void,
 };
 
-export const Navigation = ({
-  position = 'top',
-  value = 'schedule',
-  onChange = () => null,
-}: Props) => {
-  const Component = position === 'top' ? TopNavigation : BottomNavigation;
-  return <Component {...{ items, value, onChange }} />;
-};
+export class Navigation extends React.Component<RouteComponentProps<{}> & Props> {
+  handleChange = (e: any, value: string) => {
+    this.props.history.push(value);
+  }
 
-export default Navigation;
+  render() {
+    const {
+      position = 'top',
+      location,
+    } = this.props;
+    const Component = position === 'top' ? TopNavigation : BottomNavigation;
+    return (
+      <Component
+        {...{
+          items,
+          value: location.pathname,
+          onChange: this.handleChange,
+        }}
+      />
+    );
+  }
+}
+
+export default withRouter<RouteComponentProps<{}> & Props>(Navigation);

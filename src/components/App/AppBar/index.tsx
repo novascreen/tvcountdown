@@ -30,8 +30,6 @@ const styles = (theme: Theme) => ({
 });
 
 type Props = {
-  page: string,
-  onPageChange: () => void,
 };
 
 type PropsWithStyles = WithStyles<'root' | 'spacer' | 'flex'>;
@@ -39,8 +37,6 @@ type PropsWithStyles = WithStyles<'root' | 'spacer' | 'flex'>;
 export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
   classes,
   width,
-  page,
-  onPageChange,
 }) => {
   const smallScreen = width === 'xs';
   return (
@@ -56,8 +52,6 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
                 {!smallScreen &&
                   <Navigation
                     position="top"
-                    value={page}
-                    onChange={onPageChange}
                   />
                 }
               </Grid>
@@ -75,8 +69,6 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
       {smallScreen &&
         <Navigation
           position="bottom"
-          value={page}
-          onChange={onPageChange}
         />
       }
     </Fragment>

@@ -64,7 +64,6 @@ export class Search extends React.Component<WithStyles<Styles>> {
     event,
     { suggestion },
   ) => {
-    console.log(suggestion);
     this.handleClose();
   }
 

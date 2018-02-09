@@ -16,7 +16,7 @@ const styles: StyleRules<'root'> = {
 type Props = {
   items: NavigationItem[],
   value: string,
-  onChange: () => void,
+  onChange: (e: any, value: string) => void,
 };
 
 type PropsWithStyles = WithStyles<'root'>;
