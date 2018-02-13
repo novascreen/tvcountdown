@@ -9,6 +9,7 @@ import Slide from 'material-ui/transitions/Slide';
 import { compose } from 'react-apollo';
 import Grid from 'material-ui/Grid/Grid';
 import { Theme } from 'material-ui/styles';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 import Box from 'components/UI/Box';
 import AutoSuggest from './AutoSuggest';
@@ -34,7 +35,7 @@ const styles = (theme: Theme): StyleRules<Styles> => ({
   },
 });
 
-export class Search extends React.Component<WithStyles<Styles>> {
+export class Search extends React.Component<WithStyles<Styles> & RouteComponentProps<{}>> {
   state = {
     open: false,
     value: '',
@@ -52,9 +53,7 @@ export class Search extends React.Component<WithStyles<Styles>> {
     });
   }
 
-  handleSuggestionsFetchRequested = () => {
-    console.log('fetch');
-  }
+  handleSuggestionsFetchRequested = () => {};
 
   handleSuggestionsClearRequested = () => {
     this.setState({ value: '' });
@@ -65,6 +64,7 @@ export class Search extends React.Component<WithStyles<Styles>> {
     { suggestion },
   ) => {
     this.handleClose();
+    this.props.history.push(`/shows/${suggestion.id}`);
   }
 
   handleChange = (e: any) => this.setState({ value: e.target.value });
@@ -111,5 +111,6 @@ export class Search extends React.Component<WithStyles<Styles>> {
 }
 
 export default compose(
-  withStyles(styles)
+  withStyles(styles),
+  withRouter,
 )(Search);

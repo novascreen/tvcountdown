@@ -2,10 +2,10 @@ import * as React from 'react';
 import Schedule from 'material-ui-icons/Schedule';
 import Star from 'material-ui-icons/Star';
 import { SvgIconProps } from 'material-ui/SvgIcon';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 import TopNavigation from './TopNavigation';
 import BottomNavigation from './BottomNavigation';
-import { withRouter, RouteComponentProps } from 'react-router';
 
 export type NavigationItem = {
   label: string,

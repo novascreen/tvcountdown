@@ -10,6 +10,8 @@ import withRoot from 'withRoot';
 import ScrollToTop from 'components/ScrollToTop';
 import Schedule from 'components/Pages/Schedule';
 import Favorites from 'components/Pages/Favorites';
+import Show from 'components/Pages/Show';
+import Episode from 'components/Pages/Episode';
 import AppBar from './AppBar';
 import Footer from './Footer';
 
@@ -23,6 +25,8 @@ export const App = () => (
             <Grid item  style={{ width: '100%', maxWidth: 800 }}>
               <Route exact path="/" component={Schedule} />
               <Route exact path="/favorites" component={Favorites} />
+              <Route path="/show/:show" component={Show} />
+              <Route path="/show/:show/episode/:episode" component={Episode} />
             </Grid>
           </Grid>
         </main>

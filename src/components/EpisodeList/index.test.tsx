@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { EpisodeList } from './index';
+import { EpisodeList, Props } from './index';
+import { getMockRouterProps } from 'mock/getMockRouterProps';
 
 it('renders without crashing', () => {
-  shallow(<EpisodeList />);
+  const routerProps = getMockRouterProps<Props>({});
+  shallow(<EpisodeList {...routerProps} />);
 });
