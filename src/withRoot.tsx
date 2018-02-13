@@ -42,6 +42,13 @@ export const theme = createMuiTheme({
       dark: pink[700],
     },
   },
+  overrides: {
+    MuiTypography: {
+      root: {
+        display: null
+      }
+    }
+  }
 });
 
 function withRoot(Component: React.ComponentType) {
