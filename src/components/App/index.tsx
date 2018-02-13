@@ -11,6 +11,7 @@ import ScrollToTop from 'components/ScrollToTop';
 import Schedule from 'components/Pages/Schedule';
 import Favorites from 'components/Pages/Favorites';
 import AppBar from './AppBar';
+import Footer from './Footer';
 
 export const App = () => (
   <Router>
@@ -25,6 +26,7 @@ export const App = () => (
             </Grid>
           </Grid>
         </main>
+        <Footer />
       </Fragment>
     </ScrollToTop>
   </Router>

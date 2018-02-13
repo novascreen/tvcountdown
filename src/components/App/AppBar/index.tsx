@@ -19,6 +19,13 @@ const styles = (theme: Theme) => ({
     html: {
       overflowX: 'hidden',
     },
+    a: {
+      color: 'inherit',
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    }
   },
   root: {
     width: '100%',
