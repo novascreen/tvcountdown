@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Search from './index';
+import ScrollToTop from './index';
 
 it('renders without crashing', () => {
   shallow(
-    <Search />
+    <ScrollToTop />
   );
 });
