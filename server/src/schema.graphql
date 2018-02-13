@@ -75,4 +75,5 @@ type Show {
   summary: String
   updated: Int
   episodes: [Episode]
+  nextEpisode: Episode
 }

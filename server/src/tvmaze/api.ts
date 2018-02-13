@@ -13,11 +13,11 @@ export const search = (query: String) => (
 );
 
 export const getShowById = (id: String) => (
-  fetch(`${BASE_URL}/shows/${id}`).then(getJSON).catch(console.error)
+  fetch(`${BASE_URL}/shows/${id}?embed=previousepisode`).then(getJSON).catch(console.error)
 );
 
 export const getEpisodes = (showId: String) => (
-  fetch(`${BASE_URL}/shows/${showId}/episodes`).then(getJSON).catch(console.error)
+  fetch(`${BASE_URL}/shows/${showId}/episodes?specials=1`).then(getJSON).catch(console.error)
 );
 
 export const getScheduleByDate = (

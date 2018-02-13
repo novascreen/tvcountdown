@@ -1,6 +1,7 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { importSchema } from 'graphql-import';
 import * as R from 'ramda';
+import _get from 'lodash/get';
 
 import { Prisma } from './generated/prisma';
 import { Context } from './utils';
@@ -29,6 +30,9 @@ const resolvers = {
       return getScheduleByDate(date);
     }
   },
+  Show: {
+    nextEpisode: (show) => _get(show, '_embedded.nextepisode', null),
+  }
 };
 
 const server = new GraphQLServer({

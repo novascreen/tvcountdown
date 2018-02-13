@@ -20,13 +20,13 @@ export const App = () => (
     <ScrollToTop>
       <Fragment>
         <AppBar />
-        <main>
+        <main style={{ minHeight: '100vh' }}>
           <Grid container justify="center">
             <Grid item  style={{ width: '100%', maxWidth: 800 }}>
               <Route exact path="/" component={Schedule} />
               <Route exact path="/favorites" component={Favorites} />
-              <Route path="/show/:show" component={Show} />
-              <Route path="/show/:show/episode/:episode" component={Episode} />
+              <Route exact path="/shows/:show" component={Show} />
+              <Route exact path="/shows/:show/episodes/:episode" component={Episode} />
             </Grid>
           </Grid>
         </main>
