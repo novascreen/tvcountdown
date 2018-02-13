@@ -27,15 +27,15 @@ export const EpisodeList: React.SFC<Props> = ({
             <ListItem key={`${episode.id}-${episode.airstamp}`} divider>
               <Grid container>
                 <Grid item xs={12} sm={7}>
-                  <Typography type="body2">{episode.show.name}</Typography>
-                  <Typography type="caption">
+                  <Typography variant="subheading">{episode.show.name}</Typography>
+                  <Typography variant="caption" component="div">
                     S{episodeSeason}
                     E{episodeNumber} - {episode.name}
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={5}>
                   <Typography><FormattedRelative value={episode.airstamp} /></Typography>
-                  <Typography type="caption">
+                  <Typography variant="caption" component="div">
                     <FormattedDate value={episode.airstamp} />{' '}
                     <FormattedTime value={episode.airstamp} />
                   </Typography>
