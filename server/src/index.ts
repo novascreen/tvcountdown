@@ -31,6 +31,7 @@ const resolvers = {
     }
   },
   Show: {
+    previousEpisode: (show) => _get(show, '_embedded.previousepisode', null),
     nextEpisode: (show) => _get(show, '_embedded.nextepisode', null),
   }
 };

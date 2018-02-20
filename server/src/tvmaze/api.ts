@@ -13,7 +13,7 @@ export const search = (query: String) => (
 );
 
 export const getShowById = (id: String) => (
-  fetch(`${BASE_URL}/shows/${id}?embed=previousepisode`).then(getJSON).catch(console.error)
+  fetch(`${BASE_URL}/shows/${id}?embed[]=previousepisode&embed[]=nextepisode`).then(getJSON).catch(console.error)
 );
 
 export const getEpisodes = (showId: String) => (

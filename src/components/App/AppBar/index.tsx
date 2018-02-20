@@ -19,6 +19,10 @@ const styles = (theme: Theme) => ({
     html: {
       overflowX: 'hidden',
     },
+    p: {
+      marginTop: 0,
+      marginBottom: theme.spacing.unit,
+    },
     a: {
       color: 'inherit',
       textDecoration: 'none',

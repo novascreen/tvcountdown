@@ -27,6 +27,12 @@ type Network {
   country: Country
 }
 
+type WebChannel {
+  id: Int
+  name: String
+  country: Country
+}
+
 type Externals {
   tvrage: Int
   thetvdb: Int
@@ -63,17 +69,19 @@ type Show {
   language: String
   genres: [String]
   status: String
+  officialSite: String
   runtime: Int
   premiered: String
   schedule: Schedule
   rating: Rating
   weight: Int
   network: Network
-  webChannel: String
+  webChannel: WebChannel
   externals: Externals
   image: Image
   summary: String
   updated: Int
   episodes: [Episode]
+  previousEpisode: Episode
   nextEpisode: Episode
 }
