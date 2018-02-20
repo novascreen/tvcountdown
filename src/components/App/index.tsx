@@ -7,7 +7,7 @@ import {
 import Grid from 'material-ui/Grid/Grid';
 
 import withRoot from 'withRoot';
-import ScrollToTop from 'components/ScrollToTop';
+import ScrollToTop from 'components/Util/ScrollToTop';
 import Schedule from 'components/Pages/Schedule';
 import Favorites from 'components/Pages/Favorites';
 import Show from 'components/Pages/Show';
