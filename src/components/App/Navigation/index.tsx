@@ -8,35 +8,37 @@ import TopNavigation from './TopNavigation';
 import BottomNavigation from './BottomNavigation';
 
 export type NavigationItem = {
-  label: string,
-  Icon: React.ReactType<SvgIconProps>,
-  value: string,
+  label: string;
+  Icon: React.ReactType<SvgIconProps>;
+  value: string;
 };
 
-const items: NavigationItem[] = [{
-  label: 'Schedule',
-  Icon: Schedule,
-  value: '/',
-}, {
-  label: 'Favorites',
-  Icon: Star,
-  value: '/favorites',
-}];
+const items: NavigationItem[] = [
+  {
+    label: 'Schedule',
+    Icon: Schedule,
+    value: '/',
+  },
+  {
+    label: 'Favorites',
+    Icon: Star,
+    value: '/favorites',
+  },
+];
 
 type Props = {
-  position?: | 'top' | 'bottom',
+  position?: 'top' | 'bottom';
 };
 
-export class Navigation extends React.Component<RouteComponentProps<{}> & Props> {
+export class Navigation extends React.Component<
+  RouteComponentProps<{}> & Props
+> {
   handleChange = (e: any, value: string) => {
     this.props.history.push(value);
-  }
+  };
 
   render() {
-    const {
-      position = 'top',
-      location,
-    } = this.props;
+    const { position = 'top', location } = this.props;
     const Component = position === 'top' ? TopNavigation : BottomNavigation;
     return (
       <Component

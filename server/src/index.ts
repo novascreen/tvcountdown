@@ -9,7 +9,8 @@ import { getShowById, getScheduleByDate, search } from './tvmaze/api';
 
 type Parent = any;
 
-const eqIdAirstamp = (a, b) => R.eqProps('id', a, b) && R.eqProps('airstamp', a, b);
+const eqIdAirstamp = (a, b) =>
+  R.eqProps('id', a, b) && R.eqProps('airstamp', a, b);
 
 const resolvers = {
   Query: {
@@ -22,18 +23,20 @@ const resolvers = {
     scheduleByDate(parent: Parent, { date }: { date: String }) {
       const dates = date.split(',');
       if (dates.length > 1) {
-        return Promise.all(dates.map(d => getScheduleByDate(d)))
-          .then(results => results.reduce((a, b) => a.concat(b), []))
-          // Filter duplicates (midnight episodes)
-          .then(results => R.uniqWith(eqIdAirstamp, results));
+        return (
+          Promise.all(dates.map(d => getScheduleByDate(d)))
+            .then(results => results.reduce((a, b) => a.concat(b), []))
+            // Filter duplicates (midnight episodes)
+            .then(results => R.uniqWith(eqIdAirstamp, results))
+        );
       }
       return getScheduleByDate(date);
-    }
+    },
   },
   Show: {
-    previousEpisode: (show) => _get(show, '_embedded.previousepisode', null),
-    nextEpisode: (show) => _get(show, '_embedded.nextepisode', null),
-  }
+    previousEpisode: show => _get(show, '_embedded.previousepisode', null),
+    nextEpisode: show => _get(show, '_embedded.nextepisode', null),
+  },
 };
 
 const server = new GraphQLServer({

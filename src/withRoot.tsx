@@ -45,10 +45,10 @@ export const theme = createMuiTheme({
   overrides: {
     MuiTypography: {
       root: {
-        display: null
-      }
-    }
-  }
+        display: null,
+      },
+    },
+  },
 });
 
 function withRoot(Component: React.ComponentType) {

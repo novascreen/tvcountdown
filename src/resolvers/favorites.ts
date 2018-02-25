@@ -5,7 +5,7 @@ import toggle from 'lib/ramda/toggle';
 export type Favorites = number[];
 
 export type Defaults = {
-  favorites: Favorites,
+  favorites: Favorites;
 };
 
 export const GET_FAVORITES = gql`
@@ -37,7 +37,7 @@ export default {
       toggleFavorite(
         _: any,
         { showId }: { showId: number },
-        { cache }: { cache: InMemoryCache }
+        { cache }: { cache: InMemoryCache },
       ): null {
         const state: Defaults = cache.readQuery({ query: GET_FAVORITES });
         const favorites = toggle(showId, state.favorites);
@@ -46,12 +46,14 @@ export default {
         } catch (e) {
           console.error('Favorites could not be saved');
         }
-        cache.writeData({ data: {
-          favorites,
-        }});
+        cache.writeData({
+          data: {
+            favorites,
+          },
+        });
 
         return null;
-      }
-    }
+      },
+    },
   },
 };

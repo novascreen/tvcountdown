@@ -16,7 +16,7 @@ export function getMockRouterProps<P>(data: P) {
       isExact: true,
       params: data,
       path: '',
-      url: ''
+      url: '',
     },
     location: location,
     history: {
@@ -39,9 +39,9 @@ export function getMockRouterProps<P>(data: P) {
       listen: t => {
         var temp: UnregisterCallback = () => null;
         return temp;
-      }
+      },
     },
-    staticContext: {}
+    staticContext: {},
   };
 
   return props;

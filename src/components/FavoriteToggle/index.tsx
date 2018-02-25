@@ -7,11 +7,11 @@ import StarBorder from 'material-ui-icons/StarBorder';
 import { GET_FAVORITES, TOGGLE_FAVORITE, Favorites } from 'resolvers/favorites';
 
 type InputProps = {
-  showId: number,
+  showId: number;
 };
 
 type Mutation = {
-  onToggle?: (showId: number) => void,
+  onToggle?: (showId: number) => void;
 };
 
 type Response = {
@@ -38,10 +38,11 @@ export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
 export default compose(
   graphql<QueryProps, InputProps, Response>(TOGGLE_FAVORITE, {
     props: ({ mutate }) => ({
-      onToggle: (showId: number) => mutate ? mutate({ variables: { showId } }) : undefined,
-    })
+      onToggle: (showId: number) =>
+        mutate ? mutate({ variables: { showId } }) : undefined,
+    }),
   }),
   graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
-    props: ({ data }) => ({ ...data })
-  })
+    props: ({ data }) => ({ ...data }),
+  }),
 )(FavoriteToggle);

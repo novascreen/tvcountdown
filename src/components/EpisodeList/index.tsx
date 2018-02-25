@@ -15,10 +15,12 @@ export interface Props {
   episodes?: Episode[];
 }
 
-export class EpisodeList extends React.Component<RouteComponentProps<{}> & Props> {
+export class EpisodeList extends React.Component<
+  RouteComponentProps<{}> & Props
+> {
   handleEpisodeClick = (episode: Episode) => () => {
     this.props.history.push(`/shows/${episode.show.id}/episodes/${episode.id}`);
-  }
+  };
 
   render() {
     const { episodes = [] } = this.props;
@@ -26,8 +28,12 @@ export class EpisodeList extends React.Component<RouteComponentProps<{}> & Props
       <List>
         <Infinite elementHeight={65.5} useWindowAsScrollContainer>
           {episodes.map(episode => {
-            const episodeSeason = (episode.season || 0).toString().padStart(2, '0');
-            const episodeNumber = (episode.number || 0).toString().padStart(2, '0');
+            const episodeSeason = (episode.season || 0)
+              .toString()
+              .padStart(2, '0');
+            const episodeNumber = (episode.number || 0)
+              .toString()
+              .padStart(2, '0');
             return (
               <ListItem
                 key={`${episode.id}-${episode.airstamp}`}
@@ -37,14 +43,18 @@ export class EpisodeList extends React.Component<RouteComponentProps<{}> & Props
               >
                 <Grid container>
                   <Grid item xs={12} sm={7}>
-                    <Typography variant="subheading">{episode.show.name}</Typography>
+                    <Typography variant="subheading">
+                      {episode.show.name}
+                    </Typography>
                     <Typography variant="caption" component="div">
                       S{episodeSeason}
                       E{episodeNumber} - {episode.name}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} sm={5}>
-                    <Typography><FormattedRelative value={episode.airstamp} /></Typography>
+                    <Typography>
+                      <FormattedRelative value={episode.airstamp} />
+                    </Typography>
                     <Typography variant="caption" component="div">
                       <FormattedDate value={episode.airstamp} />{' '}
                       <FormattedTime value={episode.airstamp} />

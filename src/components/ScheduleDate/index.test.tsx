@@ -3,7 +3,5 @@ import { shallow } from 'enzyme';
 import ScheduleDate from './index';
 
 it('renders without crashing', () => {
-  shallow(
-    <ScheduleDate value="today" />
-  );
+  shallow(<ScheduleDate value="today" />);
 });

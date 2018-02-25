@@ -2,7 +2,10 @@ import * as React from 'react';
 import MUIBottomNavigation from 'material-ui/BottomNavigation/BottomNavigation';
 import BottomNavigationAction from 'material-ui/BottomNavigation/BottomNavigationAction';
 import AppBar from 'material-ui/AppBar/AppBar';
-import withStyles, { WithStyles, StyleRules } from 'material-ui/styles/withStyles';
+import withStyles, {
+  WithStyles,
+  StyleRules,
+} from 'material-ui/styles/withStyles';
 
 import { NavigationItem } from './index';
 
@@ -14,9 +17,9 @@ const styles: StyleRules<'root'> = {
 };
 
 type Props = {
-  items: NavigationItem[],
-  value: string,
-  onChange: (e: any, value: string) => void,
+  items: NavigationItem[];
+  value: string;
+  onChange: (e: any, value: string) => void;
 };
 
 type PropsWithStyles = WithStyles<'root'>;
@@ -28,11 +31,7 @@ export const BottomNavigation: React.SFC<Props & PropsWithStyles> = ({
   onChange,
 }) => (
   <AppBar position="fixed" className={classes.root}>
-    <MUIBottomNavigation
-      value={value}
-      onChange={onChange}
-      showLabels
-    >
+    <MUIBottomNavigation value={value} onChange={onChange} showLabels>
       {items.map(({ label, Icon, ...item }) => (
         <BottomNavigationAction
           key={item.value}
@@ -45,6 +44,4 @@ export const BottomNavigation: React.SFC<Props & PropsWithStyles> = ({
   </AppBar>
 );
 
-export default (
-  withStyles(styles)
-)<Props>(BottomNavigation);
+export default withStyles(styles)<Props>(BottomNavigation);

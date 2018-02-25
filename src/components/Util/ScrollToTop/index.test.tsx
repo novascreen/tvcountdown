@@ -3,7 +3,5 @@ import { shallow } from 'enzyme';
 import ScrollToTop from './index';
 
 it('renders without crashing', () => {
-  shallow(
-    <ScrollToTop />
-  );
+  shallow(<ScrollToTop />);
 });

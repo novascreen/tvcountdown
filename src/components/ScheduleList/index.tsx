@@ -15,8 +15,8 @@ type Response = {
 };
 
 type MyQueryProps = {
-  error?: Error,
-  loading?: boolean,
+  error?: Error;
+  loading?: boolean;
 };
 
 export const ScheduleList: React.SFC<MyQueryProps & InputProps & Response> = ({
@@ -24,11 +24,13 @@ export const ScheduleList: React.SFC<MyQueryProps & InputProps & Response> = ({
   loading = false,
   scheduleByDate = [],
 }) => {
-  if (loading) { return <Loading />; }
-  if (error || !scheduleByDate) { return <h1>ERROR</h1>; }
-  return (
-    <EpisodeList episodes={scheduleByDate} />
-  );
+  if (loading) {
+    return <Loading />;
+  }
+  if (error || !scheduleByDate) {
+    return <h1>ERROR</h1>;
+  }
+  return <EpisodeList episodes={scheduleByDate} />;
 };
 
 const GET_EPISODES = gql`
@@ -49,7 +51,7 @@ const GET_EPISODES = gql`
 
 export default graphql<QueryProps, InputProps, Response>(GET_EPISODES, {
   options: ({ date }) => ({
-    variables: { date }
+    variables: { date },
   }),
-  props: ({ data }) => ({ ...data })
+  props: ({ data }) => ({ ...data }),
 })(ScheduleList);

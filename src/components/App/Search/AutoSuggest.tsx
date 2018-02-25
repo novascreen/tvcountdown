@@ -1,9 +1,12 @@
-
 import * as React from 'react';
 import gql from 'graphql-tag';
 import { graphql, QueryProps } from 'react-apollo';
 // import { MenuItem } from 'material-ui/Menu';
-import { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
+import {
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 // import Grid from 'material-ui/Grid';
 import { RenderSuggestion, OnSuggestionSelected } from 'react-autosuggest';
@@ -20,7 +23,10 @@ const avatarStyles = {
   height: 60,
 };
 
-const renderSuggestion: RenderSuggestion<Show> = (suggestion, { isHighlighted }) => {
+const renderSuggestion: RenderSuggestion<Show> = (
+  suggestion,
+  { isHighlighted },
+) => {
   const year = suggestion.premiered ? suggestion.premiered.split('-')[0] : '';
   const networkName = suggestion.network && suggestion.network.name;
   let secondaryText = year ? [year] : [];
@@ -28,14 +34,16 @@ const renderSuggestion: RenderSuggestion<Show> = (suggestion, { isHighlighted })
   return (
     <ListItem
       button
-      style={{ background: isHighlighted ? theme.palette.divider : 'transparent'  }}
+      style={{
+        background: isHighlighted ? theme.palette.divider : 'transparent',
+      }}
       component="div"
     >
-      {suggestion.image && suggestion.image.medium ?
+      {suggestion.image && suggestion.image.medium ? (
         <Avatar style={avatarStyles} src={suggestion.image.medium} />
-        :
+      ) : (
         <Avatar style={avatarStyles}>{suggestion.name.slice(0, 1)}</Avatar>
-      }
+      )}
       <ListItemText
         primary={suggestion.name}
         secondary={secondaryText.join(', ')}
@@ -49,10 +57,10 @@ const renderSuggestion: RenderSuggestion<Show> = (suggestion, { isHighlighted })
 
 type InputProps = {
   query: string;
-  onSuggestionsFetchRequested: () => void,
-  onSuggestionsClearRequested: () => void,
-  onSuggestionSelected: OnSuggestionSelected<Show>,
-  onChange: (e: any) => void,
+  onSuggestionsFetchRequested: () => void;
+  onSuggestionsClearRequested: () => void;
+  onSuggestionSelected: OnSuggestionSelected<Show>;
+  onChange: (e: any) => void;
 };
 
 type Response = {
@@ -60,8 +68,8 @@ type Response = {
 };
 
 type MyQueryProps = {
-  error?: Error,
-  loading?: boolean,
+  error?: Error;
+  loading?: boolean;
 };
 
 export const AutoSuggest: React.SFC<MyQueryProps & InputProps & Response> = ({
@@ -71,7 +79,7 @@ export const AutoSuggest: React.SFC<MyQueryProps & InputProps & Response> = ({
   onSuggestionsClearRequested,
   onSuggestionSelected,
   onChange,
-  ...props,
+  ...props
 }) => (
   <UIAutoSuggest
     suggestions={search.slice(0, 5)}
@@ -106,7 +114,7 @@ const SEARCH = gql`
 
 export default graphql<QueryProps, InputProps, Response>(SEARCH, {
   options: ({ query }) => ({
-    variables: { query }
+    variables: { query },
   }),
-  props: ({ data }) => ({ ...data })
+  props: ({ data }) => ({ ...data }),
 })(AutoSuggest);

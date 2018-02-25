@@ -3,7 +3,10 @@ import { Fragment } from 'react';
 import SearchIcon from 'material-ui-icons/Search';
 import Close from 'material-ui-icons/Close';
 import IconButton from 'material-ui/IconButton/IconButton';
-import withStyles, { WithStyles, StyleRules } from 'material-ui/styles/withStyles';
+import withStyles, {
+  WithStyles,
+  StyleRules,
+} from 'material-ui/styles/withStyles';
 import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
 import Slide from 'material-ui/transitions/Slide';
 import { compose } from 'react-apollo';
@@ -16,9 +19,7 @@ import AutoSuggest from './AutoSuggest';
 import { Show } from 'models/graphql';
 import { OnSuggestionSelected } from 'react-autosuggest';
 
-type Styles =
-  | 'search'
-  | 'autoSuggestBox';
+type Styles = 'search' | 'autoSuggestBox';
 
 const styles = (theme: Theme): StyleRules<Styles> => ({
   search: {
@@ -35,7 +36,9 @@ const styles = (theme: Theme): StyleRules<Styles> => ({
   },
 });
 
-export class Search extends React.Component<WithStyles<Styles> & RouteComponentProps<{}>> {
+export class Search extends React.Component<
+  WithStyles<Styles> & RouteComponentProps<{}>
+> {
   state = {
     open: false,
     value: '',
@@ -45,19 +48,19 @@ export class Search extends React.Component<WithStyles<Styles> & RouteComponentP
     this.setState({
       open: true,
     });
-  }
+  };
 
   handleClose = () => {
     this.setState({
       open: false,
     });
-  }
+  };
 
   handleSuggestionsFetchRequested = () => {};
 
   handleSuggestionsClearRequested = () => {
     this.setState({ value: '' });
-  }
+  };
 
   handleSuggestionSelected: OnSuggestionSelected<Show> = (
     event,
@@ -65,7 +68,7 @@ export class Search extends React.Component<WithStyles<Styles> & RouteComponentP
   ) => {
     this.handleClose();
     this.props.history.push(`/shows/${suggestion.id}`);
-  }
+  };
 
   handleChange = (e: any) => this.setState({ value: e.target.value });
 
@@ -77,40 +80,39 @@ export class Search extends React.Component<WithStyles<Styles> & RouteComponentP
         <IconButton color="inherit" onClick={this.handleOpen}>
           <SearchIcon />
         </IconButton>
-          <Slide direction="left" in={open}>
-            <ClickAwayListener onClickAway={() => null}>
-              <Grid
-                className={classes.search}
-                container
-                justify="space-between"
-                alignItems="center"
-                spacing={0}
-              >
-                <Box mL={2} className={classes.autoSuggestBox}>
-                  {open &&
-                    <AutoSuggest
-                      query={value}
-                      onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-                      onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-                      onSuggestionSelected={this.handleSuggestionSelected}
-                      onChange={this.handleChange}
-                    />
-                  }
-                </Box>
-                <IconButton
-                  onClick={this.handleClose}
-                >
-                  <Close />
-                </IconButton>
-              </Grid>
-            </ClickAwayListener>
-          </Slide>
+        <Slide direction="left" in={open}>
+          <ClickAwayListener onClickAway={() => null}>
+            <Grid
+              className={classes.search}
+              container
+              justify="space-between"
+              alignItems="center"
+              spacing={0}
+            >
+              <Box mL={2} className={classes.autoSuggestBox}>
+                {open && (
+                  <AutoSuggest
+                    query={value}
+                    onSuggestionsFetchRequested={
+                      this.handleSuggestionsFetchRequested
+                    }
+                    onSuggestionsClearRequested={
+                      this.handleSuggestionsClearRequested
+                    }
+                    onSuggestionSelected={this.handleSuggestionSelected}
+                    onChange={this.handleChange}
+                  />
+                )}
+              </Box>
+              <IconButton onClick={this.handleClose}>
+                <Close />
+              </IconButton>
+            </Grid>
+          </ClickAwayListener>
+        </Slide>
       </Fragment>
     );
   }
 }
 
-export default compose(
-  withStyles(styles),
-  withRouter,
-)(Search);
+export default compose(withStyles(styles), withRouter)(Search);

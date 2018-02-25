@@ -27,9 +27,9 @@ const styles = (theme: Theme) => ({
       color: 'inherit',
       textDecoration: 'none',
       '&:hover': {
-        textDecoration: 'underline'
-      }
-    }
+        textDecoration: 'underline',
+      },
+    },
   },
   root: {
     width: '100%',
@@ -40,8 +40,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-type Props = {
-};
+type Props = {};
 
 type PropsWithStyles = WithStyles<'root' | 'spacer' | 'flex'>;
 
@@ -58,13 +57,11 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
             <Grid item>
               <Grid container alignItems="center">
                 <Box mR={2}>
-                  <Typography variant="title" color="inherit">TVEpisodes</Typography>
+                  <Typography variant="title" color="inherit">
+                    TVEpisodes
+                  </Typography>
                 </Box>
-                {!smallScreen &&
-                  <Navigation
-                    position="top"
-                  />
-                }
+                {!smallScreen && <Navigation position="top" />}
               </Grid>
             </Grid>
             <Grid item>
@@ -77,16 +74,9 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
         </Toolbar>
       </MUIAppBar>
       <div className={classes.spacer} />
-      {smallScreen &&
-        <Navigation
-          position="bottom"
-        />
-      }
+      {smallScreen && <Navigation position="bottom" />}
     </Fragment>
   );
 };
 
-export default compose(
-  withStyles(styles),
-  withWidth(),
-)(AppBar);
+export default compose(withStyles(styles), withWidth())(AppBar);

@@ -37,18 +37,16 @@ const styles = (theme: Theme): StyleRules<Styles> => ({
   },
 });
 
-function renderInput(inputProps: ReactAutosuggest.InputProps<any>): JSX.Element {
+function renderInput(
+  inputProps: ReactAutosuggest.InputProps<any>,
+): JSX.Element {
   return (
-    <TextField
-      fullWidth
-      inputRef={inputProps.ref}
-      inputProps={inputProps}
-    />
+    <TextField fullWidth inputRef={inputProps.ref} inputProps={inputProps} />
   );
 }
 
 function renderSuggestionsContainer(
-  options: ReactAutosuggest.RenderSuggestionsContainerParams
+  options: ReactAutosuggest.RenderSuggestionsContainerParams,
 ) {
   const { containerProps, children } = options;
 
@@ -64,7 +62,7 @@ type Props = AutosuggestProps<any>;
 const AutoSuggest: React.SFC<Props & WithStyles<Styles>> = ({
   classes,
   inputProps,
-  ...props,
+  ...props
 }) => (
   <ReactAutosuggest
     theme={{
@@ -83,6 +81,4 @@ const AutoSuggest: React.SFC<Props & WithStyles<Styles>> = ({
   />
 );
 
-export default (
-  withStyles(styles)
-)<Props>(AutoSuggest);
+export default withStyles(styles)<Props>(AutoSuggest);

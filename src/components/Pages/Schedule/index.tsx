@@ -18,17 +18,23 @@ export class Schedule extends React.Component {
       case 'last-7':
       case 'next-7': {
         const mod = dateValue === 'last-7' ? -8 : 0;
-        let dates = (new Array<string>(7)).fill('');
-        dates = dates.map((date, index) => (
-          moment().add(index + 1 + mod, 'days').format(DATE_FORMAT)
-        ));
+        let dates = new Array<string>(7).fill('');
+        dates = dates.map((date, index) =>
+          moment()
+            .add(index + 1 + mod, 'days')
+            .format(DATE_FORMAT),
+        );
         return dates.join(',');
       }
       case 'yesterday': {
-        return moment().subtract(1, 'day').format(DATE_FORMAT);
+        return moment()
+          .subtract(1, 'day')
+          .format(DATE_FORMAT);
       }
       case 'tomorrow': {
-        return moment().add(1, 'day').format(DATE_FORMAT);
+        return moment()
+          .add(1, 'day')
+          .format(DATE_FORMAT);
       }
       default:
         return moment().format(DATE_FORMAT);
@@ -37,11 +43,11 @@ export class Schedule extends React.Component {
 
   handleDateChange = (e: any, value: string) => {
     this.setState({ dateValue: value });
-  }
+  };
 
   handlePageChange = (e: any, value: string) => {
     this.setState({ page: value });
-  }
+  };
 
   render() {
     const { dateValue } = this.state;

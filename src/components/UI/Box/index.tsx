@@ -70,12 +70,14 @@ export const Box: React.SFC<WithTheme & BoxProps<{}>> = ({
   children,
   ...props
 }) => {
-  if (childrenOnly) { return React.Children.only(children); }
+  if (childrenOnly) {
+    return React.Children.only(children);
+  }
 
   const spacing = {};
   attributeProps.forEach((prop, i) => {
     if (props[prop]) {
-      attributes[i].forEach((attr) => {
+      attributes[i].forEach(attr => {
         spacing[attr] = theme.spacing.unit * props[prop];
       });
       delete props[prop];
@@ -108,16 +110,21 @@ export const Box: React.SFC<WithTheme & BoxProps<{}>> = ({
     secondary: secondaryMain,
   };
 
-  const borderStyles = border && borders[border] ? {
-    border: `${borderWidth}px solid`,
-    borderColor: borders[border],
-    borderRadius,
-  } : {};
+  const borderStyles =
+    border && borders[border]
+      ? {
+          border: `${borderWidth}px solid`,
+          borderColor: borders[border],
+          borderRadius,
+        }
+      : {};
 
   const rest = {};
-  Object.keys(props).filter(prop => !attributeProps.includes(prop)).forEach((prop) => {
-    rest[prop] = props[prop];
-  });
+  Object.keys(props)
+    .filter(prop => !attributeProps.includes(prop))
+    .forEach(prop => {
+      rest[prop] = props[prop];
+    });
 
   return (
     <div
@@ -126,7 +133,7 @@ export const Box: React.SFC<WithTheme & BoxProps<{}>> = ({
         ...style,
         ...spacing,
         ...((color && colors[color]) || {}),
-        ...(borderStyles),
+        ...borderStyles,
       }}
       {...rest}
     >
@@ -135,6 +142,4 @@ export const Box: React.SFC<WithTheme & BoxProps<{}>> = ({
   );
 };
 
-export default (
-  withTheme()
-)(Box);
+export default withTheme()(Box);
