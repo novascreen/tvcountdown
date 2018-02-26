@@ -16,6 +16,11 @@ export const getShowById = (id: String) =>
     .then(getJSON)
     .catch(console.error);
 
+export const getEpisodeById = (id: String) =>
+  fetch(`${BASE_URL}/episodes/${id}?embed=show`)
+    .then(getJSON)
+    .catch(console.error);
+
 export const getEpisodes = (showId: String) =>
   fetch(`${BASE_URL}/shows/${showId}/episodes?specials=1`)
     .then(getJSON)
