@@ -15,11 +15,15 @@ export interface Props {
   episodes?: Episode[];
 }
 
-export class EpisodeList extends React.Component<
+export class EpisodesList extends React.Component<
   RouteComponentProps<{}> & Props
 > {
   handleEpisodeClick = (episode: Episode) => () => {
-    this.props.history.push(`/shows/${episode.show.id}/episodes/${episode.id}`);
+    if (episode.show) {
+      this.props.history.push(
+        `/shows/${episode.show.id}/episodes/${episode.id}`,
+      );
+    }
   };
 
   render() {
@@ -43,9 +47,11 @@ export class EpisodeList extends React.Component<
               >
                 <Grid container>
                   <Grid item xs={12} sm={7}>
-                    <Typography variant="subheading">
-                      {episode.show.name}
-                    </Typography>
+                    {episode.show && (
+                      <Typography variant="subheading">
+                        {episode.show.name}
+                      </Typography>
+                    )}
                     <Typography variant="caption" component="div">
                       S{episodeSeason}
                       E{episodeNumber} - {episode.name}
@@ -61,9 +67,11 @@ export class EpisodeList extends React.Component<
                     </Typography>
                   </Grid>
                 </Grid>
-                <ListItemSecondaryAction>
-                  <FavoriteToggle showId={episode.show.id} />
-                </ListItemSecondaryAction>
+                {episode.show && (
+                  <ListItemSecondaryAction>
+                    <FavoriteToggle showId={episode.show.id} />
+                  </ListItemSecondaryAction>
+                )}
               </ListItem>
             );
           })}
@@ -73,4 +81,4 @@ export class EpisodeList extends React.Component<
   }
 }
 
-export default withRouter<RouteComponentProps<{}> & Props>(EpisodeList);
+export default withRouter<RouteComponentProps<{}> & Props>(EpisodesList);

@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 import { Episode } from 'models/graphql';
 import Loading from 'components/UI/Loading';
-import EpisodeList from 'components/EpisodeList';
+import EpisodesList from 'components/Episodes/List';
 
 type InputProps = {
   date: string;
@@ -30,7 +30,7 @@ export const ScheduleList: React.SFC<MyQueryProps & InputProps & Response> = ({
   if (error || !scheduleByDate) {
     return <h1>ERROR</h1>;
   }
-  return <EpisodeList episodes={scheduleByDate} />;
+  return <EpisodesList episodes={scheduleByDate} />;
 };
 
 const GET_EPISODES = gql`

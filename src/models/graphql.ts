@@ -19,6 +19,7 @@ export type Schedule = {
 export type Show = {
   id: number;
   name: string;
+  airedYears?: string;
   premiered?: string;
   image?: Image;
   network?: Network;
@@ -39,5 +40,8 @@ export type Episode = {
   season?: number;
   number?: number;
   airstamp: string;
-  show: Show;
+  runtime?: number;
+  summary: string;
+  image?: Image;
+  show?: Show;
 };

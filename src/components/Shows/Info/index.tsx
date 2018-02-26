@@ -13,7 +13,7 @@ export const Info = ({ show }: Props) => (
     <TableBody>
       {show.webChannel && (
         <TableRow style={{ height: 40 }}>
-          <TableCell>
+          <TableCell padding="none">
             <Typography>Streamed on:</Typography>
           </TableCell>
           <TableCell>
@@ -23,7 +23,7 @@ export const Info = ({ show }: Props) => (
       )}
       {show.network && (
         <TableRow style={{ height: 40 }}>
-          <TableCell>
+          <TableCell padding="none">
             <Typography>Airs on:</Typography>
           </TableCell>
           <TableCell>
@@ -34,7 +34,7 @@ export const Info = ({ show }: Props) => (
       {show.schedule &&
         show.schedule.time && (
           <TableRow style={{ height: 40 }}>
-            <TableCell>
+            <TableCell padding="none">
               <Typography>Schedule:</Typography>
             </TableCell>
             <TableCell>
@@ -46,7 +46,7 @@ export const Info = ({ show }: Props) => (
           </TableRow>
         )}
       <TableRow style={{ height: 40 }}>
-        <TableCell>
+        <TableCell padding="none">
           <Typography>Status:</Typography>
         </TableCell>
         <TableCell>
@@ -54,7 +54,7 @@ export const Info = ({ show }: Props) => (
         </TableCell>
       </TableRow>
       <TableRow style={{ height: 40 }}>
-        <TableCell>
+        <TableCell padding="none">
           <Typography>Show Type:</Typography>
         </TableCell>
         <TableCell>
@@ -63,7 +63,7 @@ export const Info = ({ show }: Props) => (
       </TableRow>
       {show.genres && (
         <TableRow style={{ height: 40 }}>
-          <TableCell>
+          <TableCell padding="none">
             <Typography>Genres:</Typography>
           </TableCell>
           <TableCell>
@@ -73,7 +73,7 @@ export const Info = ({ show }: Props) => (
       )}
       {show.officialSite && (
         <TableRow style={{ height: 40 }}>
-          <TableCell>
+          <TableCell padding="none">
             <Typography>Official site:</Typography>
           </TableCell>
           <TableCell>
