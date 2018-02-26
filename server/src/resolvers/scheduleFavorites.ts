@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import * as _sortBy from 'lodash/sortBy';
 import {
   getShowById,
   getEpisodeById,
@@ -13,6 +14,8 @@ import { combineResults } from '../utils';
  */
 const isRecentOrNewEpisode = episode =>
   moment(episode.airstamp).isAfter(moment().subtract(3, 'days'));
+
+const sortByDate = (results: any[]) => _sortBy(results, 'airstamp');
 
 export default function scheduleFavorites(
   parent: any,
@@ -33,5 +36,7 @@ export default function scheduleFavorites(
         return episode;
       });
     }),
-  ).then(combineResults);
+  )
+    .then(combineResults)
+    .then(sortByDate);
 }
