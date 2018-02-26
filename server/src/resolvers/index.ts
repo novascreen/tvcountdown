@@ -1,40 +1,50 @@
 import * as R from 'ramda';
 import * as _get from 'lodash/get';
+import * as moment from 'moment';
 
-import { Context } from './utils';
+import { Context, combineResults } from '../utils';
 import {
   getShowById,
   getEpisodeById,
   getScheduleByDate,
   search,
-} from './tvmaze/api';
+  getEpisodes,
+} from '../tvmaze/api';
+import scheduleFavorites from './scheduleFavorites';
 
 type Parent = any;
 
 const eqIdAirstamp = (a, b) =>
   R.eqProps('id', a, b) && R.eqProps('airstamp', a, b);
 
+/**
+ * Check whether episode is in the future or aired in the last 3 days
+ */
+const isRecentOrNewEpisode = episode =>
+  moment(episode.airstamp).isAfter(moment().subtract(3, 'days'));
+
 export default {
   Query: {
-    search(parent: Parent, { query }: { query: String }) {
+    search(parent: Parent, { query }: { query: string }) {
       return search(query);
     },
-    show(parent: Parent, { id }: { id: String }) {
+    show(parent: Parent, { id }: { id: string }) {
       return getShowById(id);
     },
-    scheduleByDate(parent: Parent, { date }: { date: String }) {
+    scheduleByDate(parent: Parent, { date }: { date: string }) {
       const dates = date.split(',');
       if (dates.length > 1) {
         return (
           Promise.all(dates.map(d => getScheduleByDate(d)))
-            .then(results => results.reduce((a, b) => a.concat(b), []))
+            .then(combineResults)
             // Filter duplicates (midnight episodes)
             .then(results => R.uniqWith(eqIdAirstamp, results))
         );
       }
       return getScheduleByDate(date);
     },
-    episode(parent: Parent, { id }: { id: String }) {
+    scheduleFavorites,
+    episode(parent: Parent, { id }: { id: string }) {
       return getEpisodeById(id);
     },
   },

@@ -4,6 +4,7 @@ type Query {
   search(query: String!): [Show]
   show(id: Int!): Show
   scheduleByDate(date: String!): [Episode]
+  scheduleFavorites(showIds: [Int]!): [Episode]
   episode(id: Int!): Episode
 }
 
