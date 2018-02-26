@@ -3,6 +3,7 @@ import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
+import * as moment from 'moment';
 
 import { Episode } from 'models/graphql';
 import Box from 'components/UI/Box';
@@ -14,6 +15,8 @@ type Props = {
 };
 
 export const EpisodeDetails = ({ episode }: Props) => {
+  const genres = (episode.show && episode.show.genres) || [];
+  const hasAired = moment(episode.airstamp).isBefore();
   return (
     <>
       <Box mB={3} mT={3}>
@@ -28,11 +31,13 @@ export const EpisodeDetails = ({ episode }: Props) => {
         <Box mB={1}>
           <Typography variant="caption">
             {episode.runtime} min<InlineDivider />
-            {episode.show &&
-              episode.show.genres &&
-              episode.show.genres.join(', ')}{' '}
-            <InlineDivider />
-            Episode aired{' '}
+            {Boolean(genres.length) && (
+              <>
+                {genres.join(', ')}
+                <InlineDivider />
+              </>
+            )}
+            {hasAired ? 'Episode aired' : 'Episode airs'}{' '}
             <FormattedDate
               value={episode.airstamp}
               month="long"

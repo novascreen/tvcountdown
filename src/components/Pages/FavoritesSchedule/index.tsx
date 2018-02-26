@@ -1,7 +1,29 @@
 import * as React from 'react';
+import { graphql, QueryProps } from 'react-apollo';
 
-export const FavoritesSchedulePage: React.SFC<{}> = () => (
-  <div>Hello Favorites</div>
-);
+import FavoritesList from 'components/Schedule/FavoritesList';
+import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
 
-export default FavoritesSchedulePage;
+type InputProps = {};
+
+type Response = {
+  favorites?: Favorites;
+};
+
+// export class AllShowsSchedulePage extends React.Component<Props> {
+//   static defaultProps = {
+//     favorites: [],
+//   };
+//   render() {
+//     const { favorites } = this.props;
+//     return <FavoritesList showIds={favorites} />;
+//   }
+// }
+
+export const AllShowsSchedulePage: React.SFC<InputProps & Response> = ({
+  favorites = [],
+}) => <FavoritesList showIds={favorites} />;
+
+export default graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
+  props: ({ data }) => ({ ...data }),
+})(AllShowsSchedulePage);
