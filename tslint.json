@@ -72,6 +72,13 @@
       "check-open-brace",
       "check-whitespace"
     ],
+    "ordered-imports": [
+      false,
+      {
+        "import-sources-order": "case-insensitive",
+        "grouped-imports": true
+      }
+    ],
     "quotemark": [true, "single", "jsx-double"],
     "radix": true,
     "semicolon": [true, "always", "ignore-bound-class-methods"],
