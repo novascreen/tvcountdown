@@ -22,7 +22,9 @@ type MyQueryProps = {
   loading?: boolean;
 };
 
-export const Show: React.SFC<MyQueryProps & InputProps & Response> = props => {
+export const ShowDetailsPage: React.SFC<
+  MyQueryProps & InputProps & Response
+> = props => {
   const { loading, show } = props;
   if (loading) return <Loading />;
   if (!show) return <>Show not found</>;
@@ -84,4 +86,4 @@ export default graphql<
     variables: { showId: parseInt(showId, 10) },
   }),
   props: ({ data }) => ({ ...data }),
-})(Show);
+})(ShowDetailsPage);

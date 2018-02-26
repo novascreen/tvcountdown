@@ -9,7 +9,7 @@ import * as Infinite from 'react-infinite';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import { Episode } from 'models/graphql';
-import FavoriteToggle from 'components/FavoriteToggle';
+import FavoriteToggle from 'components/Shows/FavoriteToggle';
 
 export interface Props {
   episodes?: Episode[];

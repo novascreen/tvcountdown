@@ -13,7 +13,7 @@ import { RenderSuggestion, OnSuggestionSelected } from 'react-autosuggest';
 
 import { Show } from 'models/graphql';
 import UIAutoSuggest from 'components/UI/AutoSuggest';
-import FavoriteToggle from 'components/FavoriteToggle';
+import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import { theme } from 'withRoot';
 
 const getSuggestionValue = (suggestion: Show) => suggestion.name;

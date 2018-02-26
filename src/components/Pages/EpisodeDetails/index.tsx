@@ -23,7 +23,7 @@ type MyQueryProps = {
   loading?: boolean;
 };
 
-export const Episode: React.SFC<
+export const EpisodeDetailsPage: React.SFC<
   MyQueryProps & InputProps & Response
 > = props => {
   const { loading, episode } = props;
@@ -66,4 +66,4 @@ export default graphql<
     variables: { episodeId: parseInt(episodeId, 10) },
   }),
   props: ({ data }) => ({ ...data }),
-})(Episode);
+})(EpisodeDetails);

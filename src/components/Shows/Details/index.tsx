@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper';
 
 import { Show as ShowType } from 'models/graphql';
 import Box from 'components/UI/Box';
-import FavoriteToggle from 'components/FavoriteToggle';
+import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import HTML from 'components/Util/HTML';
 import EpisodeCard from 'components/Episodes/EpisodeCard';
 import Info from 'components/Shows/Info';

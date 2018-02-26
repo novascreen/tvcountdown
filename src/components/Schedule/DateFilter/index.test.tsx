@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { ScheduleList } from './index';
+import DateFilter from './index';
 
 it('renders without crashing', () => {
-  shallow(<ScheduleList date="" />);
+  shallow(<DateFilter value="today" />);
 });

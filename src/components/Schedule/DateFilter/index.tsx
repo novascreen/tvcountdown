@@ -3,7 +3,7 @@ import Tabs, { Tab, TabsProps } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 import Box from 'components/UI/Box';
 
-const ScheduleDate = (props: TabsProps) => (
+const DateFilter = (props: TabsProps) => (
   <Box mV={2}>
     <AppBar position="static" color="default" elevation={0} square>
       <Tabs
@@ -25,4 +25,4 @@ const ScheduleDate = (props: TabsProps) => (
   </Box>
 );
 
-export default ScheduleDate;
+export default DateFilter;

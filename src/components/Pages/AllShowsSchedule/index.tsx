@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import * as moment from 'moment';
 
-import ScheduleDate from 'components/ScheduleDate';
-import ScheduleList from 'components/ScheduleList';
+import DateFilter from 'components/Schedule/DateFilter';
+import AllShowsList from 'components/Schedule/AllShowsList';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-export class Schedule extends React.Component {
+export class AllShowsSchedulePage extends React.Component {
   state = {
     dateValue: 'today',
   };
@@ -54,11 +54,11 @@ export class Schedule extends React.Component {
     const date = this.getDate();
     return (
       <Fragment>
-        <ScheduleDate value={dateValue} onChange={this.handleDateChange} />
-        <ScheduleList date={date} />
+        <DateFilter value={dateValue} onChange={this.handleDateChange} />
+        <AllShowsList date={date} />
       </Fragment>
     );
   }
 }
 
-export default Schedule;
+export default AllShowsSchedulePage;
