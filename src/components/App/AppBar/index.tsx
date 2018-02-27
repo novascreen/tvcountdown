@@ -10,6 +10,7 @@ import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
 import { Theme } from 'material-ui/styles/createMuiTheme';
 
+import auth from 'auth';
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
@@ -67,7 +68,16 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
             <Grid item>
               <Grid container alignItems="center" justify="flex-end">
                 <Search />
-                <Button color="inherit">Login</Button>
+                {!auth.isAuthenticated() && (
+                  <Button onClick={auth.login} color="inherit">
+                    Login
+                  </Button>
+                )}
+                {auth.isAuthenticated() && (
+                  <Button onClick={auth.logout} color="inherit">
+                    Logout
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </Grid>
