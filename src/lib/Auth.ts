@@ -17,16 +17,63 @@ export default class Auth {
 
   constructor() {}
 
-  login = () => {
-    this.auth0.authorize();
+  login = (username: string, password: string) => {
+    this.auth0.login(
+      { realm: AUTH_CONFIG.dbConnectionName, username, password },
+      (err: any, authResult: any) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      },
+    );
+  };
+
+  signup = (email: string, password: string) => {
+    this.auth0.signup(
+      { connection: AUTH_CONFIG.dbConnectionName, email, password },
+      (err: any) => {
+        if (err) {
+          console.log(err);
+
+          return;
+        }
+
+        this.login(email, password);
+      },
+    );
+  };
+
+  loginWithGoogle = (callback: Function) => {
+    this.auth0.popup.authorize(
+      {
+        connection: 'google-oauth2',
+        redirectUri: `${location.origin}/auth/popup.html`,
+      },
+      (err: any, authResult: any) => {
+        this.handlePopupAuthentication(err, authResult);
+        if (callback) {
+          callback(err, authResult);
+        }
+      },
+    );
+  };
+
+  handlePopupAuthentication = (err: any, authResult: any) => {
+    console.log(authResult);
+    if (authResult && authResult.accessToken && authResult.idToken) {
+      this.setSession(authResult);
+    } else if (err) {
+      console.error(err);
+    }
   };
 
   handleAuthentication = () => {
-    this.auth0.parseHash((err, authResult) => {
+    this.auth0.parseHash((err: any, authResult: any) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
-        console.error(err);
+        console.log(err);
       }
       appHistory.replace('/');
     });
@@ -50,7 +97,7 @@ export default class Auth {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // navigate to the home route
-    appHistory.replace('/home');
+    appHistory.replace('/');
   };
 
   isAuthenticated() {

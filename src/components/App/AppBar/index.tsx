@@ -3,17 +3,16 @@ import { Fragment } from 'react';
 import { compose } from 'react-apollo';
 import MUIAppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid/Grid';
 import Typography from 'material-ui/Typography/Typography';
 import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
 import { Theme } from 'material-ui/styles/createMuiTheme';
 
-import auth from 'auth';
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
+import Login from '../Login';
 
 const styles = (theme: Theme) => ({
   '@global': {
@@ -68,16 +67,7 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
             <Grid item>
               <Grid container alignItems="center" justify="flex-end">
                 <Search />
-                {!auth.isAuthenticated() && (
-                  <Button onClick={auth.login} color="inherit">
-                    Login
-                  </Button>
-                )}
-                {auth.isAuthenticated() && (
-                  <Button onClick={auth.logout} color="inherit">
-                    Logout
-                  </Button>
-                )}
+                <Login />
               </Grid>
             </Grid>
           </Grid>
