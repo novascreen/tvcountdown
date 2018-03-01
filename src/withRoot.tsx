@@ -9,9 +9,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
+import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import * as R from 'ramda';
 
+import Auth from './lib/Auth';
 import favorites from './resolvers/favorites';
 
 const cache = new InMemoryCache();
@@ -22,10 +24,27 @@ const stateLink = withClientState({
 });
 const httpLink = new HttpLink({ uri: 'http://localhost:4000' });
 
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('access_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
 const client = new ApolloClient({
-  link: ApolloLink.from([stateLink, httpLink]),
+  link: ApolloLink.from([authLink, stateLink, httpLink]),
   cache,
 });
+
+export const auth = new Auth(
+  (result: any) => console.log('auth result', result),
+  client,
+);
 
 // A theme with custom primary and secondary color.
 // It's optional.

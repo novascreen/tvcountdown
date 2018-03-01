@@ -1,21 +1,39 @@
 import * as auth0 from 'auth0-js';
+import gql from 'graphql-tag';
 
 import appHistory from 'appHistory';
 import { AUTH_CONFIG } from 'appConstants';
+import { ApolloClient } from 'apollo-client';
 
-console.log(AUTH_CONFIG);
+const AUTHENTICATE = gql`
+  mutation authenticate($idToken: String!) {
+    authenticate(idToken: $idToken) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
     clientID: AUTH_CONFIG.clientID,
     redirectUri: AUTH_CONFIG.redirectUri,
-    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
+    audience: AUTH_CONFIG.audience,
     responseType: 'token id_token',
     scope: 'openid',
   });
 
-  constructor() {}
+  apolloClient: ApolloClient<any>;
+  cb = () => {};
+
+  constructor(cb: Function, apolloClient: ApolloClient<any>) {
+    this.handleAuthentication();
+    // binds functions to keep this context
+    this.apolloClient = apolloClient;
+    this.cb = cb.bind(this);
+  }
 
   login = (username: string, password: string) => {
     this.auth0.login(
@@ -87,9 +105,35 @@ export default class Auth {
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    // navigate to the home route
-    appHistory.replace('/');
+    const data = {
+      status: `success`,
+      accessToken: authResult.accessToken,
+      idToken: authResult.idToken,
+      expiresAt,
+    };
+    this.signinOrCreateAccount({ ...data });
   };
+
+  signinOrCreateAccount({ accessToken, idToken, expiresAt }: any) {
+    console.log(this.apolloClient);
+    this.apolloClient
+      .mutate({
+        mutation: AUTHENTICATE,
+        variables: { idToken },
+      })
+      .then((res: any) => {
+        // navigate to the home route
+        appHistory.replace('/');
+        // if (window.location.href.includes(`callback`)) {
+        //   window.location.href = '/';
+        // } else {
+        //   window.location.reload();
+        // }
+      })
+      .catch((err: Error) =>
+        console.log('Sign in or create account error: ', err),
+      );
+  }
 
   logout = () => {
     // Clear access token and ID token from local storage

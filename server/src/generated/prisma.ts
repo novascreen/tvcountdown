@@ -9,11 +9,14 @@ const typeDefs = `
 # Model Types
 #
 
-type Post implements Node {
+type User implements Node {
   id: ID!
-  isPublished: Boolean!
-  title: String!
-  text: String!
+  email: String!
+  role: Role!
+  name: String
+  avatar: String
+  auth0id: String!
+  identity: String
 }
 
 
@@ -21,7 +24,7 @@ type Post implements Node {
 # Other Types
 #
 
-type AggregatePost {
+type AggregateUser {
   count: Int!
 }
 
@@ -32,12 +35,12 @@ type BatchPayload {
 scalar Long
 
 type Mutation {
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  deletePost(where: PostWhereUniqueInput!): Post
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput!): BatchPayload!
-  deleteManyPosts(where: PostWhereInput!): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteUser(where: UserWhereUniqueInput!): User
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  deleteManyUsers(where: UserWhereInput!): BatchPayload!
 }
 
 enum MutationType {
@@ -57,71 +60,102 @@ type PageInfo {
   endCursor: String
 }
 
-type PostConnection {
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  user(where: UserWhereUniqueInput!): User
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  node(id: ID!): Node
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type UserConnection {
   pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
 }
 
-input PostCreateInput {
-  isPublished: Boolean
-  title: String!
-  text: String!
+input UserCreateInput {
+  email: String!
+  role: Role
+  name: String
+  avatar: String
+  auth0id: String!
+  identity: String
 }
 
-type PostEdge {
-  node: Post!
+type UserEdge {
+  node: User!
   cursor: String!
 }
 
-enum PostOrderByInput {
+enum UserOrderByInput {
   id_ASC
   id_DESC
-  isPublished_ASC
-  isPublished_DESC
-  title_ASC
-  title_DESC
-  text_ASC
-  text_DESC
+  email_ASC
+  email_DESC
+  role_ASC
+  role_DESC
+  name_ASC
+  name_DESC
+  avatar_ASC
+  avatar_DESC
+  auth0id_ASC
+  auth0id_DESC
+  identity_ASC
+  identity_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-type PostPreviousValues {
+type UserPreviousValues {
   id: ID!
-  isPublished: Boolean!
-  title: String!
-  text: String!
+  email: String!
+  role: Role!
+  name: String
+  avatar: String
+  auth0id: String!
+  identity: String
 }
 
-type PostSubscriptionPayload {
+type UserSubscriptionPayload {
   mutation: MutationType!
-  node: Post
+  node: User
   updatedFields: [String!]
-  previousValues: PostPreviousValues
+  previousValues: UserPreviousValues
 }
 
-input PostSubscriptionWhereInput {
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
+input UserSubscriptionWhereInput {
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: PostWhereInput
+  node: UserWhereInput
 }
 
-input PostUpdateInput {
-  isPublished: Boolean
-  title: String
-  text: String
+input UserUpdateInput {
+  email: String
+  role: Role
+  name: String
+  avatar: String
+  auth0id: String
+  identity: String
 }
 
-input PostWhereInput {
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -136,102 +170,155 @@ input PostWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  isPublished: Boolean
-  isPublished_not: Boolean
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  text: String
-  text_not: String
-  text_in: [String!]
-  text_not_in: [String!]
-  text_lt: String
-  text_lte: String
-  text_gt: String
-  text_gte: String
-  text_contains: String
-  text_not_contains: String
-  text_starts_with: String
-  text_not_starts_with: String
-  text_ends_with: String
-  text_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  avatar: String
+  avatar_not: String
+  avatar_in: [String!]
+  avatar_not_in: [String!]
+  avatar_lt: String
+  avatar_lte: String
+  avatar_gt: String
+  avatar_gte: String
+  avatar_contains: String
+  avatar_not_contains: String
+  avatar_starts_with: String
+  avatar_not_starts_with: String
+  avatar_ends_with: String
+  avatar_not_ends_with: String
+  auth0id: String
+  auth0id_not: String
+  auth0id_in: [String!]
+  auth0id_not_in: [String!]
+  auth0id_lt: String
+  auth0id_lte: String
+  auth0id_gt: String
+  auth0id_gte: String
+  auth0id_contains: String
+  auth0id_not_contains: String
+  auth0id_starts_with: String
+  auth0id_not_starts_with: String
+  auth0id_ends_with: String
+  auth0id_not_ends_with: String
+  identity: String
+  identity_not: String
+  identity_in: [String!]
+  identity_not_in: [String!]
+  identity_lt: String
+  identity_lte: String
+  identity_gt: String
+  identity_gte: String
+  identity_contains: String
+  identity_not_contains: String
+  identity_starts_with: String
+  identity_not_starts_with: String
+  identity_ends_with: String
+  identity_not_ends_with: String
 }
 
-input PostWhereUniqueInput {
+input UserWhereUniqueInput {
   id: ID
-}
-
-type Query {
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  post(where: PostWhereUniqueInput!): Post
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
-  node(id: ID!): Node
-}
-
-type Subscription {
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  email: String
+  auth0id: String
 }
 `
 
-export type PostOrderByInput = 
+export type UserOrderByInput = 
   'id_ASC' |
   'id_DESC' |
-  'isPublished_ASC' |
-  'isPublished_DESC' |
-  'title_ASC' |
-  'title_DESC' |
-  'text_ASC' |
-  'text_DESC' |
+  'email_ASC' |
+  'email_DESC' |
+  'role_ASC' |
+  'role_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'avatar_ASC' |
+  'avatar_DESC' |
+  'auth0id_ASC' |
+  'auth0id_DESC' |
+  'identity_ASC' |
+  'identity_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
+
+export type Role = 
+  'ADMIN' |
+  'USER'
 
 export type MutationType = 
   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface PostWhereUniqueInput {
+export interface UserCreateInput {
+  email: String
+  role?: Role
+  name?: String
+  avatar?: String
+  auth0id: String
+  identity?: String
+}
+
+export interface UserWhereUniqueInput {
   id?: ID_Input
+  email?: String
+  auth0id?: String
 }
 
-export interface PostCreateInput {
-  isPublished?: Boolean
-  title: String
-  text: String
+export interface UserUpdateInput {
+  email?: String
+  role?: Role
+  name?: String
+  avatar?: String
+  auth0id?: String
+  identity?: String
 }
 
-export interface PostUpdateInput {
-  isPublished?: Boolean
-  title?: String
-  text?: String
-}
-
-export interface PostSubscriptionWhereInput {
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
   mutation_in?: MutationType[] | MutationType
   updatedFields_contains?: String
   updatedFields_contains_every?: String[] | String
   updatedFields_contains_some?: String[] | String
-  node?: PostWhereInput
+  node?: UserWhereInput
 }
 
-export interface PostWhereInput {
-  AND?: PostWhereInput[] | PostWhereInput
-  OR?: PostWhereInput[] | PostWhereInput
+export interface UserWhereInput {
+  AND?: UserWhereInput[] | UserWhereInput
+  OR?: UserWhereInput[] | UserWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -246,40 +333,98 @@ export interface PostWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  isPublished?: Boolean
-  isPublished_not?: Boolean
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  text?: String
-  text_not?: String
-  text_in?: String[] | String
-  text_not_in?: String[] | String
-  text_lt?: String
-  text_lte?: String
-  text_gt?: String
-  text_gte?: String
-  text_contains?: String
-  text_not_contains?: String
-  text_starts_with?: String
-  text_not_starts_with?: String
-  text_ends_with?: String
-  text_not_ends_with?: String
+  email?: String
+  email_not?: String
+  email_in?: String[] | String
+  email_not_in?: String[] | String
+  email_lt?: String
+  email_lte?: String
+  email_gt?: String
+  email_gte?: String
+  email_contains?: String
+  email_not_contains?: String
+  email_starts_with?: String
+  email_not_starts_with?: String
+  email_ends_with?: String
+  email_not_ends_with?: String
+  role?: Role
+  role_not?: Role
+  role_in?: Role[] | Role
+  role_not_in?: Role[] | Role
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  avatar?: String
+  avatar_not?: String
+  avatar_in?: String[] | String
+  avatar_not_in?: String[] | String
+  avatar_lt?: String
+  avatar_lte?: String
+  avatar_gt?: String
+  avatar_gte?: String
+  avatar_contains?: String
+  avatar_not_contains?: String
+  avatar_starts_with?: String
+  avatar_not_starts_with?: String
+  avatar_ends_with?: String
+  avatar_not_ends_with?: String
+  auth0id?: String
+  auth0id_not?: String
+  auth0id_in?: String[] | String
+  auth0id_not_in?: String[] | String
+  auth0id_lt?: String
+  auth0id_lte?: String
+  auth0id_gt?: String
+  auth0id_gte?: String
+  auth0id_contains?: String
+  auth0id_not_contains?: String
+  auth0id_starts_with?: String
+  auth0id_not_starts_with?: String
+  auth0id_ends_with?: String
+  auth0id_not_ends_with?: String
+  identity?: String
+  identity_not?: String
+  identity_in?: String[] | String
+  identity_not_in?: String[] | String
+  identity_lt?: String
+  identity_lte?: String
+  identity_gt?: String
+  identity_gte?: String
+  identity_contains?: String
+  identity_not_contains?: String
+  identity_starts_with?: String
+  identity_not_starts_with?: String
+  identity_ends_with?: String
+  identity_not_ends_with?: String
 }
 
 export interface Node {
   id: ID_Output
+}
+
+export interface UserPreviousValues {
+  id: ID_Output
+  email: String
+  role: Role
+  name?: String
+  avatar?: String
+  auth0id: String
+  identity?: String
+}
+
+export interface BatchPayload {
+  count: Long
 }
 
 export interface PageInfo {
@@ -289,43 +434,35 @@ export interface PageInfo {
   endCursor?: String
 }
 
-export interface BatchPayload {
-  count: Long
-}
-
-export interface PostPreviousValues {
-  id: ID_Output
-  isPublished: Boolean
-  title: String
-  text: String
-}
-
-export interface PostConnection {
-  pageInfo: PageInfo
-  edges: PostEdge[]
-  aggregate: AggregatePost
-}
-
-export interface PostSubscriptionPayload {
+export interface UserSubscriptionPayload {
   mutation: MutationType
-  node?: Post
+  node?: User
   updatedFields?: String[]
-  previousValues?: PostPreviousValues
+  previousValues?: UserPreviousValues
 }
 
-export interface Post extends Node {
+export interface User extends Node {
   id: ID_Output
-  isPublished: Boolean
-  title: String
-  text: String
+  email: String
+  role: Role
+  name?: String
+  avatar?: String
+  auth0id: String
+  identity?: String
 }
 
-export interface AggregatePost {
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
+}
+
+export interface AggregateUser {
   count: Int
 }
 
-export interface PostEdge {
-  node: Post
+export interface UserEdge {
+  node: User
   cursor: String
 }
 
@@ -339,6 +476,11 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 */
 export type String = string
 
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number
+
 export type Long = string
 
 /*
@@ -347,11 +489,6 @@ The `ID` scalar type represents a unique identifier, often used to refetch an ob
 export type ID_Input = string | number
 export type ID_Output = string
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
-
 export interface Schema {
   query: Query
   mutation: Mutation
@@ -359,23 +496,23 @@ export interface Schema {
 }
 
 export type Query = {
-  posts: (args: { where?: PostWhereInput, orderBy?: PostOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<Post[]>
-  post: (args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Post | null>
-  postsConnection: (args: { where?: PostWhereInput, orderBy?: PostOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<PostConnection>
+  users: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<User[]>
+  user: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  usersConnection: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<UserConnection>
   node: (args: { id: ID_Output }, info?: GraphQLResolveInfo | string) => Promise<Node | null>
 }
 
 export type Mutation = {
-  createPost: (args: { data: PostCreateInput }, info?: GraphQLResolveInfo | string) => Promise<Post>
-  updatePost: (args: { data: PostUpdateInput, where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Post | null>
-  deletePost: (args: { where: PostWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<Post | null>
-  upsertPost: (args: { where: PostWhereUniqueInput, create: PostCreateInput, update: PostUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<Post>
-  updateManyPosts: (args: { data: PostUpdateInput, where: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyPosts: (args: { where: PostWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  createUser: (args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
+  updateUser: (args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  deleteUser: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  upsertUser: (args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
+  updateManyUsers: (args: { data: UserUpdateInput, where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyUsers: (args: { where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
 }
 
 export type Subscription = {
-  post: (args: { where?: PostSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<PostSubscriptionPayload>>
+  user: (args: { where?: UserSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<UserSubscriptionPayload>>
 }
 
 export class Prisma extends BasePrisma {
@@ -385,26 +522,26 @@ export class Prisma extends BasePrisma {
   }
 
   exists = {
-    Post: (where: PostWhereInput): Promise<boolean> => super.existsDelegate('query', 'posts', { where }, {}, '{ id }')
+    User: (where: UserWhereInput): Promise<boolean> => super.existsDelegate('query', 'users', { where }, {}, '{ id }')
   }
 
   query: Query = {
-    posts: (args, info): Promise<Post[]> => super.delegate('query', 'posts', args, {}, info),
-    post: (args, info): Promise<Post | null> => super.delegate('query', 'post', args, {}, info),
-    postsConnection: (args, info): Promise<PostConnection> => super.delegate('query', 'postsConnection', args, {}, info),
+    users: (args, info): Promise<User[]> => super.delegate('query', 'users', args, {}, info),
+    user: (args, info): Promise<User | null> => super.delegate('query', 'user', args, {}, info),
+    usersConnection: (args, info): Promise<UserConnection> => super.delegate('query', 'usersConnection', args, {}, info),
     node: (args, info): Promise<Node | null> => super.delegate('query', 'node', args, {}, info)
   }
 
   mutation: Mutation = {
-    createPost: (args, info): Promise<Post> => super.delegate('mutation', 'createPost', args, {}, info),
-    updatePost: (args, info): Promise<Post | null> => super.delegate('mutation', 'updatePost', args, {}, info),
-    deletePost: (args, info): Promise<Post | null> => super.delegate('mutation', 'deletePost', args, {}, info),
-    upsertPost: (args, info): Promise<Post> => super.delegate('mutation', 'upsertPost', args, {}, info),
-    updateManyPosts: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyPosts', args, {}, info),
-    deleteManyPosts: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyPosts', args, {}, info)
+    createUser: (args, info): Promise<User> => super.delegate('mutation', 'createUser', args, {}, info),
+    updateUser: (args, info): Promise<User | null> => super.delegate('mutation', 'updateUser', args, {}, info),
+    deleteUser: (args, info): Promise<User | null> => super.delegate('mutation', 'deleteUser', args, {}, info),
+    upsertUser: (args, info): Promise<User> => super.delegate('mutation', 'upsertUser', args, {}, info),
+    updateManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyUsers', args, {}, info),
+    deleteManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyUsers', args, {}, info)
   }
 
   subscription: Subscription = {
-    post: (args, infoOrQuery): Promise<AsyncIterator<PostSubscriptionPayload>> => super.delegateSubscription('post', args, {}, infoOrQuery)
+    user: (args, infoOrQuery): Promise<AsyncIterator<UserSubscriptionPayload>> => super.delegateSubscription('user', args, {}, infoOrQuery)
   }
 }

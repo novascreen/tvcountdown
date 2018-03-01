@@ -3,9 +3,8 @@ import { Fragment } from 'react';
 import { Router, Route } from 'react-router';
 import Grid from 'material-ui/Grid/Grid';
 
-import withRoot from 'withRoot';
+import withRoot, { auth } from 'withRoot';
 import appHistory from 'appHistory';
-import auth from 'auth';
 import ScrollToTop from 'components/Util/ScrollToTop';
 import AllShowsSchedulePage from 'components/Pages/AllShowsSchedule';
 import FavoritesSchedulePage from 'components/Pages/FavoritesSchedule';

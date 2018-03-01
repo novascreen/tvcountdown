@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from 'material-ui/Button';
-import auth from 'auth';
+import { auth } from 'withRoot';
 import Dialog, { DialogTitle, DialogContent } from 'material-ui/Dialog';
 
 export class Login extends React.Component {

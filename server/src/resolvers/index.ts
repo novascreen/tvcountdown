@@ -1,6 +1,7 @@
 import * as R from 'ramda';
 import * as _get from 'lodash/get';
 import * as moment from 'moment';
+import validateAndParseIdToken from '../helpers/validateAndParseIdToken';
 
 import { Context, combineResults } from '../utils';
 import {
@@ -14,6 +15,21 @@ import scheduleFavorites from './scheduleFavorites';
 
 type Parent = any;
 
+async function createPrismaUser(ctx: any, idToken: any) {
+  const user = await ctx.db.mutation.createUser({
+    data: {
+      identity: idToken.sub.split(`|`)[0],
+      auth0id: idToken.sub.split(`|`)[1],
+      name: idToken.name,
+      email: idToken.email,
+      avatar: idToken.picture,
+    },
+  });
+  return user;
+}
+
+const ctxUser = ctx => ctx.request.user;
+
 const eqIdAirstamp = (a, b) =>
   R.eqProps('id', a, b) && R.eqProps('airstamp', a, b);
 
@@ -25,6 +41,9 @@ const isRecentOrNewEpisode = episode =>
 
 export default {
   Query: {
+    me(parent: Parent, args: any, ctx: any, info: any) {
+      return ctx.db.query.user({ where: { id: ctxUser(ctx).id } }, info);
+    },
     search(parent: Parent, { query }: { query: string }) {
       return search(query);
     },
@@ -46,6 +65,27 @@ export default {
     scheduleFavorites,
     episode(parent: Parent, { id }: { id: string }) {
       return getEpisodeById(id);
+    },
+  },
+  Mutation: {
+    async authenticate(
+      parent: Parent,
+      { idToken }: { idToken: any },
+      ctx: any,
+      info: any,
+    ) {
+      let userToken = null;
+      try {
+        userToken = await validateAndParseIdToken(idToken);
+      } catch (err) {
+        throw new Error(err.message);
+      }
+      const auth0id = userToken.sub.split('|')[1];
+      let user = await ctx.db.query.user({ where: { auth0id } }, info);
+      if (!user) {
+        user = createPrismaUser(ctx, userToken);
+      }
+      return user;
     },
   },
   Show: {
