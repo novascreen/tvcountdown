@@ -9,8 +9,8 @@ import checkJwt from './middleware/jwt';
 import getUser from './middleware/getUser';
 
 const db = new Prisma({
-  endpoint: 'https://us1.prisma.sh/public-branchchopper-936/server/dev', // the endpoint of the Prisma DB service
-  secret: 'mysecret123', // specified in database/prisma.yml
+  endpoint: process.env.PRISMA_ENDPOINT,
+  secret: process.env.PRISMA_SECRET,
   debug: true, // log all GraphQL queries & mutations
 });
 

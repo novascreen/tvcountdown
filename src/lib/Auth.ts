@@ -22,7 +22,7 @@ export default class Auth {
     redirectUri: AUTH_CONFIG.redirectUri,
     audience: AUTH_CONFIG.audience,
     responseType: 'token id_token',
-    scope: 'openid',
+    scope: 'openid profile email user_metadata app_metadata picture',
   });
 
   apolloClient: ApolloClient<any>;

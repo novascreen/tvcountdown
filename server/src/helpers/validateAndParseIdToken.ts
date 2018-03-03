@@ -1,5 +1,5 @@
 import * as jwksClient from 'jwks-rsa';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { AUTH_CONFIG } from '../serverConstants';
 
 const jwks = jwksClient({
