@@ -1,10 +1,10 @@
 {
   "name": "server",
   "scripts": {
-    "start": "nodemon -e ts,graphql -x ts-node src/index.ts",
-    "dev": "npm-run-all --parallel start playground",
-    "debug": "nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
-    "playground": "graphql playground --port 3001",
+    "start": "node dist/index.js",
+    "dev": "npm-run-all --parallel debug playground",
+    "debug": "nodemon --config nodemon.json src/index.ts",
+    "playground": "graphql playground --port 3001 --dotenv dotenv/config",
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
