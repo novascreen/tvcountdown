@@ -49,7 +49,7 @@ export const EpisodeDetails = ({ episode }: Props) => {
         <Divider />
       </Box>
       <Box mB={4}>
-        <Typography>
+        <Typography component="div">
           {episode.image && (
             <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
               <img

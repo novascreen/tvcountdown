@@ -29,7 +29,7 @@ export const EpisodeCard = ({ title, episode, show }: Props) => (
         year="numeric"
       />
     </Typography>
-    <Typography>
+    <Typography component="div">
       <HTML content={episode.summary} />
     </Typography>
   </>

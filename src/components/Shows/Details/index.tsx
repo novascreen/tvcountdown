@@ -46,7 +46,7 @@ export const ShowDetails = ({ show }: Props) => {
         <Divider />
       </Box>
       <Box mB={4}>
-        <Typography>
+        <Typography component="div">
           {show.image && (
             <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
               <img
@@ -62,7 +62,7 @@ export const ShowDetails = ({ show }: Props) => {
         <Box mB={4}>
           <Grid container>
             {episodes.map(episode => (
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} key={episode.title}>
                 <Paper style={{ height: '100%' }}>
                   <Box p={2}>
                     <EpisodeCard {...episode} show={show} />
