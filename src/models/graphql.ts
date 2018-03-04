@@ -1,3 +1,21 @@
+export type FavoriteShow = {
+  id?: string;
+  tvmaze?: number;
+  tvrage?: number;
+  thetvdb?: number;
+  imdb?: string;
+};
+
+export type User = {
+  id?: string;
+  email?: string;
+  role?: 'ADMIN' | 'USER';
+  name?: string;
+  avatar?: string;
+  identity?: string;
+  favoriteShows?: FavoriteShow[];
+};
+
 export type Image = {
   medium?: string;
   original?: string;

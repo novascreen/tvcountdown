@@ -13,7 +13,7 @@ import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import * as R from 'ramda';
 
-import Auth from './lib/Auth';
+import Auth, { isAuthenticated } from './lib/Auth';
 import favorites from './resolvers/favorites';
 
 const cache = new InMemoryCache();
@@ -31,7 +31,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: isAuthenticated() && token ? `Bearer ${token}` : '',
     },
   };
 });

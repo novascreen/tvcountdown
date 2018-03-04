@@ -15,6 +15,19 @@ const AUTHENTICATE = gql`
   }
 `;
 
+export const isAuthenticated = () => {
+  // Check whether the current time is past the
+  // access token's expiry time
+  try {
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at') || '""');
+    if (!expiresAt) return false;
+    return new Date().getTime() < expiresAt;
+  } catch (e) {
+    console.error(e);
+  }
+  return false;
+};
+
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: AUTH_CONFIG.domain,
@@ -29,7 +42,7 @@ export default class Auth {
   cb = () => {};
 
   constructor(cb: Function, apolloClient: ApolloClient<any>) {
-    this.handleAuthentication();
+    // this.handleAuthentication();
     // binds functions to keep this context
     this.apolloClient = apolloClient;
     this.cb = cb.bind(this);
@@ -143,17 +156,4 @@ export default class Auth {
     // navigate to the home route
     appHistory.replace('/');
   };
-
-  isAuthenticated() {
-    // Check whether the current time is past the
-    // access token's expiry time
-    try {
-      let expiresAt = JSON.parse(localStorage.getItem('expires_at') || '""');
-      if (!expiresAt) return false;
-      return new Date().getTime() < expiresAt;
-    } catch (e) {
-      console.error(e);
-    }
-    return false;
-  }
 }

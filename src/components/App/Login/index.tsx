@@ -2,6 +2,7 @@ import * as React from 'react';
 import Button from 'material-ui/Button';
 import { auth } from 'withRoot';
 import Dialog, { DialogTitle, DialogContent } from 'material-ui/Dialog';
+import { isAuthenticated } from 'lib/Auth';
 
 export class Login extends React.Component {
   state = {
@@ -33,12 +34,12 @@ export class Login extends React.Component {
     const { open } = this.state;
     return (
       <>
-        {!auth.isAuthenticated() && (
+        {!isAuthenticated() && (
           <Button onClick={this.handleLoginClick} color="inherit">
             Login
           </Button>
         )}
-        {auth.isAuthenticated() && (
+        {isAuthenticated() && (
           <Button onClick={this.handleLogoutCick} color="inherit">
             Logout
           </Button>
