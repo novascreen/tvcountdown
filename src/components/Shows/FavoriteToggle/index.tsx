@@ -79,107 +79,118 @@ export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
   );
 };
 
-const GET_MY_FAVORITE_SHOWS = gql`
-  query GetMyFavoriteShows {
-    me {
+const fragments = {
+  myFavoriteShows: gql`
+    fragment MyFavoriteShows on User {
       id
       favoriteShows {
         id
         tvmaze
       }
     }
+  `,
+};
+
+const GET_MY_FAVORITE_SHOWS = gql`
+  query GetMyFavoriteShows {
+    me {
+      ...MyFavoriteShows
+    }
   }
+  ${fragments.myFavoriteShows}
 `;
+
+const withMyFavoriteShows = graphql<QueryProps, InputProps, Response>(
+  GET_MY_FAVORITE_SHOWS,
+  {
+    skip: () => !isAuthenticated(),
+    props: ({ data }) => ({
+      ...data,
+      loadingMyFavoriteShows: data && data.loading,
+    }),
+  },
+);
 
 const CREATE_FAVORITE_SHOW = gql`
   mutation CreateFavoriteShow($tvmaze: Int!) {
     createFavoriteShow(tvmaze: $tvmaze) {
-      id
-      favoriteShows {
-        id
-        tvmaze
-      }
+      ...MyFavoriteShows
     }
   }
+  ${fragments.myFavoriteShows}
 `;
+
+const withCreateFavoriteShow = graphql<QueryProps, InputProps, Response>(
+  CREATE_FAVORITE_SHOW,
+  {
+    props: ({ ownProps, mutate }) => ({
+      createFavoriteShow: (tvmaze: number) => {
+        const me = ownProps.me;
+        if (!me || !mutate) return null;
+        const id = me.id;
+        const favoriteShows = me.favoriteShows || [];
+        return mutate({
+          variables: { tvmaze },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            createFavoriteShow: {
+              __typename: 'User',
+              id,
+              favoriteShows: [
+                ...favoriteShows,
+                { __typename: 'FavoriteShow', id: -1, tvmaze },
+              ],
+            },
+          },
+        });
+      },
+    }),
+  },
+);
 
 const DELETE_FAVORITE_SHOW = gql`
   mutation DeleteFavoriteShow($id: ID!) {
     deleteFavoriteShow(id: $id) {
-      id
-      favoriteShows {
-        id
-        tvmaze
-      }
+      ...MyFavoriteShows
     }
   }
+  ${fragments.myFavoriteShows}
 `;
 
-export default compose(
-  graphql<QueryProps<{ me: User }>, InputProps, Response>(
-    GET_MY_FAVORITE_SHOWS,
-    {
-      skip: () => !isAuthenticated(),
-      props: ({ data }) => ({
-        ...data,
-        loadingMyFavoriteShows: data && data.loading,
-      }),
-    },
-  ),
-  graphql<QueryProps, InputProps, Response>(CREATE_FAVORITE_SHOW, {
-    props: ({ ownProps, mutate }) => ({
-      createFavoriteShow: (tvmaze: number) => {
-        const me = ownProps.me;
-        const id = me && me.id;
-        const favoriteShows = (me && me.favoriteShows) || [];
-        if (mutate) {
-          return mutate({
-            variables: { tvmaze },
-            optimisticResponse: {
-              __typename: 'Mutation',
-              createFavoriteShow: {
-                __typename: 'User',
-                id,
-                favoriteShows: [
-                  ...favoriteShows,
-                  { __typename: 'FavoriteShow', id: -1, tvmaze },
-                ],
-              },
-            },
-          });
-        }
-        return null;
-      },
-    }),
-  }),
-  withMutationState({ name: 'createFavoriteShow' }),
-  graphql<QueryProps, InputProps, Response>(DELETE_FAVORITE_SHOW, {
+const withDeleteFavoriteShow = graphql<QueryProps, InputProps, Response>(
+  DELETE_FAVORITE_SHOW,
+  {
     props: ({ ownProps, mutate }) => ({
       deleteFavoriteShow: (id: string) => {
         const me = ownProps.me;
-        const myId = me && me.id;
-        const favoriteShows = (me && me.favoriteShows) || [];
+        if (!me || !mutate) return null;
+        const myId = me.id;
+        const favoriteShows = me.favoriteShows || [];
         const favoriteShowIndex = R.findIndex(
           R.propEq('id', id),
           favoriteShows,
         );
-        if (mutate) {
-          return mutate({
-            variables: { id },
-            optimisticResponse: {
-              __typename: 'Mutation',
-              deleteFavoriteShow: {
-                __typename: 'User',
-                id: myId,
-                favoriteShows: R.remove(favoriteShowIndex, 1, favoriteShows),
-              },
+        return mutate({
+          variables: { id },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteFavoriteShow: {
+              __typename: 'User',
+              id: myId,
+              favoriteShows: R.remove(favoriteShowIndex, 1, favoriteShows),
             },
-          });
-        }
-        return null;
+          },
+        });
       },
     }),
-  }),
+  },
+);
+
+export default compose(
+  withMyFavoriteShows,
+  withCreateFavoriteShow,
+  withMutationState({ name: 'createFavoriteShow' }),
+  withDeleteFavoriteShow,
   withMutationState({ name: 'deleteFavoriteShow' }),
   graphql<QueryProps, InputProps, Response>(TOGGLE_FAVORITE, {
     props: ({ mutate }) => ({
