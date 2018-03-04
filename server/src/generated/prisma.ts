@@ -9,6 +9,15 @@ const typeDefs = `
 # Model Types
 #
 
+type FavoriteShow implements Node {
+  id: ID!
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user(where: UserWhereInput): User
+}
+
 type User implements Node {
   id: ID!
   email: String!
@@ -17,12 +26,17 @@ type User implements Node {
   avatar: String
   auth0id: String!
   identity: String
+  favoriteShows(where: FavoriteShowWhereInput, orderBy: FavoriteShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteShow!]
 }
 
 
 #
 # Other Types
 #
+
+type AggregateFavoriteShow {
+  count: Int!
+}
 
 type AggregateUser {
   count: Int!
@@ -32,14 +46,190 @@ type BatchPayload {
   count: Long!
 }
 
+type FavoriteShowConnection {
+  pageInfo: PageInfo!
+  edges: [FavoriteShowEdge]!
+  aggregate: AggregateFavoriteShow!
+}
+
+input FavoriteShowCreateInput {
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user: UserCreateOneWithoutFavoriteShowsInput
+}
+
+input FavoriteShowCreateManyWithoutUserInput {
+  create: [FavoriteShowCreateWithoutUserInput!]
+  connect: [FavoriteShowWhereUniqueInput!]
+}
+
+input FavoriteShowCreateWithoutUserInput {
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+type FavoriteShowEdge {
+  node: FavoriteShow!
+  cursor: String!
+}
+
+enum FavoriteShowOrderByInput {
+  id_ASC
+  id_DESC
+  tvmaze_ASC
+  tvmaze_DESC
+  tvrage_ASC
+  tvrage_DESC
+  thetvdb_ASC
+  thetvdb_DESC
+  imdb_ASC
+  imdb_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FavoriteShowPreviousValues {
+  id: ID!
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+type FavoriteShowSubscriptionPayload {
+  mutation: MutationType!
+  node: FavoriteShow
+  updatedFields: [String!]
+  previousValues: FavoriteShowPreviousValues
+}
+
+input FavoriteShowSubscriptionWhereInput {
+  AND: [FavoriteShowSubscriptionWhereInput!]
+  OR: [FavoriteShowSubscriptionWhereInput!]
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: FavoriteShowWhereInput
+}
+
+input FavoriteShowUpdateInput {
+  tvmaze: Int
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user: UserUpdateOneWithoutFavoriteShowsInput
+}
+
+input FavoriteShowUpdateManyWithoutUserInput {
+  create: [FavoriteShowCreateWithoutUserInput!]
+  connect: [FavoriteShowWhereUniqueInput!]
+  disconnect: [FavoriteShowWhereUniqueInput!]
+  delete: [FavoriteShowWhereUniqueInput!]
+  update: [FavoriteShowUpdateWithoutUserInput!]
+  upsert: [FavoriteShowUpsertWithoutUserInput!]
+}
+
+input FavoriteShowUpdateWithoutUserDataInput {
+  tvmaze: Int
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+input FavoriteShowUpdateWithoutUserInput {
+  where: FavoriteShowWhereUniqueInput!
+  data: FavoriteShowUpdateWithoutUserDataInput!
+}
+
+input FavoriteShowUpsertWithoutUserInput {
+  where: FavoriteShowWhereUniqueInput!
+  update: FavoriteShowUpdateWithoutUserDataInput!
+  create: FavoriteShowCreateWithoutUserInput!
+}
+
+input FavoriteShowWhereInput {
+  AND: [FavoriteShowWhereInput!]
+  OR: [FavoriteShowWhereInput!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  tvmaze: Int
+  tvmaze_not: Int
+  tvmaze_in: [Int!]
+  tvmaze_not_in: [Int!]
+  tvmaze_lt: Int
+  tvmaze_lte: Int
+  tvmaze_gt: Int
+  tvmaze_gte: Int
+  tvrage: Int
+  tvrage_not: Int
+  tvrage_in: [Int!]
+  tvrage_not_in: [Int!]
+  tvrage_lt: Int
+  tvrage_lte: Int
+  tvrage_gt: Int
+  tvrage_gte: Int
+  thetvdb: Int
+  thetvdb_not: Int
+  thetvdb_in: [Int!]
+  thetvdb_not_in: [Int!]
+  thetvdb_lt: Int
+  thetvdb_lte: Int
+  thetvdb_gt: Int
+  thetvdb_gte: Int
+  imdb: String
+  imdb_not: String
+  imdb_in: [String!]
+  imdb_not_in: [String!]
+  imdb_lt: String
+  imdb_lte: String
+  imdb_gt: String
+  imdb_gte: String
+  imdb_contains: String
+  imdb_not_contains: String
+  imdb_starts_with: String
+  imdb_not_starts_with: String
+  imdb_ends_with: String
+  imdb_not_ends_with: String
+  user: UserWhereInput
+}
+
+input FavoriteShowWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createFavoriteShow(data: FavoriteShowCreateInput!): FavoriteShow!
   createUser(data: UserCreateInput!): User!
+  updateFavoriteShow(data: FavoriteShowUpdateInput!, where: FavoriteShowWhereUniqueInput!): FavoriteShow
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteFavoriteShow(where: FavoriteShowWhereUniqueInput!): FavoriteShow
   deleteUser(where: UserWhereUniqueInput!): User
+  upsertFavoriteShow(where: FavoriteShowWhereUniqueInput!, create: FavoriteShowCreateInput!, update: FavoriteShowUpdateInput!): FavoriteShow!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyFavoriteShows(data: FavoriteShowUpdateInput!, where: FavoriteShowWhereInput!): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  deleteManyFavoriteShows(where: FavoriteShowWhereInput!): BatchPayload!
   deleteManyUsers(where: UserWhereInput!): BatchPayload!
 }
 
@@ -61,8 +251,11 @@ type PageInfo {
 }
 
 type Query {
+  favoriteShows(where: FavoriteShowWhereInput, orderBy: FavoriteShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteShow]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  favoriteShow(where: FavoriteShowWhereUniqueInput!): FavoriteShow
   user(where: UserWhereUniqueInput!): User
+  favoriteShowsConnection(where: FavoriteShowWhereInput, orderBy: FavoriteShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteShowConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
@@ -73,6 +266,7 @@ enum Role {
 }
 
 type Subscription {
+  favoriteShow(where: FavoriteShowSubscriptionWhereInput): FavoriteShowSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -83,6 +277,21 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  email: String!
+  role: Role
+  name: String
+  avatar: String
+  auth0id: String!
+  identity: String
+  favoriteShows: FavoriteShowCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutFavoriteShowsInput {
+  create: UserCreateWithoutFavoriteShowsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutFavoriteShowsInput {
   email: String!
   role: Role
   name: String
@@ -151,6 +360,36 @@ input UserUpdateInput {
   avatar: String
   auth0id: String
   identity: String
+  favoriteShows: FavoriteShowUpdateManyWithoutUserInput
+}
+
+input UserUpdateOneWithoutFavoriteShowsInput {
+  create: UserCreateWithoutFavoriteShowsInput
+  connect: UserWhereUniqueInput
+  disconnect: UserWhereUniqueInput
+  delete: UserWhereUniqueInput
+  update: UserUpdateWithoutFavoriteShowsInput
+  upsert: UserUpsertWithoutFavoriteShowsInput
+}
+
+input UserUpdateWithoutFavoriteShowsDataInput {
+  email: String
+  role: Role
+  name: String
+  avatar: String
+  auth0id: String
+  identity: String
+}
+
+input UserUpdateWithoutFavoriteShowsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFavoriteShowsDataInput!
+}
+
+input UserUpsertWithoutFavoriteShowsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFavoriteShowsDataInput!
+  create: UserCreateWithoutFavoriteShowsInput!
 }
 
 input UserWhereInput {
@@ -244,6 +483,9 @@ input UserWhereInput {
   identity_not_starts_with: String
   identity_ends_with: String
   identity_not_ends_with: String
+  favoriteShows_every: FavoriteShowWhereInput
+  favoriteShows_some: FavoriteShowWhereInput
+  favoriteShows_none: FavoriteShowWhereInput
 }
 
 input UserWhereUniqueInput {
@@ -252,6 +494,26 @@ input UserWhereUniqueInput {
   auth0id: String
 }
 `
+
+export type Role = 
+  'ADMIN' |
+  'USER'
+
+export type FavoriteShowOrderByInput = 
+  'id_ASC' |
+  'id_DESC' |
+  'tvmaze_ASC' |
+  'tvmaze_DESC' |
+  'tvrage_ASC' |
+  'tvrage_DESC' |
+  'thetvdb_ASC' |
+  'thetvdb_DESC' |
+  'imdb_ASC' |
+  'imdb_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
 
 export type UserOrderByInput = 
   'id_ASC' |
@@ -273,16 +535,12 @@ export type UserOrderByInput =
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type Role = 
-  'ADMIN' |
-  'USER'
-
 export type MutationType = 
   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface UserCreateInput {
+export interface UserCreateWithoutFavoriteShowsInput {
   email: String
   role?: Role
   name?: String
@@ -291,29 +549,69 @@ export interface UserCreateInput {
   identity?: String
 }
 
-export interface UserWhereUniqueInput {
+export interface FavoriteShowWhereInput {
+  AND?: FavoriteShowWhereInput[] | FavoriteShowWhereInput
+  OR?: FavoriteShowWhereInput[] | FavoriteShowWhereInput
   id?: ID_Input
-  email?: String
-  auth0id?: String
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  tvmaze?: Int
+  tvmaze_not?: Int
+  tvmaze_in?: Int[] | Int
+  tvmaze_not_in?: Int[] | Int
+  tvmaze_lt?: Int
+  tvmaze_lte?: Int
+  tvmaze_gt?: Int
+  tvmaze_gte?: Int
+  tvrage?: Int
+  tvrage_not?: Int
+  tvrage_in?: Int[] | Int
+  tvrage_not_in?: Int[] | Int
+  tvrage_lt?: Int
+  tvrage_lte?: Int
+  tvrage_gt?: Int
+  tvrage_gte?: Int
+  thetvdb?: Int
+  thetvdb_not?: Int
+  thetvdb_in?: Int[] | Int
+  thetvdb_not_in?: Int[] | Int
+  thetvdb_lt?: Int
+  thetvdb_lte?: Int
+  thetvdb_gt?: Int
+  thetvdb_gte?: Int
+  imdb?: String
+  imdb_not?: String
+  imdb_in?: String[] | String
+  imdb_not_in?: String[] | String
+  imdb_lt?: String
+  imdb_lte?: String
+  imdb_gt?: String
+  imdb_gte?: String
+  imdb_contains?: String
+  imdb_not_contains?: String
+  imdb_starts_with?: String
+  imdb_not_starts_with?: String
+  imdb_ends_with?: String
+  imdb_not_ends_with?: String
+  user?: UserWhereInput
 }
 
-export interface UserUpdateInput {
-  email?: String
-  role?: Role
-  name?: String
-  avatar?: String
-  auth0id?: String
-  identity?: String
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
+export interface FavoriteShowCreateWithoutUserInput {
+  tvmaze: Int
+  tvrage?: Int
+  thetvdb?: Int
+  imdb?: String
 }
 
 export interface UserWhereInput {
@@ -407,10 +705,152 @@ export interface UserWhereInput {
   identity_not_starts_with?: String
   identity_ends_with?: String
   identity_not_ends_with?: String
+  favoriteShows_every?: FavoriteShowWhereInput
+  favoriteShows_some?: FavoriteShowWhereInput
+  favoriteShows_none?: FavoriteShowWhereInput
+}
+
+export interface UserUpdateInput {
+  email?: String
+  role?: Role
+  name?: String
+  avatar?: String
+  auth0id?: String
+  identity?: String
+  favoriteShows?: FavoriteShowUpdateManyWithoutUserInput
+}
+
+export interface UserUpdateOneWithoutFavoriteShowsInput {
+  create?: UserCreateWithoutFavoriteShowsInput
+  connect?: UserWhereUniqueInput
+  disconnect?: UserWhereUniqueInput
+  delete?: UserWhereUniqueInput
+  update?: UserUpdateWithoutFavoriteShowsInput
+  upsert?: UserUpsertWithoutFavoriteShowsInput
+}
+
+export interface UserUpsertWithoutFavoriteShowsInput {
+  where: UserWhereUniqueInput
+  update: UserUpdateWithoutFavoriteShowsDataInput
+  create: UserCreateWithoutFavoriteShowsInput
+}
+
+export interface FavoriteShowUpdateInput {
+  tvmaze?: Int
+  tvrage?: Int
+  thetvdb?: Int
+  imdb?: String
+  user?: UserUpdateOneWithoutFavoriteShowsInput
+}
+
+export interface UserUpdateWithoutFavoriteShowsDataInput {
+  email?: String
+  role?: Role
+  name?: String
+  avatar?: String
+  auth0id?: String
+  identity?: String
+}
+
+export interface FavoriteShowWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface FavoriteShowCreateInput {
+  tvmaze: Int
+  tvrage?: Int
+  thetvdb?: Int
+  imdb?: String
+  user?: UserCreateOneWithoutFavoriteShowsInput
+}
+
+export interface FavoriteShowSubscriptionWhereInput {
+  AND?: FavoriteShowSubscriptionWhereInput[] | FavoriteShowSubscriptionWhereInput
+  OR?: FavoriteShowSubscriptionWhereInput[] | FavoriteShowSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FavoriteShowWhereInput
+}
+
+export interface FavoriteShowUpdateWithoutUserDataInput {
+  tvmaze?: Int
+  tvrage?: Int
+  thetvdb?: Int
+  imdb?: String
+}
+
+export interface FavoriteShowCreateManyWithoutUserInput {
+  create?: FavoriteShowCreateWithoutUserInput[] | FavoriteShowCreateWithoutUserInput
+  connect?: FavoriteShowWhereUniqueInput[] | FavoriteShowWhereUniqueInput
+}
+
+export interface UserCreateInput {
+  email: String
+  role?: Role
+  name?: String
+  avatar?: String
+  auth0id: String
+  identity?: String
+  favoriteShows?: FavoriteShowCreateManyWithoutUserInput
+}
+
+export interface UserUpdateWithoutFavoriteShowsInput {
+  where: UserWhereUniqueInput
+  data: UserUpdateWithoutFavoriteShowsDataInput
+}
+
+export interface UserCreateOneWithoutFavoriteShowsInput {
+  create?: UserCreateWithoutFavoriteShowsInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface FavoriteShowUpdateWithoutUserInput {
+  where: FavoriteShowWhereUniqueInput
+  data: FavoriteShowUpdateWithoutUserDataInput
+}
+
+export interface FavoriteShowUpsertWithoutUserInput {
+  where: FavoriteShowWhereUniqueInput
+  update: FavoriteShowUpdateWithoutUserDataInput
+  create: FavoriteShowCreateWithoutUserInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  email?: String
+  auth0id?: String
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface FavoriteShowUpdateManyWithoutUserInput {
+  create?: FavoriteShowCreateWithoutUserInput[] | FavoriteShowCreateWithoutUserInput
+  connect?: FavoriteShowWhereUniqueInput[] | FavoriteShowWhereUniqueInput
+  disconnect?: FavoriteShowWhereUniqueInput[] | FavoriteShowWhereUniqueInput
+  delete?: FavoriteShowWhereUniqueInput[] | FavoriteShowWhereUniqueInput
+  update?: FavoriteShowUpdateWithoutUserInput[] | FavoriteShowUpdateWithoutUserInput
+  upsert?: FavoriteShowUpsertWithoutUserInput[] | FavoriteShowUpsertWithoutUserInput
 }
 
 export interface Node {
   id: ID_Output
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
 }
 
 export interface UserPreviousValues {
@@ -427,20 +867,6 @@ export interface BatchPayload {
   count: Long
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType
-  node?: User
-  updatedFields?: String[]
-  previousValues?: UserPreviousValues
-}
-
 export interface User extends Node {
   id: ID_Output
   email: String
@@ -449,6 +875,28 @@ export interface User extends Node {
   avatar?: String
   auth0id: String
   identity?: String
+  favoriteShows?: FavoriteShow[]
+}
+
+export interface FavoriteShowSubscriptionPayload {
+  mutation: MutationType
+  node?: FavoriteShow
+  updatedFields?: String[]
+  previousValues?: FavoriteShowPreviousValues
+}
+
+export interface FavoriteShowPreviousValues {
+  id: ID_Output
+  tvmaze: Int
+  tvrage?: Int
+  thetvdb?: Int
+  imdb?: String
+}
+
+export interface FavoriteShowConnection {
+  pageInfo: PageInfo
+  edges: FavoriteShowEdge[]
+  aggregate: AggregateFavoriteShow
 }
 
 export interface UserConnection {
@@ -461,10 +909,43 @@ export interface AggregateUser {
   count: Int
 }
 
+export interface FavoriteShow extends Node {
+  id: ID_Output
+  tvmaze: Int
+  tvrage?: Int
+  thetvdb?: Int
+  imdb?: String
+  user?: User
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
+}
+
+export interface FavoriteShowEdge {
+  node: FavoriteShow
+  cursor: String
+}
+
+export interface AggregateFavoriteShow {
+  count: Int
+}
+
 export interface UserEdge {
   node: User
   cursor: String
 }
+
+export type Long = string
+
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number
+export type ID_Output = string
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
@@ -481,14 +962,6 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 */
 export type Int = number
 
-export type Long = string
-
-/*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number
-export type ID_Output = string
-
 export interface Schema {
   query: Query
   mutation: Mutation
@@ -496,22 +969,32 @@ export interface Schema {
 }
 
 export type Query = {
+  favoriteShows: (args: { where?: FavoriteShowWhereInput, orderBy?: FavoriteShowOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow[]>
   users: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<User[]>
+  favoriteShow: (args: { where: FavoriteShowWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow | null>
   user: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  favoriteShowsConnection: (args: { where?: FavoriteShowWhereInput, orderBy?: FavoriteShowOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShowConnection>
   usersConnection: (args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string) => Promise<UserConnection>
   node: (args: { id: ID_Output }, info?: GraphQLResolveInfo | string) => Promise<Node | null>
 }
 
 export type Mutation = {
+  createFavoriteShow: (args: { data: FavoriteShowCreateInput }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow>
   createUser: (args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
+  updateFavoriteShow: (args: { data: FavoriteShowUpdateInput, where: FavoriteShowWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow | null>
   updateUser: (args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  deleteFavoriteShow: (args: { where: FavoriteShowWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow | null>
   deleteUser: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
+  upsertFavoriteShow: (args: { where: FavoriteShowWhereUniqueInput, create: FavoriteShowCreateInput, update: FavoriteShowUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow>
   upsertUser: (args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
+  updateManyFavoriteShows: (args: { data: FavoriteShowUpdateInput, where: FavoriteShowWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   updateManyUsers: (args: { data: UserUpdateInput, where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyFavoriteShows: (args: { where: FavoriteShowWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyUsers: (args: { where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
 }
 
 export type Subscription = {
+  favoriteShow: (args: { where?: FavoriteShowSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<FavoriteShowSubscriptionPayload>>
   user: (args: { where?: UserSubscriptionWhereInput }, infoOrQuery?: GraphQLResolveInfo | string) => Promise<AsyncIterator<UserSubscriptionPayload>>
 }
 
@@ -522,26 +1005,37 @@ export class Prisma extends BasePrisma {
   }
 
   exists = {
+    FavoriteShow: (where: FavoriteShowWhereInput): Promise<boolean> => super.existsDelegate('query', 'favoriteShows', { where }, {}, '{ id }'),
     User: (where: UserWhereInput): Promise<boolean> => super.existsDelegate('query', 'users', { where }, {}, '{ id }')
   }
 
   query: Query = {
+    favoriteShows: (args, info): Promise<FavoriteShow[]> => super.delegate('query', 'favoriteShows', args, {}, info),
     users: (args, info): Promise<User[]> => super.delegate('query', 'users', args, {}, info),
+    favoriteShow: (args, info): Promise<FavoriteShow | null> => super.delegate('query', 'favoriteShow', args, {}, info),
     user: (args, info): Promise<User | null> => super.delegate('query', 'user', args, {}, info),
+    favoriteShowsConnection: (args, info): Promise<FavoriteShowConnection> => super.delegate('query', 'favoriteShowsConnection', args, {}, info),
     usersConnection: (args, info): Promise<UserConnection> => super.delegate('query', 'usersConnection', args, {}, info),
     node: (args, info): Promise<Node | null> => super.delegate('query', 'node', args, {}, info)
   }
 
   mutation: Mutation = {
+    createFavoriteShow: (args, info): Promise<FavoriteShow> => super.delegate('mutation', 'createFavoriteShow', args, {}, info),
     createUser: (args, info): Promise<User> => super.delegate('mutation', 'createUser', args, {}, info),
+    updateFavoriteShow: (args, info): Promise<FavoriteShow | null> => super.delegate('mutation', 'updateFavoriteShow', args, {}, info),
     updateUser: (args, info): Promise<User | null> => super.delegate('mutation', 'updateUser', args, {}, info),
+    deleteFavoriteShow: (args, info): Promise<FavoriteShow | null> => super.delegate('mutation', 'deleteFavoriteShow', args, {}, info),
     deleteUser: (args, info): Promise<User | null> => super.delegate('mutation', 'deleteUser', args, {}, info),
+    upsertFavoriteShow: (args, info): Promise<FavoriteShow> => super.delegate('mutation', 'upsertFavoriteShow', args, {}, info),
     upsertUser: (args, info): Promise<User> => super.delegate('mutation', 'upsertUser', args, {}, info),
+    updateManyFavoriteShows: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyFavoriteShows', args, {}, info),
     updateManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'updateManyUsers', args, {}, info),
+    deleteManyFavoriteShows: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyFavoriteShows', args, {}, info),
     deleteManyUsers: (args, info): Promise<BatchPayload> => super.delegate('mutation', 'deleteManyUsers', args, {}, info)
   }
 
   subscription: Subscription = {
+    favoriteShow: (args, infoOrQuery): Promise<AsyncIterator<FavoriteShowSubscriptionPayload>> => super.delegateSubscription('favoriteShow', args, {}, infoOrQuery),
     user: (args, infoOrQuery): Promise<AsyncIterator<UserSubscriptionPayload>> => super.delegateSubscription('user', args, {}, infoOrQuery)
   }
 }

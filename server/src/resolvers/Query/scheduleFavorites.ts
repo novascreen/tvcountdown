@@ -6,8 +6,8 @@ import {
   getScheduleByDate,
   search,
   getEpisodes,
-} from '../tvmaze/api';
-import { combineResults } from '../utils';
+} from '../../tvmaze/api';
+import { combineResults } from '../../utils';
 
 /**
  * Check whether episode is in the future or aired in the last 3 days

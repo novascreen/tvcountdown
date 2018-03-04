@@ -5,6 +5,7 @@ const getUser = async (req, res, next, db) => {
     where: { auth0id: req.user.sub.split(`|`)[1] },
   });
   req.user = { token: req.user, ...user };
+  console.log('DB USER', req.user);
   next();
 };
 

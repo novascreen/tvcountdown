@@ -5,7 +5,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { Prisma } from './generated/prisma';
 import resolvers from './resolvers';
 import directiveResolvers from './directives';
-import checkJwt from './middleware/jwt';
+import checkJwt from './middleware/checkJwt';
 import getUser from './middleware/getUser';
 
 const db = new Prisma({

@@ -16,6 +16,12 @@ type Query {
 
 type Mutation {
   authenticate(idToken: String!): User
+  createFavoriteShow(tvmaze: Int!): User @isOwner(type: "FavoriteShow")
+  deleteFavoriteShow(id: ID!): User @isOwner(type: "FavoriteShow")
+}
+
+type Subscription {
+  me: UserSubscriptionPayload
 }
 
 type User {
@@ -25,6 +31,7 @@ type User {
   name: String
   avatar: String
   identity: String
+  favoriteShows: [FavoriteShow!]!
 }
 
 type Schedule {

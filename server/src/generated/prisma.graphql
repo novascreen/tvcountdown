@@ -5,6 +5,15 @@
 # Model Types
 #
 
+type FavoriteShow implements Node {
+  id: ID!
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user(where: UserWhereInput): User
+}
+
 type User implements Node {
   id: ID!
   email: String!
@@ -13,12 +22,17 @@ type User implements Node {
   avatar: String
   auth0id: String!
   identity: String
+  favoriteShows(where: FavoriteShowWhereInput, orderBy: FavoriteShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteShow!]
 }
 
 
 #
 # Other Types
 #
+
+type AggregateFavoriteShow {
+  count: Int!
+}
 
 type AggregateUser {
   count: Int!
@@ -28,14 +42,190 @@ type BatchPayload {
   count: Long!
 }
 
+type FavoriteShowConnection {
+  pageInfo: PageInfo!
+  edges: [FavoriteShowEdge]!
+  aggregate: AggregateFavoriteShow!
+}
+
+input FavoriteShowCreateInput {
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user: UserCreateOneWithoutFavoriteShowsInput
+}
+
+input FavoriteShowCreateManyWithoutUserInput {
+  create: [FavoriteShowCreateWithoutUserInput!]
+  connect: [FavoriteShowWhereUniqueInput!]
+}
+
+input FavoriteShowCreateWithoutUserInput {
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+type FavoriteShowEdge {
+  node: FavoriteShow!
+  cursor: String!
+}
+
+enum FavoriteShowOrderByInput {
+  id_ASC
+  id_DESC
+  tvmaze_ASC
+  tvmaze_DESC
+  tvrage_ASC
+  tvrage_DESC
+  thetvdb_ASC
+  thetvdb_DESC
+  imdb_ASC
+  imdb_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FavoriteShowPreviousValues {
+  id: ID!
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+type FavoriteShowSubscriptionPayload {
+  mutation: MutationType!
+  node: FavoriteShow
+  updatedFields: [String!]
+  previousValues: FavoriteShowPreviousValues
+}
+
+input FavoriteShowSubscriptionWhereInput {
+  AND: [FavoriteShowSubscriptionWhereInput!]
+  OR: [FavoriteShowSubscriptionWhereInput!]
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: FavoriteShowWhereInput
+}
+
+input FavoriteShowUpdateInput {
+  tvmaze: Int
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user: UserUpdateOneWithoutFavoriteShowsInput
+}
+
+input FavoriteShowUpdateManyWithoutUserInput {
+  create: [FavoriteShowCreateWithoutUserInput!]
+  connect: [FavoriteShowWhereUniqueInput!]
+  disconnect: [FavoriteShowWhereUniqueInput!]
+  delete: [FavoriteShowWhereUniqueInput!]
+  update: [FavoriteShowUpdateWithoutUserInput!]
+  upsert: [FavoriteShowUpsertWithoutUserInput!]
+}
+
+input FavoriteShowUpdateWithoutUserDataInput {
+  tvmaze: Int
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+}
+
+input FavoriteShowUpdateWithoutUserInput {
+  where: FavoriteShowWhereUniqueInput!
+  data: FavoriteShowUpdateWithoutUserDataInput!
+}
+
+input FavoriteShowUpsertWithoutUserInput {
+  where: FavoriteShowWhereUniqueInput!
+  update: FavoriteShowUpdateWithoutUserDataInput!
+  create: FavoriteShowCreateWithoutUserInput!
+}
+
+input FavoriteShowWhereInput {
+  AND: [FavoriteShowWhereInput!]
+  OR: [FavoriteShowWhereInput!]
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  tvmaze: Int
+  tvmaze_not: Int
+  tvmaze_in: [Int!]
+  tvmaze_not_in: [Int!]
+  tvmaze_lt: Int
+  tvmaze_lte: Int
+  tvmaze_gt: Int
+  tvmaze_gte: Int
+  tvrage: Int
+  tvrage_not: Int
+  tvrage_in: [Int!]
+  tvrage_not_in: [Int!]
+  tvrage_lt: Int
+  tvrage_lte: Int
+  tvrage_gt: Int
+  tvrage_gte: Int
+  thetvdb: Int
+  thetvdb_not: Int
+  thetvdb_in: [Int!]
+  thetvdb_not_in: [Int!]
+  thetvdb_lt: Int
+  thetvdb_lte: Int
+  thetvdb_gt: Int
+  thetvdb_gte: Int
+  imdb: String
+  imdb_not: String
+  imdb_in: [String!]
+  imdb_not_in: [String!]
+  imdb_lt: String
+  imdb_lte: String
+  imdb_gt: String
+  imdb_gte: String
+  imdb_contains: String
+  imdb_not_contains: String
+  imdb_starts_with: String
+  imdb_not_starts_with: String
+  imdb_ends_with: String
+  imdb_not_ends_with: String
+  user: UserWhereInput
+}
+
+input FavoriteShowWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createFavoriteShow(data: FavoriteShowCreateInput!): FavoriteShow!
   createUser(data: UserCreateInput!): User!
+  updateFavoriteShow(data: FavoriteShowUpdateInput!, where: FavoriteShowWhereUniqueInput!): FavoriteShow
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteFavoriteShow(where: FavoriteShowWhereUniqueInput!): FavoriteShow
   deleteUser(where: UserWhereUniqueInput!): User
+  upsertFavoriteShow(where: FavoriteShowWhereUniqueInput!, create: FavoriteShowCreateInput!, update: FavoriteShowUpdateInput!): FavoriteShow!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyFavoriteShows(data: FavoriteShowUpdateInput!, where: FavoriteShowWhereInput!): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  deleteManyFavoriteShows(where: FavoriteShowWhereInput!): BatchPayload!
   deleteManyUsers(where: UserWhereInput!): BatchPayload!
 }
 
@@ -57,8 +247,11 @@ type PageInfo {
 }
 
 type Query {
+  favoriteShows(where: FavoriteShowWhereInput, orderBy: FavoriteShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteShow]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  favoriteShow(where: FavoriteShowWhereUniqueInput!): FavoriteShow
   user(where: UserWhereUniqueInput!): User
+  favoriteShowsConnection(where: FavoriteShowWhereInput, orderBy: FavoriteShowOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteShowConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
@@ -69,6 +262,7 @@ enum Role {
 }
 
 type Subscription {
+  favoriteShow(where: FavoriteShowSubscriptionWhereInput): FavoriteShowSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -79,6 +273,21 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  email: String!
+  role: Role
+  name: String
+  avatar: String
+  auth0id: String!
+  identity: String
+  favoriteShows: FavoriteShowCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutFavoriteShowsInput {
+  create: UserCreateWithoutFavoriteShowsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutFavoriteShowsInput {
   email: String!
   role: Role
   name: String
@@ -147,6 +356,36 @@ input UserUpdateInput {
   avatar: String
   auth0id: String
   identity: String
+  favoriteShows: FavoriteShowUpdateManyWithoutUserInput
+}
+
+input UserUpdateOneWithoutFavoriteShowsInput {
+  create: UserCreateWithoutFavoriteShowsInput
+  connect: UserWhereUniqueInput
+  disconnect: UserWhereUniqueInput
+  delete: UserWhereUniqueInput
+  update: UserUpdateWithoutFavoriteShowsInput
+  upsert: UserUpsertWithoutFavoriteShowsInput
+}
+
+input UserUpdateWithoutFavoriteShowsDataInput {
+  email: String
+  role: Role
+  name: String
+  avatar: String
+  auth0id: String
+  identity: String
+}
+
+input UserUpdateWithoutFavoriteShowsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFavoriteShowsDataInput!
+}
+
+input UserUpsertWithoutFavoriteShowsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFavoriteShowsDataInput!
+  create: UserCreateWithoutFavoriteShowsInput!
 }
 
 input UserWhereInput {
@@ -240,6 +479,9 @@ input UserWhereInput {
   identity_not_starts_with: String
   identity_ends_with: String
   identity_not_ends_with: String
+  favoriteShows_every: FavoriteShowWhereInput
+  favoriteShows_some: FavoriteShowWhereInput
+  favoriteShows_none: FavoriteShowWhereInput
 }
 
 input UserWhereUniqueInput {

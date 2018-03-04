@@ -3,6 +3,15 @@ enum Role {
   USER
 }
 
+type FavoriteShow {
+  id: ID! @unique
+  tvmaze: Int!
+  tvrage: Int
+  thetvdb: Int
+  imdb: String
+  user: User @relation(name: "UserFavoriteShows")
+}
+
 type User {
   id: ID! @unique
   email: String! @unique
@@ -11,4 +20,5 @@ type User {
   avatar: String
   auth0id: String! @unique
   identity: String
+  favoriteShows: [FavoriteShow!]! @relation(name: "UserFavoriteShows")
 }
