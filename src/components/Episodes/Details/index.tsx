@@ -5,7 +5,7 @@ import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 
-import { Episode } from 'models/graphql';
+import { Episode } from 'api/models';
 import Box from 'components/UI/Box';
 import HTML from 'components/Util/HTML';
 import InlineDivider from 'components/UI/InlineDivider';

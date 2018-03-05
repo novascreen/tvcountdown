@@ -8,7 +8,7 @@ import ListItemSecondaryAction from 'material-ui/List/ListItemSecondaryAction';
 import * as Infinite from 'react-infinite';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { Episode } from 'models/graphql';
+import { Episode } from 'api/models';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
 
 export interface Props {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { graphql, QueryProps } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { Episode } from 'models/graphql';
+import { Episode } from 'api/models';
 import Loading from 'components/UI/Loading';
 import EpisodesList from 'components/Episodes/List';
 

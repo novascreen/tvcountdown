@@ -11,7 +11,7 @@ import Avatar from 'material-ui/Avatar';
 // import Grid from 'material-ui/Grid';
 import { RenderSuggestion, OnSuggestionSelected } from 'react-autosuggest';
 
-import { Show } from 'models/graphql';
+import { Show } from 'api/models';
 import UIAutoSuggest from 'components/UI/AutoSuggest';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import { theme } from 'withRoot';

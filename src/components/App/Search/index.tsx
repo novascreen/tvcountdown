@@ -16,7 +16,7 @@ import { withRouter, RouteComponentProps } from 'react-router';
 
 import Box from 'components/UI/Box';
 import AutoSuggest from './AutoSuggest';
-import { Show } from 'models/graphql';
+import { Show } from 'api/models';
 import { OnSuggestionSelected } from 'react-autosuggest';
 
 type Styles = 'search' | 'autoSuggestBox';

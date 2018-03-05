@@ -4,7 +4,7 @@ import { graphql, QueryProps, compose } from 'react-apollo';
 import FavoritesList from 'components/Schedule/FavoritesList';
 import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
 import withMyFavoriteShows from 'api/withMyFavoriteShows';
-import { User } from 'models/graphql';
+import { User } from 'api/models';
 
 type InputProps = {};
 

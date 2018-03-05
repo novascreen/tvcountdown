@@ -4,7 +4,7 @@ import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 
-import { Show as ShowType } from 'models/graphql';
+import { Show as ShowType } from 'api/models';
 import Box from 'components/UI/Box';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import HTML from 'components/Util/HTML';

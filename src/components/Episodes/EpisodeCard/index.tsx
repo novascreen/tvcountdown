@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormattedDate } from 'react-intl';
 import Typography from 'material-ui/Typography';
 
-import { Episode as EpisodeType, Show } from 'models/graphql';
+import { Episode as EpisodeType, Show } from 'api/models';
 import SeasonNumber from 'components/Episodes/SeasonNumber';
 import HTML from 'components/Util/HTML';
 
