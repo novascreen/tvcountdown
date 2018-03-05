@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { graphql, QueryProps } from 'react-apollo';
+import { graphql, QueryProps, compose } from 'react-apollo';
 
 import FavoritesList from 'components/Schedule/FavoritesList';
 import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
+import withMyFavoriteShows from 'api/withMyFavoriteShows';
+import { User } from 'models/graphql';
 
 type InputProps = {};
 
 type Response = {
   favorites?: Favorites;
+  me?: User;
+  loadingMyFavoriteShows?: boolean;
 };
 
 // export class AllShowsSchedulePage extends React.Component<Props> {
@@ -21,9 +25,23 @@ type Response = {
 // }
 
 export const AllShowsSchedulePage: React.SFC<InputProps & Response> = ({
-  favorites = [],
-}) => <FavoritesList showIds={favorites} />;
+  me,
+  loadingMyFavoriteShows,
+  ...props
+}) => {
+  let { favorites = [] } = props;
+  const favoriteShows = (me && me.favoriteShows) || [];
+  if (loadingMyFavoriteShows || me) {
+    favorites = favoriteShows
+      .map(show => show.tvmaze || -1)
+      .filter(show => show !== -1);
+  }
+  return <FavoritesList showIds={favorites} />;
+};
 
-export default graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
-  props: ({ data }) => ({ ...data }),
-})(AllShowsSchedulePage);
+export default compose(
+  withMyFavoriteShows,
+  graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
+    props: ({ data }) => ({ ...data }),
+  }),
+)(AllShowsSchedulePage);

@@ -1,36 +1,25 @@
 import * as React from 'react';
-import * as R from 'ramda';
-import { graphql, QueryProps, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import IconButton from 'material-ui/IconButton/IconButton';
 import Star from 'material-ui-icons/Star';
 import StarBorder from 'material-ui-icons/StarBorder';
 
-import { GET_FAVORITES, TOGGLE_FAVORITE, Favorites } from 'resolvers/favorites';
 import { User, FavoriteShow } from 'models/graphql';
-import { isAuthenticated } from 'lib/Auth';
-import withMutationState from '../../Util/withMutationState';
+import withData from './withData';
+import { Favorites } from 'resolvers/favorites';
 
-type InputProps = {
+type Props = {
+  favorites?: Favorites;
   showId: number;
   me?: User;
-};
-
-type Mutation = {
+  loadingMyFavoriteShows?: boolean;
+  createFavoriteShowLoading?: boolean;
+  deleteFavoriteShowLoading?: boolean;
   onToggle?: (showId: number) => void;
   createFavoriteShow?: (tvmaze: number) => void;
   deleteFavoriteShow?: (id: string) => void;
 };
 
-type Response = {
-  favorites?: Favorites;
-  me?: User;
-  loadingMyFavoriteShows?: boolean;
-  createFavoriteShowLoading?: boolean;
-  deleteFavoriteShowLoading?: boolean;
-};
-
-export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
+export const FavoriteToggle: React.SFC<Props> = ({
   showId,
   favorites = [],
   loadingMyFavoriteShows,
@@ -79,126 +68,4 @@ export const FavoriteToggle: React.SFC<InputProps & Response & Mutation> = ({
   );
 };
 
-const fragments = {
-  myFavoriteShows: gql`
-    fragment MyFavoriteShows on User {
-      id
-      favoriteShows {
-        id
-        tvmaze
-      }
-    }
-  `,
-};
-
-const GET_MY_FAVORITE_SHOWS = gql`
-  query GetMyFavoriteShows {
-    me {
-      ...MyFavoriteShows
-    }
-  }
-  ${fragments.myFavoriteShows}
-`;
-
-const withMyFavoriteShows = graphql<QueryProps, InputProps, Response>(
-  GET_MY_FAVORITE_SHOWS,
-  {
-    skip: () => !isAuthenticated(),
-    props: ({ data }) => ({
-      ...data,
-      loadingMyFavoriteShows: data && data.loading,
-    }),
-  },
-);
-
-const CREATE_FAVORITE_SHOW = gql`
-  mutation CreateFavoriteShow($tvmaze: Int!) {
-    createFavoriteShow(tvmaze: $tvmaze) {
-      ...MyFavoriteShows
-    }
-  }
-  ${fragments.myFavoriteShows}
-`;
-
-const withCreateFavoriteShow = graphql<QueryProps, InputProps, Response>(
-  CREATE_FAVORITE_SHOW,
-  {
-    props: ({ ownProps, mutate }) => ({
-      createFavoriteShow: (tvmaze: number) => {
-        const me = ownProps.me;
-        if (!me || !mutate) return null;
-        const id = me.id;
-        const favoriteShows = me.favoriteShows || [];
-        return mutate({
-          variables: { tvmaze },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            createFavoriteShow: {
-              __typename: 'User',
-              id,
-              favoriteShows: [
-                ...favoriteShows,
-                { __typename: 'FavoriteShow', id: -1, tvmaze },
-              ],
-            },
-          },
-        });
-      },
-    }),
-  },
-);
-
-const DELETE_FAVORITE_SHOW = gql`
-  mutation DeleteFavoriteShow($id: ID!) {
-    deleteFavoriteShow(id: $id) {
-      ...MyFavoriteShows
-    }
-  }
-  ${fragments.myFavoriteShows}
-`;
-
-const withDeleteFavoriteShow = graphql<QueryProps, InputProps, Response>(
-  DELETE_FAVORITE_SHOW,
-  {
-    props: ({ ownProps, mutate }) => ({
-      deleteFavoriteShow: (id: string) => {
-        const me = ownProps.me;
-        if (!me || !mutate) return null;
-        const myId = me.id;
-        const favoriteShows = me.favoriteShows || [];
-        const favoriteShowIndex = R.findIndex(
-          R.propEq('id', id),
-          favoriteShows,
-        );
-        return mutate({
-          variables: { id },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            deleteFavoriteShow: {
-              __typename: 'User',
-              id: myId,
-              favoriteShows: R.remove(favoriteShowIndex, 1, favoriteShows),
-            },
-          },
-        });
-      },
-    }),
-  },
-);
-
-export default compose(
-  withMyFavoriteShows,
-  withCreateFavoriteShow,
-  withMutationState({ name: 'createFavoriteShow' }),
-  withDeleteFavoriteShow,
-  withMutationState({ name: 'deleteFavoriteShow' }),
-  graphql<QueryProps, InputProps, Response>(TOGGLE_FAVORITE, {
-    props: ({ mutate }) => ({
-      onToggle: (showId: number) =>
-        mutate ? mutate({ variables: { showId } }) : undefined,
-    }),
-  }),
-  graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
-    props: ({ data }) => ({ ...data }),
-  }),
-)(FavoriteToggle);
+export default withData(FavoriteToggle);
