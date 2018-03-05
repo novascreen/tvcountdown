@@ -10,17 +10,15 @@ const DateFilter = (props: TabsProps) => (
       <Tabs
         indicatorColor="primary"
         textColor="primary"
-        // centered
         scrollable
         scrollButtons="off"
-        // fullWidth
         {...props}
       >
-        <Tab label="Last 7 days" value="last-7" />
-        <Tab label="Yesterday" value="yesterday" />
+        {/* <Tab label="Last 7 days" value="last-7" /> */}
+        {/* <Tab label="Yesterday" value="yesterday" /> */}
         <Tab label="Today" value="today" />
-        <Tab label="Tomorrow" value="tomorrow" />
-        <Tab label="Next 7 days" value="next-7" />
+        {/* <Tab label="Tomorrow" value="tomorrow" /> */}
+        <Tab label="Next week" value="next-7" />
       </Tabs>
     </AppBar>
     <Divider />
