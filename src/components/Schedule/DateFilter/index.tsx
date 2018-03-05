@@ -2,17 +2,18 @@ import * as React from 'react';
 import Tabs, { Tab, TabsProps } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 import Box from 'components/UI/Box';
+import Divider from 'material-ui/Divider';
 
 const DateFilter = (props: TabsProps) => (
   <Box mV={2}>
-    <AppBar position="static" color="default" elevation={0} square>
+    <AppBar position="static" color="inherit" elevation={0} square>
       <Tabs
         indicatorColor="primary"
         textColor="primary"
-        centered
+        // centered
         scrollable
         scrollButtons="off"
-        fullWidth
+        // fullWidth
         {...props}
       >
         <Tab label="Last 7 days" value="last-7" />
@@ -22,6 +23,7 @@ const DateFilter = (props: TabsProps) => (
         <Tab label="Next 7 days" value="next-7" />
       </Tabs>
     </AppBar>
+    <Divider />
   </Box>
 );
 

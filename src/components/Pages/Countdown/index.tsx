@@ -2,9 +2,12 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
+import AllInclusive from 'material-ui-icons/AllInclusive';
+import Star from 'material-ui-icons/Star';
 import Box from 'components/UI/Box';
 import AllShowsSchedule from 'components/Schedule/AllShowsSchedule';
 import FavoritesSchedule from 'components/Schedule/FavoritesSchedule';
+import Divider from 'material-ui/Divider';
 
 export class CountdownPage extends React.Component {
   state = {
@@ -19,22 +22,19 @@ export class CountdownPage extends React.Component {
     const { shows } = this.state;
     return (
       <Fragment>
-        <Box mV={2}>
-          <AppBar position="static" color="default" elevation={0} square>
+        <Box mB={2}>
+          <AppBar position="static" color="inherit" elevation={0} square>
             <Tabs
               indicatorColor="primary"
               textColor="primary"
-              centered
-              // scrollable
-              // scrollButtons="off"
-              fullWidth
               value={shows}
               onChange={this.handleShowsChange}
             >
-              <Tab label="All shows" value="all" />
-              <Tab label="Favorite shows" value="favorites" />
+              <Tab label="All shows" icon={<AllInclusive />} value="all" />
+              <Tab label="Favorite shows" icon={<Star />} value="favorites" />
             </Tabs>
           </AppBar>
+          <Divider />
         </Box>
         {shows === 'all' && <AllShowsSchedule />}
         {shows === 'favorites' && <FavoritesSchedule />}
