@@ -7,7 +7,7 @@ import AllShowsList from 'components/Schedule/AllShowsList';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-export class AllShowsSchedulePage extends React.Component {
+export class AllShowsSchedule extends React.Component {
   state = {
     dateValue: 'today',
   };
@@ -61,4 +61,4 @@ export class AllShowsSchedulePage extends React.Component {
   }
 }
 
-export default AllShowsSchedulePage;
+export default AllShowsSchedule;

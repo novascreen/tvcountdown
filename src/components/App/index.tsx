@@ -6,8 +6,7 @@ import Grid from 'material-ui/Grid/Grid';
 import withRoot, { auth } from 'withRoot';
 import appHistory from 'appHistory';
 import ScrollToTop from 'components/Util/ScrollToTop';
-import AllShowsSchedulePage from 'components/Pages/AllShowsSchedule';
-import FavoritesSchedulePage from 'components/Pages/FavoritesSchedule';
+import CountdownPage from 'components/Pages/Countdown';
 import ShowDetailsPage from 'components/Pages/ShowDetails';
 import EpisodeDetailsPage from 'components/Pages/EpisodeDetails';
 import Box from 'components/UI/Box';
@@ -38,12 +37,7 @@ export const App = () => (
                     return <Loading />;
                   }}
                 />
-                <Route exact path="/" component={AllShowsSchedulePage} />
-                <Route
-                  exact
-                  path="/favorites"
-                  component={FavoritesSchedulePage}
-                />
+                <Route exact path="/" component={CountdownPage} />
                 <Route
                   exact
                   path="/shows/:showId"

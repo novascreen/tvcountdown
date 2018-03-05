@@ -29,7 +29,7 @@ export const EpisodeDetailsPage: React.SFC<
   const { loading, episode } = props;
   if (loading) return <Loading />;
   if (!episode) return <>Episode not found</>;
-  console.log('woot', episode);
+  console.log('EpisodeDetails', props);
   return <EpisodeDetails episode={episode} />;
 };
 
