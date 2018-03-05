@@ -1,5 +1,7 @@
 import * as moment from 'moment';
 import * as _sortBy from 'lodash/sortBy';
+import * as _first from 'lodash/first';
+import * as _last from 'lodash/last';
 import {
   getShowById,
   getEpisodeById,
@@ -9,11 +11,11 @@ import {
 } from '../../tvmaze/api';
 import { combineResults } from '../../utils';
 
-/**
- * Check whether episode is in the future or aired in the last 3 days
- */
-const isRecentOrNewEpisode = episode =>
-  moment(episode.airstamp).isAfter(moment().subtract(3, 'days'));
+const isRecentEpisode = episode =>
+  moment(episode.airstamp).isAfter(moment().subtract(3, 'days')) &&
+  moment(episode.airstamp).isBefore();
+
+const isFutureEpisode = episode => moment(episode.airstamp).isAfter();
 
 const sortByDate = (results: any[]) => _sortBy(results, 'airstamp');
 
@@ -31,7 +33,10 @@ export default function scheduleFavorites(
       } catch (e) {
         throw e;
       }
-      return episodes.filter(isRecentOrNewEpisode).map(episode => {
+      const filteredEpisodes = [];
+      const recentEpisode = _last(episodes.filter(isRecentEpisode));
+      const nextEpisode = _first(episodes.filter(isFutureEpisode));
+      return [recentEpisode, nextEpisode].filter(Boolean).map(episode => {
         episode.show = show;
         return episode;
       });
