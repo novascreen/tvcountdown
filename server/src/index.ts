@@ -8,6 +8,8 @@ import directiveResolvers from './directives';
 import checkJwt from './middleware/checkJwt';
 import getUser from './middleware/getUser';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const db = new Prisma({
   endpoint: process.env.PRISMA_ENDPOINT,
   secret: process.env.PRISMA_SECRET,
@@ -45,4 +47,10 @@ server.express.post(server.options.endpoint, (req, res, next) =>
 );
 
 // tslint:disable-next-line no-console
-server.start(() => console.log('Server is running on http://localhost:4000'));
+server.start(
+  {
+    playground: isProduction ? false : '/',
+    port: parseInt(process.env.PORT, 10) || 4000,
+  },
+  () => console.log('Server is running on http://localhost:4000'),
+);
