@@ -58,7 +58,7 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
               <Grid container alignItems="center">
                 <Box mR={2}>
                   <Typography variant="title" color="inherit">
-                    TVEpisodes
+                    TVCountdown
                   </Typography>
                 </Box>
                 {!smallScreen && <Navigation position="top" />}

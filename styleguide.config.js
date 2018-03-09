@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = {
-  title: 'TVEpisodes',
+  title: 'TVCountdown',
   skipComponentsWithoutExample: true,
   components: 'src/components/**/*.{ts,tsx}',
   propsParser: require('react-docgen-typescript').parse,
