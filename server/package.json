@@ -1,11 +1,14 @@
 {
-  "name": "server",
+  "name": "tvcountdown-api",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "npm-run-all --parallel debug playground",
     "debug": "nodemon --config nodemon.json src/index.ts",
     "playground": "graphql playground --port 3001 --dotenv dotenv/config",
     "build": "rimraf dist && tsc"
+  },
+  "now": {
+    "alias": "tvcountdown-api"
   },
   "dependencies": {
     "express-jwt": "^5.3.0",
