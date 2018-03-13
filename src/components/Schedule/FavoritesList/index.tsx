@@ -19,7 +19,7 @@ type MyQueryProps = {
   loading?: boolean;
 };
 
-export const AllShowsList: React.SFC<MyQueryProps & InputProps & Response> = ({
+export const FavoritesList: React.SFC<MyQueryProps & InputProps & Response> = ({
   error,
   loading = false,
   scheduleFavorites = [],
@@ -54,4 +54,4 @@ export default graphql<QueryProps, InputProps, Response>(GET_EPISODES, {
     variables: { showIds },
   }),
   props: ({ data }) => ({ ...data }),
-})(AllShowsList);
+})(FavoritesList);

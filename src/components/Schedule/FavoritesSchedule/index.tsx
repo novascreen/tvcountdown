@@ -24,7 +24,7 @@ type Response = {
 //   }
 // }
 
-export const AllShowsSchedulePage: React.SFC<InputProps & Response> = ({
+export const FavoritesSchedule: React.SFC<InputProps & Response> = ({
   me,
   loadingMyFavoriteShows,
   ...props
@@ -44,4 +44,4 @@ export default compose(
   graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
     props: ({ data }) => ({ ...data }),
   }),
-)(AllShowsSchedulePage);
+)(FavoritesSchedule);
