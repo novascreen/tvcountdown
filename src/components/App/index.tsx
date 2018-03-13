@@ -31,9 +31,17 @@ export const App = () => (
               <Grid item style={{ width: '100%', maxWidth: 800 }}>
                 <Route
                   exact
-                  path="/callback"
+                  path="/auth/callback"
                   render={props => {
                     handleAuthentication(props);
+                    return <Loading />;
+                  }}
+                />
+                <Route
+                  exact
+                  path="/auth/popup"
+                  render={props => {
+                    auth.auth0.popup.callback();
                     return <Loading />;
                   }}
                 />
