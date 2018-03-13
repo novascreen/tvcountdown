@@ -79,7 +79,7 @@ export default class Auth {
     this.auth0.popup.authorize(
       {
         connection: 'google-oauth2',
-        redirectUri: `${location.origin}/auth/popup.html`,
+        redirectUri: `${location.origin}/auth/popup`,
       },
       (err: any, authResult: any) => {
         this.handlePopupAuthentication(err, authResult);
