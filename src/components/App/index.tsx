@@ -1,18 +1,10 @@
 import * as React from 'react';
-import { Fragment } from 'react';
-import { Router, Route } from 'react-router';
-import Grid from 'material-ui/Grid/Grid';
+import { Router, Switch, Route } from 'react-router';
 
 import withRoot, { auth } from 'withRoot';
 import appHistory from 'appHistory';
-import ScrollToTop from 'components/Util/ScrollToTop';
-import CountdownPage from 'components/Pages/Countdown';
-import ShowDetailsPage from 'components/Pages/ShowDetails';
-import EpisodeDetailsPage from 'components/Pages/EpisodeDetails';
-import Box from 'components/UI/Box';
 import { Loading } from 'components/UI/Loading';
-import AppBar from './AppBar';
-import Footer from './Footer';
+import App from './App';
 
 const handleAuthentication = ({ location }: any) => {
   if (/access_token|id_token|error/.test(location.hash)) {
@@ -20,50 +12,28 @@ const handleAuthentication = ({ location }: any) => {
   }
 };
 
-export const App = () => (
+export const AppContainer = () => (
   <Router history={appHistory}>
-    <ScrollToTop>
-      <Fragment>
-        <AppBar />
-        <main style={{ minHeight: '100vh' }}>
-          <Box mT={2} pH={1}>
-            <Grid container justify="center">
-              <Grid item style={{ width: '100%', maxWidth: 800 }}>
-                <Route
-                  exact
-                  path="/auth/callback"
-                  render={props => {
-                    handleAuthentication(props);
-                    return <Loading />;
-                  }}
-                />
-                <Route
-                  exact
-                  path="/auth/popup"
-                  render={props => {
-                    auth.auth0.popup.callback();
-                    return <Loading />;
-                  }}
-                />
-                <Route exact path="/" component={CountdownPage} />
-                <Route
-                  exact
-                  path="/shows/:showId"
-                  component={ShowDetailsPage}
-                />
-                <Route
-                  exact
-                  path="/shows/:showId/episodes/:episodeId"
-                  component={EpisodeDetailsPage}
-                />
-              </Grid>
-            </Grid>
-          </Box>
-        </main>
-        <Footer />
-      </Fragment>
-    </ScrollToTop>
+    <Switch>
+      <Route
+        exact
+        path="/auth/popup"
+        render={props => {
+          auth.auth0.popup.callback();
+          return <Loading />;
+        }}
+      />
+      <Route
+        exact
+        path="/auth/callback"
+        render={props => {
+          handleAuthentication(props);
+          return <Loading />;
+        }}
+      />
+      <Route component={App} />
+    </Switch>
   </Router>
 );
 
-export default withRoot(App);
+export default withRoot(AppContainer);
