@@ -1,9 +1,0 @@
-{
-  "watch": [
-    "src"
-  ],
-  "execMap": {
-    "ts": "node -r dotenv/config -r ts-node/register --inspect"
-  },
-  "ext": "ts graphql"
-}
