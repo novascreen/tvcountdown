@@ -51,14 +51,12 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
                 <Tab label="All shows" icon={<AllInclusive />} value="all" />
                 <Tab label="Favorite shows" icon={<Star />} value="favorites" />
               </Tabs>
-              {shows === 'favorites' && (
-                <TimeSelector value={time} onChange={this.handleTimeChange} />
-              )}
+              <TimeSelector value={time} onChange={this.handleTimeChange} />
             </Toolbar>
           </AppBar>
           <Divider />
         </Box>
-        {shows === 'all' && <AllShowsSchedule />}
+        {shows === 'all' && <AllShowsSchedule previous={previous} />}
         {shows === 'favorites' && <FavoritesSchedule previous={previous} />}
       </Fragment>
     );

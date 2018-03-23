@@ -7,11 +7,11 @@ import Loading from 'components/UI/Loading';
 import EpisodesList from 'components/Episodes/List';
 
 type InputProps = {
-  date: string;
+  previous?: boolean;
 };
 
 type Response = {
-  scheduleByDate?: Episode[];
+  scheduleAll?: Episode[];
 };
 
 type MyQueryProps = {
@@ -22,20 +22,20 @@ type MyQueryProps = {
 export const AllShowsList: React.SFC<MyQueryProps & InputProps & Response> = ({
   error,
   loading = false,
-  scheduleByDate = [],
+  scheduleAll = [],
 }) => {
   if (loading) {
     return <Loading />;
   }
-  if (error || !scheduleByDate) {
+  if (error || !scheduleAll) {
     return <h1>ERROR</h1>;
   }
-  return <EpisodesList episodes={scheduleByDate} />;
+  return <EpisodesList episodes={scheduleAll} />;
 };
 
 const GET_EPISODES = gql`
-  query GetEpisodes($date: String!) {
-    scheduleByDate(date: $date) {
+  query GetEpisodes($previous: Boolean!) {
+    scheduleAll(previous: $previous) {
       id
       name
       season
@@ -50,8 +50,8 @@ const GET_EPISODES = gql`
 `;
 
 export default graphql<QueryProps, InputProps, Response>(GET_EPISODES, {
-  options: ({ date }) => ({
-    variables: { date },
+  options: ({ previous }) => ({
+    variables: { previous },
   }),
   props: ({ data }) => ({ ...data }),
 })(AllShowsList);

@@ -3,5 +3,5 @@ import { shallow } from 'enzyme';
 import { AllShowsList } from './index';
 
 it('renders without crashing', () => {
-  shallow(<AllShowsList date="" />);
+  shallow(<AllShowsList previous={false} />);
 });
