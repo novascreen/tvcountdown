@@ -8,6 +8,7 @@ import EpisodesList from 'components/Episodes/List';
 
 type InputProps = {
   showIds: number[];
+  previous?: boolean;
 };
 
 type Response = {
@@ -34,8 +35,8 @@ export const FavoritesList: React.SFC<MyQueryProps & InputProps & Response> = ({
 };
 
 const GET_EPISODES = gql`
-  query GetEpisodes($showIds: [Int]!) {
-    scheduleFavorites(showIds: $showIds) {
+  query GetEpisodes($showIds: [Int]!, $previous: Boolean) {
+    scheduleFavorites(showIds: $showIds, previous: $previous) {
       id
       name
       season
@@ -50,8 +51,8 @@ const GET_EPISODES = gql`
 `;
 
 export default graphql<QueryProps, InputProps, Response>(GET_EPISODES, {
-  options: ({ showIds }) => ({
-    variables: { showIds },
+  options: ({ showIds, previous }) => ({
+    variables: { showIds, previous },
   }),
   props: ({ data }) => ({ ...data }),
 })(FavoritesList);

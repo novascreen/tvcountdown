@@ -6,7 +6,9 @@ import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
 import withMyFavoriteShows from 'api/withMyFavoriteShows';
 import { User } from 'api/models';
 
-type InputProps = {};
+type InputProps = {
+  previous?: boolean;
+};
 
 type Response = {
   favorites?: Favorites;
@@ -14,19 +16,10 @@ type Response = {
   loadingMyFavoriteShows?: boolean;
 };
 
-// export class AllShowsSchedulePage extends React.Component<Props> {
-//   static defaultProps = {
-//     favorites: [],
-//   };
-//   render() {
-//     const { favorites } = this.props;
-//     return <FavoritesList showIds={favorites} />;
-//   }
-// }
-
 export const FavoritesSchedule: React.SFC<InputProps & Response> = ({
   me,
   loadingMyFavoriteShows,
+  previous,
   ...props
 }) => {
   let { favorites = [] } = props;
@@ -36,7 +29,7 @@ export const FavoritesSchedule: React.SFC<InputProps & Response> = ({
       .map(show => show.tvmaze || -1)
       .filter(show => show !== -1);
   }
-  return <FavoritesList showIds={favorites} />;
+  return <FavoritesList showIds={favorites} previous={previous} />;
 };
 
 export default compose(
