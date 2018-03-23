@@ -8,7 +8,7 @@ type Query {
   search(query: String!): [Show]
   show(id: Int!): Show
   scheduleByDate(date: String!): [Episode]
-  scheduleFavorites(showIds: [Int]!): [Episode]
+  scheduleFavorites(showIds: [Int]!, previous: Boolean ): [Episode]
   episode(id: Int!): Episode
 }
 
