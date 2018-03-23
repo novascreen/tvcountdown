@@ -12,7 +12,7 @@
     "eject": "react-scripts-ts eject",
     "styleguide": "dotenv -- styleguidist server",
     "styleguide:build": "styleguidist build",
-    "deploy": "cd build && now -A ../now.json -E ../.env.prod",
+    "deploy": "cd build && now -A ../now.json -E ../.env.production",
     "alias": "cd build && now alias -A ../now.json"
   },
   "dependencies": {
