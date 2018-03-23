@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import * as _get from 'lodash/get';
 import * as _sortBy from 'lodash/sortBy';
 import * as _reverse from 'lodash/reverse';
