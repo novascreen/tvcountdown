@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import teal from 'material-ui/colors/teal';
-import pink from 'material-ui/colors/pink';
 import Reboot from 'material-ui/Reboot';
 import { IntlProvider } from 'react-intl';
 import { ApolloClient } from 'apollo-client';
@@ -51,14 +49,16 @@ export const auth = new Auth(
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      light: teal[300],
-      main: teal[500],
-      dark: teal[700],
+      main: '#c62828',
+      light: '#ff5f52',
+      dark: '#8e0000',
+      contrastText: '#fff',
     },
     secondary: {
-      light: pink[300],
-      main: pink[500],
-      dark: pink[700],
+      main: '#0277bd',
+      light: '#58a5f0',
+      dark: '#004c8c',
+      contrastText: '#fff',
     },
     background: {
       default: '#fff',
