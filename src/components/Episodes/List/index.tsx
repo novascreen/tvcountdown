@@ -32,17 +32,18 @@ export class EpisodesList extends React.Component<
       <Paper>
         <List>
           <Infinite elementHeight={65.5} useWindowAsScrollContainer>
-            {episodes.map(episode => {
+            {episodes.map((episode, i) => {
               const episodeSeason = (episode.season || 0)
                 .toString()
                 .padStart(2, '0');
               const episodeNumber = (episode.number || 0)
                 .toString()
                 .padStart(2, '0');
+              const isLast = episodes.length - 1 === i;
               return (
                 <ListItem
                   key={`${episode.id}-${episode.airstamp}`}
-                  divider
+                  divider={!isLast}
                   button
                   onClick={this.handleEpisodeClick(episode)}
                 >
