@@ -40,7 +40,10 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
       <Fragment>
         <Box mB={2}>
           <AppBar position="static" color="inherit" elevation={0} square>
-            <Toolbar disableGutters style={{ justifyContent: 'space-between' }}>
+            <Toolbar
+              disableGutters
+              style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+            >
               <Tabs
                 indicatorColor="primary"
                 textColor="primary"
@@ -51,7 +54,9 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
                 <Tab label="All shows" icon={<AllInclusive />} value="all" />
                 <Tab label="Favorite shows" icon={<Star />} value="favorites" />
               </Tabs>
-              <TimeSelector value={time} onChange={this.handleTimeChange} />
+              <Box mV={2}>
+                <TimeSelector value={time} onChange={this.handleTimeChange} />
+              </Box>
             </Toolbar>
           </AppBar>
           <Divider />
