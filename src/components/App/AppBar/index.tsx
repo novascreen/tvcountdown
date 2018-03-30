@@ -13,6 +13,7 @@ import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
 import Login from '../Login';
+import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) => ({
   '@global': {
@@ -57,9 +58,11 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
             <Grid item>
               <Grid container alignItems="center">
                 <Box mR={2}>
-                  <Typography variant="title" color="inherit">
-                    TVCountdown
-                  </Typography>
+                  <Link to="/">
+                    <Typography variant="title" color="inherit">
+                      TVCountdown
+                    </Typography>
+                  </Link>
                 </Box>
                 {!smallScreen && <Navigation position="top" />}
               </Grid>
