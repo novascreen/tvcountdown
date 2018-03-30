@@ -53,6 +53,7 @@ export class Search extends React.Component<
   handleClose = () => {
     this.setState({
       open: false,
+      value: '',
     });
   };
 
@@ -81,7 +82,7 @@ export class Search extends React.Component<
           <SearchIcon />
         </IconButton>
         <Slide direction="left" in={open}>
-          <ClickAwayListener onClickAway={() => null}>
+          <ClickAwayListener onClickAway={this.handleClose}>
             <Grid
               className={classes.search}
               container
