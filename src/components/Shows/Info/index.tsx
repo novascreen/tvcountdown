@@ -17,7 +17,9 @@ export const Info = ({ show }: Props) => (
             <Typography>Streamed on:</Typography>
           </TableCell>
           <TableCell>
-            <Typography>{show.webChannel.name} (2018 - now)</Typography>
+            <Typography>
+              {show.webChannel.name} ({show.airedYears})
+            </Typography>
           </TableCell>
         </TableRow>
       )}
@@ -27,7 +29,9 @@ export const Info = ({ show }: Props) => (
             <Typography>Airs on:</Typography>
           </TableCell>
           <TableCell>
-            <Typography>{show.network.name} (2018 - now)</Typography>
+            <Typography>
+              {show.network.name} ({show.airedYears})
+            </Typography>
           </TableCell>
         </TableRow>
       )}
