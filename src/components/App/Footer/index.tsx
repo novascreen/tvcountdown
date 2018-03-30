@@ -1,10 +1,26 @@
 import * as React from 'react';
+import { compose } from 'react-apollo';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import { Theme } from 'material-ui/styles/createMuiTheme';
+import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
+import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
 
-const Footer = () => {
+const styles = (theme: Theme) => ({
+  spacer: theme.mixins.toolbar,
+});
+
+type Props = {};
+
+type PropsWithStyles = WithStyles<'spacer'>;
+
+export const Footer: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
+  classes,
+  width,
+}) => {
   const year = new Date().getFullYear();
+  const smallScreen = width === 'xs';
   return (
     <footer>
       <AppBar position="static">
@@ -25,8 +41,9 @@ const Footer = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+      {smallScreen && <div className={classes.spacer} />}
     </footer>
   );
 };
 
-export default Footer;
+export default compose(withStyles(styles), withWidth())(Footer);

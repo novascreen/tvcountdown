@@ -61,8 +61,10 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
           </AppBar>
           <Divider />
         </Box>
-        {shows === 'all' && <AllShowsSchedule previous={previous} />}
-        {shows === 'favorites' && <FavoritesSchedule previous={previous} />}
+        <Box mB={2}>
+          {shows === 'all' && <AllShowsSchedule previous={previous} />}
+          {shows === 'favorites' && <FavoritesSchedule previous={previous} />}
+        </Box>
       </Fragment>
     );
   }
