@@ -60,7 +60,7 @@ export const ShowDetails = ({ show }: Props) => {
       </Box>
       {episodes.length && (
         <Box mB={4}>
-          <Grid container>
+          <Grid container spacing={16}>
             {episodes.map(episode => (
               <Grid item xs={12} sm={6} key={episode.title}>
                 <Paper style={{ height: '100%' }}>

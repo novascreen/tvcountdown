@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql, QueryProps, compose } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
 import FavoritesList from 'components/Schedule/FavoritesList';
 import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
@@ -34,7 +34,7 @@ export const FavoritesSchedule: React.SFC<InputProps & Response> = ({
 
 export default compose(
   withMyFavoriteShows,
-  graphql<QueryProps, InputProps, Response>(GET_FAVORITES, {
+  graphql<InputProps, Response>(GET_FAVORITES, {
     props: ({ data }) => ({ ...data }),
   }),
 )(FavoritesSchedule);

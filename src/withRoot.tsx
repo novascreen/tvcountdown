@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 import { IntlProvider } from 'react-intl';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -67,7 +67,7 @@ export const theme = createMuiTheme({
   overrides: {
     MuiTypography: {
       root: {
-        display: null,
+        display: undefined,
       },
     },
   },
@@ -81,8 +81,8 @@ function withRoot(Component: React.ComponentType) {
       <ApolloProvider client={client}>
         <IntlProvider locale={navigator.language}>
           <MuiThemeProvider theme={theme}>
-            {/* Reboot kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <Reboot />
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
             <Component {...props} />
           </MuiThemeProvider>
         </IntlProvider>

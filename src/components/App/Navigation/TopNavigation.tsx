@@ -44,7 +44,7 @@ export const TopNavigation: React.SFC<Props & PropsWithStyles> = ({
   <Tabs
     value={value}
     onChange={onChange}
-    indicatorClassName={classes.indicator}
+    classes={{ indicator: classes.indicator }}
   >
     {items.map(({ label, Icon, ...item }) => (
       <Tab
@@ -55,7 +55,7 @@ export const TopNavigation: React.SFC<Props & PropsWithStyles> = ({
         }}
         label={
           <Box pH={2}>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" spacing={16}>
               <Box mR={1}>
                 <Icon />
               </Box>

@@ -1,17 +1,18 @@
 import * as React from 'react';
-import { graphql, QueryProps } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { RouteComponentProps } from 'react-router';
+// import { RouteComponentProps } from 'react-router';
 
 import { Show as ShowType } from 'api/models';
 import { Loading } from 'components/UI/Loading';
 import ShowDetails from 'components/Shows/Details';
 
-type RouterParams = {
-  showId: string;
-};
+// type RouterParams = {
+//   showId: string;
+// };
 
-type InputProps = {};
+// type InputProps = RouteComponentProps<RouterParams>;
+type InputProps = any;
 
 type Response = {
   show?: ShowType;
@@ -76,13 +77,12 @@ const GET_SHOW = gql`
   }
 `;
 
-export default graphql<
-  QueryProps,
-  InputProps,
-  Response,
-  RouteComponentProps<RouterParams>
->(GET_SHOW, {
-  options: ({ match: { params: { showId } } }) => ({
+export default graphql<InputProps, Response>(GET_SHOW, {
+  options: ({
+    match: {
+      params: { showId },
+    },
+  }) => ({
     variables: { showId: parseInt(showId, 10) },
   }),
   props: ({ data }) => ({ ...data }),

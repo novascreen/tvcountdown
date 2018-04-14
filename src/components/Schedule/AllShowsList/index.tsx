@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql, QueryProps } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { Episode } from 'api/models';
@@ -49,7 +49,7 @@ const GET_EPISODES = gql`
   }
 `;
 
-export default graphql<QueryProps, InputProps, Response>(GET_EPISODES, {
+export default graphql<InputProps, Response>(GET_EPISODES, {
   options: ({ previous }) => ({
     variables: { previous },
   }),

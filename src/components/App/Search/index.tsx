@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Fragment } from 'react';
-import SearchIcon from 'material-ui-icons/Search';
-import Close from 'material-ui-icons/Close';
+import SearchIcon from '@material-ui/icons/Search';
+import Close from '@material-ui/icons/Close';
 import IconButton from 'material-ui/IconButton/IconButton';
 import withStyles, {
   WithStyles,
@@ -88,7 +88,6 @@ export class Search extends React.Component<
               container
               justify="space-between"
               alignItems="center"
-              spacing={0}
             >
               <Box mL={2} className={classes.autoSuggestBox}>
                 {open && (

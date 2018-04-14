@@ -18,7 +18,7 @@ const App = () => (
       <AppBar />
       <main style={{ minHeight: '100vh' }}>
         <Box mT={2} pH={1}>
-          <Grid container justify="center">
+          <Grid container justify="center" spacing={16}>
             <Grid item style={{ width: '100%', maxWidth: 800 }}>
               <Route exact path="/" component={CountdownPage} />
               <Route exact path="/shows" component={ShowsPage} />

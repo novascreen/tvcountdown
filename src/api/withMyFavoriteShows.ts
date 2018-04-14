@@ -1,4 +1,4 @@
-import { graphql, QueryProps, compose } from 'react-apollo';
+import { graphql, compose, ChildDataProps } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withProps } from 'recompose';
 
@@ -14,9 +14,14 @@ const GET_MY_FAVORITE_SHOWS = gql`
   ${fragments.myFavoriteShows}
 `;
 
+type InputProps = any;
+type Response = any;
+type Variables = any;
+type ChildProps = ChildDataProps<InputProps, Response, Variables>;
+
 const withMyFavoriteShows = compose(
   withProps(() => ({ auth: isAuthenticated() })),
-  graphql<QueryProps, any, Response>(GET_MY_FAVORITE_SHOWS, {
+  graphql<InputProps, Response, Variables, ChildProps>(GET_MY_FAVORITE_SHOWS, {
     skip: ({ auth }) => !auth,
     props: ({ data }) => ({
       ...data,

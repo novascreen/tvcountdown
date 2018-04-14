@@ -6,6 +6,12 @@ export interface Context {
   request: any;
 }
 
+export class AuthError extends Error {
+  constructor() {
+    super('Not authorized');
+  }
+}
+
 export function getUserId(ctx: Context) {
   const Authorization = ctx.request.get('Authorization');
   if (Authorization) {
@@ -17,12 +23,6 @@ export function getUserId(ctx: Context) {
   }
 
   throw new AuthError();
-}
-
-export class AuthError extends Error {
-  constructor() {
-    super('Not authorized');
-  }
 }
 
 export const ctxUser = ctx => ctx.request.user;

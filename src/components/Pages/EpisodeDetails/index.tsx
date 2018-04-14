@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { graphql, QueryProps } from 'react-apollo';
+import { graphql, ChildDataProps } from 'react-apollo';
 import gql from 'graphql-tag';
-import { RouteComponentProps } from 'react-router';
+// import { RouteComponentProps } from 'react-router';
 
 import { Episode as EpisodeType } from 'api/models';
 import { Loading } from 'components/UI/Loading';
 import EpisodeDetails from 'components/Episodes/Details';
 
-type RouterParams = {
-  showId: string;
-  episodeId: string;
-};
+// type RouterParams = {
+//   showId: string;
+//   episodeId: string;
+// };
 
-type InputProps = {};
+// type InputProps = {} & RouteComponentProps<RouterParams>;
+type InputProps = any;
 
 type Response = {
   episode?: EpisodeType;
@@ -56,14 +57,19 @@ const GET_EPISODE = gql`
   }
 `;
 
-export default graphql<
-  QueryProps,
-  InputProps,
-  Response,
-  RouteComponentProps<RouterParams>
->(GET_EPISODE, {
-  options: ({ match: { params: { episodeId } } }) => ({
-    variables: { episodeId: parseInt(episodeId, 10) },
-  }),
-  props: ({ data }) => ({ ...data }),
-})(EpisodeDetailsPage);
+type Variables = any;
+type ChildProps = ChildDataProps<InputProps, Response, Variables>;
+
+export default graphql<InputProps, Response, Variables, ChildProps>(
+  GET_EPISODE,
+  {
+    options: ({
+      match: {
+        params: { episodeId },
+      },
+    }) => ({
+      variables: { episodeId: parseInt(episodeId, 10) },
+    }),
+    props: ({ data }) => ({ ...data }),
+  },
+)(EpisodeDetailsPage);

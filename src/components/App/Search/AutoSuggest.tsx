@@ -1,6 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
-import { graphql, QueryProps } from 'react-apollo';
+import { graphql } from 'react-apollo';
 // import { MenuItem } from 'material-ui/Menu';
 import {
   ListItem,
@@ -112,7 +112,7 @@ const SEARCH = gql`
   }
 `;
 
-export default graphql<QueryProps, InputProps, Response>(SEARCH, {
+export default graphql<InputProps, Response, any>(SEARCH, {
   options: ({ query }) => ({
     variables: { query },
   }),

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IconButton from 'material-ui/IconButton/IconButton';
-import Star from 'material-ui-icons/Star';
-import StarBorder from 'material-ui-icons/StarBorder';
+import Star from '@material-ui/icons/Star';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 import { User, FavoriteShow } from 'api/models';
 import withData from './withData';

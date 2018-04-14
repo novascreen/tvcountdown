@@ -15,7 +15,7 @@ import Box from 'components/UI/Box';
 import Login from '../Login';
 import { Link } from 'react-router-dom';
 
-const styles = (theme: Theme) => ({
+const styles: any = (theme: Theme) => ({
   '@global': {
     html: {
       overflowX: 'hidden',
@@ -54,9 +54,14 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
     <Fragment>
       <MUIAppBar position="fixed">
         <Toolbar>
-          <Grid container alignItems="center" justify="space-between">
+          <Grid
+            container
+            alignItems="center"
+            justify="space-between"
+            spacing={16}
+          >
             <Grid item>
-              <Grid container alignItems="center">
+              <Grid container alignItems="center" spacing={16}>
                 <Box mR={2}>
                   <Link to="/">
                     <Typography variant="title" color="inherit">
@@ -68,7 +73,12 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
               </Grid>
             </Grid>
             <Grid item>
-              <Grid container alignItems="center" justify="flex-end">
+              <Grid
+                container
+                alignItems="center"
+                justify="flex-end"
+                spacing={16}
+              >
                 <Search />
                 <Login />
               </Grid>

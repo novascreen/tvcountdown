@@ -6,7 +6,7 @@ export const Loading: React.SFC<GridProps> = ({
   justify = 'center',
   ...props
 }) => (
-  <Grid container justify={justify} {...props}>
+  <Grid container justify={justify} spacing={16} {...props}>
     <CircularProgress />
   </Grid>
 );
