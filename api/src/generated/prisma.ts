@@ -925,10 +925,10 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   upsertFavoriteShow(where: FavoriteShowWhereUniqueInput!, create: FavoriteShowCreateInput!, update: FavoriteShowUpdateInput!): FavoriteShow!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyFavoriteShows(data: FavoriteShowUpdateInput!, where: FavoriteShowWhereInput!): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
-  deleteManyFavoriteShows(where: FavoriteShowWhereInput!): BatchPayload!
-  deleteManyUsers(where: UserWhereInput!): BatchPayload!
+  updateManyFavoriteShows(data: FavoriteShowUpdateInput!, where: FavoriteShowWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  deleteManyFavoriteShows(where: FavoriteShowWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 type Query {
@@ -1451,10 +1451,10 @@ export type Mutation = {
   deleteUser: (args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string) => Promise<User | null>
   upsertFavoriteShow: (args: { where: FavoriteShowWhereUniqueInput, create: FavoriteShowCreateInput, update: FavoriteShowUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<FavoriteShow>
   upsertUser: (args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
-  updateManyFavoriteShows: (args: { data: FavoriteShowUpdateInput, where: FavoriteShowWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyUsers: (args: { data: UserUpdateInput, where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyFavoriteShows: (args: { where: FavoriteShowWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  deleteManyUsers: (args: { where: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyFavoriteShows: (args: { data: FavoriteShowUpdateInput, where?: FavoriteShowWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyUsers: (args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyFavoriteShows: (args: { where?: FavoriteShowWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  deleteManyUsers: (args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
 }
 
 export type Subscription = {
