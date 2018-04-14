@@ -1,5 +1,6 @@
 import { getUserId, isLoggedIn, Context } from '../../utils';
 import { getShowById, getEpisodeById, search } from '../../tvmaze/api';
+import shows from './shows';
 import scheduleAll from './scheduleAll';
 import scheduleByDate from './scheduleByDate';
 import scheduleFavorites from './scheduleFavorites';
@@ -16,6 +17,7 @@ export default {
   show(parent: any, { id }: { id: string }) {
     return getShowById(id);
   },
+  shows,
   scheduleAll,
   scheduleByDate,
   scheduleFavorites,

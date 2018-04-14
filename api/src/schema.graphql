@@ -7,6 +7,7 @@ type Query {
   me: User @isAuthenticated
   search(query: String!): [Show]
   show(id: Int!): Show
+  shows(ids: [Int]!): [Show]
   scheduleAll(previous: Boolean): [Episode]
   scheduleByDate(date: String!): [Episode]
   scheduleFavorites(showIds: [Int]!, previous: Boolean ): [Episode]
