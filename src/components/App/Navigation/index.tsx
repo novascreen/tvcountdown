@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Schedule from 'material-ui-icons/Schedule';
+import LiveTv from 'material-ui-icons/LiveTv';
 // import Star from 'material-ui-icons/Star';
 import { SvgIconProps } from 'material-ui/SvgIcon';
 import { withRouter, RouteComponentProps } from 'react-router';
@@ -19,11 +20,11 @@ const items: NavigationItem[] = [
     Icon: Schedule,
     value: '/',
   },
-  // {
-  //   label: 'Favorites',
-  //   Icon: Star,
-  //   value: '/favorites',
-  // },
+  {
+    label: 'Shows',
+    Icon: LiveTv,
+    value: '/shows',
+  },
 ];
 
 type Props = {

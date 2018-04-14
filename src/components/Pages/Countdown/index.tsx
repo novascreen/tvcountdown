@@ -5,7 +5,7 @@ import * as qs from 'query-string';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import AllInclusive from 'material-ui-icons/AllInclusive';
+import LiveTv from 'material-ui-icons/LiveTv';
 import Star from 'material-ui-icons/Star';
 import Box from 'components/UI/Box';
 import AllShowsSchedule from 'components/Schedule/AllShowsSchedule';
@@ -51,7 +51,7 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
                 onChange={this.handleShowsChange}
                 fullWidth
               >
-                <Tab label="All shows" icon={<AllInclusive />} value="all" />
+                <Tab label="All shows" icon={<LiveTv />} value="all" />
                 <Tab label="Favorite shows" icon={<Star />} value="favorites" />
               </Tabs>
               <Box mV={2}>

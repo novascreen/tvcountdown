@@ -5,6 +5,7 @@ import Grid from 'material-ui/Grid/Grid';
 
 import ScrollToTop from 'components/Util/ScrollToTop';
 import CountdownPage from 'components/Pages/Countdown';
+import ShowsPage from 'components/Pages/Shows';
 import ShowDetailsPage from 'components/Pages/ShowDetails';
 import EpisodeDetailsPage from 'components/Pages/EpisodeDetails';
 import Box from 'components/UI/Box';
@@ -20,6 +21,7 @@ const App = () => (
           <Grid container justify="center">
             <Grid item style={{ width: '100%', maxWidth: 800 }}>
               <Route exact path="/" component={CountdownPage} />
+              <Route exact path="/shows" component={ShowsPage} />
               <Route exact path="/shows/:showId" component={ShowDetailsPage} />
               <Route
                 exact
