@@ -12,6 +12,7 @@ export type NavigationItem = {
   label: string;
   Icon: React.ReactType<SvgIconProps>;
   value: string;
+  match: RegExp;
 };
 
 const items: NavigationItem[] = [
@@ -19,11 +20,13 @@ const items: NavigationItem[] = [
     label: 'Countdown',
     Icon: Schedule,
     value: '/',
+    match: /^\/$/,
   },
   {
     label: 'Shows',
     Icon: LiveTv,
     value: '/shows',
+    match: /^\/shows/,
   },
 ];
 
@@ -41,11 +44,14 @@ export class Navigation extends React.Component<
   render() {
     const { position = 'top', location } = this.props;
     const Component = position === 'top' ? TopNavigation : BottomNavigation;
+    const match = items.find(item => item.match.test(location.pathname));
+    const value = match ? match.value : '';
+
     return (
       <Component
         {...{
           items,
-          value: location.pathname,
+          value,
           onChange: this.handleChange,
         }}
       />
