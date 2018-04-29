@@ -6842,6 +6842,12 @@ react-codemirror2@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/react-codemirror2/-/react-codemirror2-4.2.1.tgz#4ad3c5c60ebbcb34880f961721b51527324ec021"
 
+react-composer@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-composer/-/react-composer-5.0.0.tgz#da04db9d8eaed05c2b0e4245a8c7127f420e0b25"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-dev-utils@^5.0.0, react-dev-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"
