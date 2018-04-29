@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { Typography } from 'material-ui';
 import { Favorites as FavoritesType } from 'resolvers/favorites';
 import Loading from 'components/UI/Loading';
 import List from 'components/Shows/List';
-import withData from './withData';
 import { Show } from 'api/models';
+import withData from './withData';
 
 type Props = {
   favorites?: FavoritesType;
@@ -13,7 +14,14 @@ type Props = {
 
 export const Favorites = ({ shows }: Props) => {
   if (!shows) return <Loading />;
-  return <List shows={shows} />;
+  return (
+    <>
+      <Typography variant="title" gutterBottom>
+        Favorites
+      </Typography>
+      <List shows={shows} />
+    </>
+  );
 };
 
 export default withData(Favorites);

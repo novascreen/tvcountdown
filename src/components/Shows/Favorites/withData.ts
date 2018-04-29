@@ -9,6 +9,13 @@ const GET_SHOWS = gql`
     shows(ids: $ids) {
       id
       name
+      premiered
+      image {
+        medium
+      }
+      network {
+        name
+      }
     }
   }
 `;
