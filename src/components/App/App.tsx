@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import { Route } from 'react-router';
 import Grid from 'material-ui/Grid/Grid';
 
@@ -14,7 +13,7 @@ import Footer from './Footer';
 
 const App = () => (
   <ScrollToTop>
-    <Fragment>
+    <>
       <AppBar />
       <main style={{ minHeight: '100vh' }}>
         <Box mT={2} pH={1}>
@@ -33,7 +32,7 @@ const App = () => (
         </Box>
       </main>
       <Footer />
-    </Fragment>
+    </>
   </ScrollToTop>
 );
 

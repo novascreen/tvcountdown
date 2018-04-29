@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import { RouteComponentProps } from 'react-router';
 import * as qs from 'query-string';
 import Grid from 'material-ui/Grid';
@@ -35,7 +34,7 @@ export class Shows extends React.Component<Props, State> {
   render() {
     const query = getQuery(this.props);
     return (
-      <Fragment>
+      <>
         <Box mV={3}>
           <Grid container justify="center">
             <Search query={query} onSubmit={this.handleSubmit} />
@@ -45,7 +44,7 @@ export class Shows extends React.Component<Props, State> {
           {query && <SearchResults />}
           {!query && <Favorites />}
         </Box>
-      </Fragment>
+      </>
     );
   }
 }

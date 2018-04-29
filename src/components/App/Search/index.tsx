@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import Close from '@material-ui/icons/Close';
 import IconButton from 'material-ui/IconButton/IconButton';
@@ -77,7 +76,7 @@ export class Search extends React.Component<
     const { classes } = this.props;
     const { open, value } = this.state;
     return (
-      <Fragment>
+      <>
         <IconButton color="inherit" onClick={this.handleOpen}>
           <SearchIcon />
         </IconButton>
@@ -110,7 +109,7 @@ export class Search extends React.Component<
             </Grid>
           </ClickAwayListener>
         </Slide>
-      </Fragment>
+      </>
     );
   }
 }

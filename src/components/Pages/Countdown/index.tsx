@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import { RouteComponentProps } from 'react-router';
 import * as qs from 'query-string';
 import Tabs, { Tab } from 'material-ui/Tabs';
@@ -37,7 +36,7 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
     const previous = time === 'previous';
 
     return (
-      <Fragment>
+      <>
         <Box mB={2}>
           <AppBar position="static" color="inherit" elevation={0} square>
             <Toolbar
@@ -65,7 +64,7 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
           {shows === 'all' && <AllShowsSchedule previous={previous} />}
           {shows === 'favorites' && <FavoritesSchedule previous={previous} />}
         </Box>
-      </Fragment>
+      </>
     );
   }
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import { compose } from 'react-apollo';
 import MUIAppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -51,7 +50,7 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
 }) => {
   const smallScreen = width === 'xs';
   return (
-    <Fragment>
+    <>
       <MUIAppBar position="fixed">
         <Toolbar>
           <Grid
@@ -88,7 +87,7 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
       </MUIAppBar>
       <div className={classes.spacer} />
       {smallScreen && <Navigation position="bottom" />}
-    </Fragment>
+    </>
   );
 };
 
