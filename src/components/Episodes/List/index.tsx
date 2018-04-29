@@ -66,7 +66,7 @@ export class EpisodesList extends React.Component<
                   <Grid container spacing={16}>
                     <Grid item xs={12} sm={7}>
                       <>
-                        <Link to={`/show/${show.id}`}>
+                        <Link to={`/shows/${show.id}`}>
                           <Typography variant="subheading">
                             {show.name}
                           </Typography>
