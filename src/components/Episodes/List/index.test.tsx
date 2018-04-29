@@ -5,5 +5,5 @@ import { getMockRouterProps } from 'mock/getMockRouterProps';
 
 it('renders without crashing', () => {
   const routerProps = getMockRouterProps<Props>({});
-  shallow(<EpisodesList {...routerProps} />);
+  shallow(<EpisodesList width="xs" {...routerProps} />);
 });

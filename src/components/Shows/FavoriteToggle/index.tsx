@@ -62,6 +62,7 @@ export const FavoriteToggle: React.SFC<Props> = ({
       onClick={onClick}
       color="primary"
       disabled={loadingMyFavoriteShows}
+      {...props}
     >
       {isFavorite ? <Star /> : <StarBorder />}
     </IconButton>

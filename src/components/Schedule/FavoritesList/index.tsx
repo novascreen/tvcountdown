@@ -45,6 +45,9 @@ const GET_EPISODES = gql`
       show {
         id
         name
+        image {
+          medium
+        }
       }
     }
   }
