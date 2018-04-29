@@ -4,6 +4,7 @@ import { Context } from '../../utils';
 import validateAndParseIdToken from '../../utils/validateAndParseIdToken';
 
 async function createPrismaUser(ctx: any, idToken: any) {
+  console.log('IDTOKEN', idToken);
   const user = await ctx.db.mutation.createUser({
     data: {
       identity: idToken.sub.split(`|`)[0],

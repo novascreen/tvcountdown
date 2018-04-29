@@ -42,38 +42,10 @@ export default class Auth {
   cb = () => {};
 
   constructor(cb: Function, apolloClient: ApolloClient<any>) {
-    // this.handleAuthentication();
     // binds functions to keep this context
     this.apolloClient = apolloClient;
     this.cb = cb.bind(this);
   }
-
-  login = (username: string, password: string) => {
-    this.auth0.login(
-      { realm: AUTH_CONFIG.dbConnectionName, username, password },
-      (err: any, authResult: any) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-      },
-    );
-  };
-
-  signup = (email: string, password: string) => {
-    this.auth0.signup(
-      { connection: AUTH_CONFIG.dbConnectionName, email, password },
-      (err: any) => {
-        if (err) {
-          console.log(err);
-
-          return;
-        }
-
-        this.login(email, password);
-      },
-    );
-  };
 
   loginWithGoogle = (callback: Function) => {
     this.auth0.popup.authorize(
@@ -90,20 +62,20 @@ export default class Auth {
     );
   };
 
-  // loginWithTwitter = (callback: Function) => {
-  //   this.auth0.popup.authorize(
-  //     {
-  //       connection: 'google-oauth2',
-  //       redirectUri: `${location.origin}/auth/popup`,
-  //     },
-  //     (err: any, authResult: any) => {
-  //       this.handlePopupAuthentication(err, authResult);
-  //       if (callback) {
-  //         callback(err, authResult);
-  //       }
-  //     },
-  //   );
-  // };
+  loginWithFacebook = (callback: Function) => {
+    this.auth0.popup.authorize(
+      {
+        connection: 'facebook',
+        redirectUri: `${location.origin}/auth/popup`,
+      },
+      (err: any, authResult: any) => {
+        this.handlePopupAuthentication(err, authResult);
+        if (callback) {
+          callback(err, authResult);
+        }
+      },
+    );
+  };
 
   handlePopupAuthentication = (err: any, authResult: any) => {
     console.log(authResult);
@@ -119,7 +91,7 @@ export default class Auth {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
-        console.log(err);
+        console.error(err);
       }
       appHistory.replace('/');
     });
@@ -150,16 +122,11 @@ export default class Auth {
         variables: { idToken },
       })
       .then((res: any) => {
-        // navigate to the home route
-        appHistory.replace('/');
-        // if (window.location.href.includes(`callback`)) {
-        //   window.location.href = '/';
-        // } else {
-        //   window.location.reload();
-        // }
+        // stay on the same page, but force update
+        appHistory.replace(window.location.pathname + window.location.search);
       })
       .catch((err: Error) =>
-        console.log('Sign in or create account error: ', err),
+        console.error('Sign in or create account error: ', err),
       );
   }
 
@@ -168,6 +135,7 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+
     // navigate to the home route
     appHistory.replace('/');
   };

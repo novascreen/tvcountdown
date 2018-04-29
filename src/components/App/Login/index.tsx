@@ -3,6 +3,7 @@ import Button from 'material-ui/Button';
 import { auth } from 'withRoot';
 import Dialog, { DialogTitle, DialogContent } from 'material-ui/Dialog';
 import { isAuthenticated } from 'lib/Auth';
+import Box from 'components/UI/Box';
 
 export class Login extends React.Component {
   state = {
@@ -22,9 +23,9 @@ export class Login extends React.Component {
     auth.loginWithGoogle(this.handleLoginDone);
   };
 
-  // handleLoginWithTwitter = () => {
-  //   auth.loginWithTwitter(this.handleLoginDone);
-  // }
+  handleLoginWithFacebook = () => {
+    auth.loginWithFacebook(this.handleLoginDone);
+  };
 
   handleLoginDone = () => {
     this.handleClose();
@@ -55,18 +56,22 @@ export class Login extends React.Component {
         >
           <DialogTitle id="loginDialog">Login</DialogTitle>
           <DialogContent>
+            <Box mB={1}>
+              <Button
+                fullWidth
+                onClick={this.handleLoginWithGoogle}
+                style={{ background: '#357ae8', color: '#fff' }}
+              >
+                Login with Google
+              </Button>
+            </Box>
             <Button
-              onClick={this.handleLoginWithGoogle}
-              style={{ background: '#357ae8', color: '#fff' }}
+              fullWidth
+              onClick={this.handleLoginWithFacebook}
+              style={{ background: '#3b5998', color: '#fff' }}
             >
-              Login with Google
+              Login with Facebook
             </Button>
-            {/* <Button
-              onClick={this.handleLoginWithTwitter}
-              style={{ background: '#1B95E0', color: '#fff' }}
-            >
-              Login with Twitter
-            </Button> */}
           </DialogContent>
         </Dialog>
       </>
