@@ -22,6 +22,10 @@ export class Login extends React.Component {
     auth.loginWithGoogle(this.handleLoginDone);
   };
 
+  // handleLoginWithTwitter = () => {
+  //   auth.loginWithTwitter(this.handleLoginDone);
+  // }
+
   handleLoginDone = () => {
     this.handleClose();
   };
@@ -51,9 +55,18 @@ export class Login extends React.Component {
         >
           <DialogTitle id="loginDialog">Login</DialogTitle>
           <DialogContent>
-            <Button onClick={this.handleLoginWithGoogle}>
+            <Button
+              onClick={this.handleLoginWithGoogle}
+              style={{ background: '#357ae8', color: '#fff' }}
+            >
               Login with Google
             </Button>
+            {/* <Button
+              onClick={this.handleLoginWithTwitter}
+              style={{ background: '#1B95E0', color: '#fff' }}
+            >
+              Login with Twitter
+            </Button> */}
           </DialogContent>
         </Dialog>
       </>

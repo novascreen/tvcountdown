@@ -90,6 +90,21 @@ export default class Auth {
     );
   };
 
+  // loginWithTwitter = (callback: Function) => {
+  //   this.auth0.popup.authorize(
+  //     {
+  //       connection: 'google-oauth2',
+  //       redirectUri: `${location.origin}/auth/popup`,
+  //     },
+  //     (err: any, authResult: any) => {
+  //       this.handlePopupAuthentication(err, authResult);
+  //       if (callback) {
+  //         callback(err, authResult);
+  //       }
+  //     },
+  //   );
+  // };
+
   handlePopupAuthentication = (err: any, authResult: any) => {
     console.log(authResult);
     if (authResult && authResult.accessToken && authResult.idToken) {
