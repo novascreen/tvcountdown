@@ -19,7 +19,11 @@ export const Favorites = ({ shows }: Props) => {
       <Typography variant="title" gutterBottom>
         Favorites
       </Typography>
-      <List shows={shows} />
+      {shows.length > 0 ? (
+        <List shows={shows} />
+      ) : (
+        <Typography>No shows added to favorites yet</Typography>
+      )}
     </>
   );
 };

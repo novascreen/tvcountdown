@@ -26,9 +26,8 @@ export class Shows extends React.Component<Props, State> {
     };
   }
 
-  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    this.props.history.push(`/shows?search=${this.state.query}`);
+  handleSubmit = (query: string) => {
+    this.props.history.push(`/shows?search=${query}`);
   };
 
   render() {
@@ -41,8 +40,10 @@ export class Shows extends React.Component<Props, State> {
           </Grid>
         </Box>
         <Box mV={3}>
-          {query && <SearchResults />}
-          {!query && <Favorites />}
+          {query && <SearchResults query={query} />}
+          <Box mT={3}>
+            <Favorites />
+          </Box>
         </Box>
       </>
     );

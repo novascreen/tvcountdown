@@ -1,12 +1,17 @@
 import * as React from 'react';
 import Input from 'material-ui/Input';
+import { Button } from 'material-ui';
 
 type Props = {
   query: string;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (query: string) => void;
 };
 
-export class Search extends React.Component<Props> {
+type State = {
+  query: string;
+};
+
+export class Search extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -25,16 +30,28 @@ export class Search extends React.Component<Props> {
     this.setState({ query: e.currentTarget.value });
   };
 
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    this.props.onSubmit(this.state.query);
+  };
+
+  handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
+    this.setState({ query: '' });
+    this.props.onSubmit('');
+  };
+
   render() {
     return (
-      <form onSubmit={this.props.onSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <Input
-          placeholder="Search"
+          placeholder="Search all shows"
           inputProps={{
             'aria-label': 'Description',
           }}
           onChange={this.handleChange}
+          value={this.state.query}
         />
+        <Button onClick={this.handleClear}>Clear</Button>
       </form>
     );
   }

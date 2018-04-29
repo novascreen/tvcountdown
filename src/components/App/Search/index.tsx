@@ -11,12 +11,10 @@ import Slide from 'material-ui/transitions/Slide';
 import { compose } from 'react-apollo';
 import Grid from 'material-ui/Grid/Grid';
 import { Theme } from 'material-ui/styles';
+import { Input } from 'material-ui';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import Box from 'components/UI/Box';
-import AutoSuggest from './AutoSuggest';
-import { Show } from 'api/models';
-import { OnSuggestionSelected } from 'react-autosuggest';
 
 type Styles = 'search' | 'autoSuggestBox';
 
@@ -35,8 +33,14 @@ const styles = (theme: Theme): StyleRules<Styles> => ({
   },
 });
 
+type State = {
+  open: boolean;
+  value: string;
+};
+
 export class Search extends React.Component<
-  WithStyles<Styles> & RouteComponentProps<{}>
+  WithStyles<Styles> & RouteComponentProps<{}>,
+  State
 > {
   state = {
     open: false,
@@ -56,21 +60,15 @@ export class Search extends React.Component<
     });
   };
 
-  handleSuggestionsFetchRequested = () => {};
-
-  handleSuggestionsClearRequested = () => {
-    this.setState({ value: '' });
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ value: e.currentTarget.value });
   };
 
-  handleSuggestionSelected: OnSuggestionSelected<Show> = (
-    event,
-    { suggestion },
-  ) => {
+  handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     this.handleClose();
-    this.props.history.push(`/shows/${suggestion.id}`);
+    this.props.history.push(`/shows?search=${this.state.value}`);
   };
-
-  handleChange = (e: any) => this.setState({ value: e.target.value });
 
   render() {
     const { classes } = this.props;
@@ -90,17 +88,15 @@ export class Search extends React.Component<
             >
               <Box mL={2} className={classes.autoSuggestBox}>
                 {open && (
-                  <AutoSuggest
-                    query={value}
-                    onSuggestionsFetchRequested={
-                      this.handleSuggestionsFetchRequested
-                    }
-                    onSuggestionsClearRequested={
-                      this.handleSuggestionsClearRequested
-                    }
-                    onSuggestionSelected={this.handleSuggestionSelected}
-                    onChange={this.handleChange}
-                  />
+                  <form onSubmit={this.handleSubmit}>
+                    <Input
+                      value={value}
+                      onChange={this.handleChange}
+                      placeholder="Search all shows"
+                      autoFocus
+                      fullWidth
+                    />
+                  </form>
                 )}
               </Box>
               <IconButton onClick={this.handleClose}>
