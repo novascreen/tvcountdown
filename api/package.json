@@ -4,10 +4,9 @@
     "start": "node dist/index.js",
     "dev": "nodemon --config nodemon.json src/index.ts",
     "build": "rimraf dist && tsc",
-    "deploy": "now -E .env.prod"
-  },
-  "now": {
-    "alias": "tvcountdown-api" 
+    "predist": "npm run build",
+    "dist": "pkg -c pkg.json -o dist/api.bin index.js",
+    "deploy": "now --docker -E .env.prod"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -30,6 +29,7 @@
     "graphql-cli": "2.15.8",
     "nodemon": "1.17.2",
     "npm-run-all": "4.1.2",
+    "pkg": "^4.3.1",
     "prisma": "1.4.1",
     "rimraf": "2.6.2",
     "ts-node": "5.0.1",

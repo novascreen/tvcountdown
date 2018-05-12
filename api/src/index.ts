@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { GraphQLServer } from 'graphql-yoga';
 import { makeExecutableSchema } from 'graphql-tools';
 import { importSchema } from 'graphql-import';
@@ -19,7 +20,7 @@ const db = new Prisma({
 });
 
 const schema = makeExecutableSchema({
-  typeDefs: importSchema('./src/schema.graphql'),
+  typeDefs: importSchema(path.join(__dirname, '../src/schema.graphql')),
   resolvers,
   directiveResolvers,
 });

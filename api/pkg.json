@@ -1,0 +1,10 @@
+{
+  "targets": [
+    "node8-alpine-x64"
+  ],
+  "assets": [
+    "src/generated/prisma.graphql"
+  ],
+  "scripts": [
+  ]
+}
