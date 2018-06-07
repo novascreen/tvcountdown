@@ -12,7 +12,7 @@
   "rules": {
     "prettier": true,
     "align": [
-      true,
+      false,
       "parameters",
       "arguments",
       "statements"
