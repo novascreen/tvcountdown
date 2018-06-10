@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Select, { SelectProps } from 'material-ui/Select';
-import { MenuItem } from 'material-ui/Menu';
+import Select, { SelectProps } from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const TimeSelector = (props: SelectProps) => (
   <Select {...props}>

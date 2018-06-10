@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Show } from 'graphql/types';
-// import { Grid, Typography } from 'material-ui';
-import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
-import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
+// import { Grid, Typography } from '@material-ui/core';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
 import FavoriteToggle from '../FavoriteToggle';
 
 type Props = {

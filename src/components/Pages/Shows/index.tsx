@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import * as qs from 'query-string';
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 import Box from 'components/UI/Box';
 import Search from 'components/Shows/Search';
 import SearchResults from 'components/Shows/SearchResults';

@@ -1,6 +1,9 @@
 import * as React from 'react';
-import Typography from 'material-ui/Typography';
-import Table, { TableBody, TableRow, TableCell } from 'material-ui/Table';
+import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 import { Show } from 'graphql/types';
 

@@ -1,7 +1,9 @@
 import * as React from 'react';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import { auth } from 'withRoot';
-import Dialog, { DialogTitle, DialogContent } from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
 import { isAuthenticated } from 'lib/Auth';
 import Box from 'components/UI/Box';
 

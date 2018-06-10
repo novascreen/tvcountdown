@@ -1,11 +1,11 @@
 import * as React from 'react';
-import MUIBottomNavigation from 'material-ui/BottomNavigation/BottomNavigation';
-import BottomNavigationAction from 'material-ui/BottomNavigation/BottomNavigationAction';
-import AppBar from 'material-ui/AppBar/AppBar';
+import MUIBottomNavigation from '@material-ui/core/BottomNavigation/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import AppBar from '@material-ui/core/AppBar/AppBar';
 import withStyles, {
   WithStyles,
   StyleRules,
-} from 'material-ui/styles/withStyles';
+} from '@material-ui/core/styles/withStyles';
 
 import { NavigationItem } from './index';
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route } from 'react-router';
-import Grid from 'material-ui/Grid/Grid';
+import Grid from '@material-ui/core/Grid/Grid';
 
 import ScrollToTop from 'components/Util/ScrollToTop';
 import CountdownPage from 'components/Pages/Countdown';

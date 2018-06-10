@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { compose } from 'react-apollo';
-import MUIAppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Grid from 'material-ui/Grid/Grid';
-import Typography from 'material-ui/Typography/Typography';
-import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
-import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
-import { Theme } from 'material-ui/styles/createMuiTheme';
+import MUIAppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Grid from '@material-ui/core/Grid/Grid';
+import Typography from '@material-ui/core/Typography/Typography';
+import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
@@ -91,4 +91,7 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
   );
 };
 
-export default compose(withStyles(styles), withWidth())(AppBar);
+export default compose(
+  withStyles(styles),
+  withWidth(),
+)(AppBar);

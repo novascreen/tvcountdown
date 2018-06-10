@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import Grid from 'material-ui/Grid';
-import Paper from 'material-ui/Paper';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 import { Show as ShowType } from 'graphql/types';
 import Box from 'components/UI/Box';

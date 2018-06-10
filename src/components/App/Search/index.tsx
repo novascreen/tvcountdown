@@ -1,17 +1,17 @@
 import * as React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import Close from '@material-ui/icons/Close';
-import IconButton from 'material-ui/IconButton/IconButton';
+import IconButton from '@material-ui/core/IconButton/IconButton';
 import withStyles, {
   WithStyles,
   StyleRules,
-} from 'material-ui/styles/withStyles';
-import ClickAwayListener from 'material-ui/utils/ClickAwayListener';
-import Slide from 'material-ui/transitions/Slide';
+} from '@material-ui/core/styles/withStyles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Slide from '@material-ui/core/Slide';
 import { compose } from 'react-apollo';
-import Grid from 'material-ui/Grid/Grid';
-import { Theme } from 'material-ui/styles';
-import { Input } from 'material-ui';
+import Grid from '@material-ui/core/Grid/Grid';
+import { Theme } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import Box from 'components/UI/Box';
@@ -110,4 +110,7 @@ export class Search extends React.Component<
   }
 }
 
-export default compose(withStyles(styles), withRouter)(Search);
+export default compose(
+  withStyles(styles),
+  withRouter,
+)(Search);

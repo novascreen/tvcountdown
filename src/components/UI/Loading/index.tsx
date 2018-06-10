@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Grid, { GridProps } from 'material-ui/Grid';
-import CircularProgress from 'material-ui/Progress/CircularProgress';
+import Grid, { GridProps } from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const Loading: React.SFC<GridProps> = ({
   justify = 'center',

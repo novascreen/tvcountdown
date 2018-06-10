@@ -17,6 +17,7 @@
     "alias": "cd build && now alias -A ../now.json"
   },
   "dependencies": {
+    "@material-ui/core": "^1.2.1",
     "@material-ui/icons": "^1.0.0-beta.42",
     "apollo-cache-inmemory": "^1.1.7",
     "apollo-client": "^2.2.0",
@@ -30,9 +31,8 @@
     "history": "^4.7.2",
     "jss": "9",
     "lodash": "^4.17.10",
-    "material-ui": "1.0.0-beta.41",
     "moment": "^2.20.1",
-    "query-string": "^5.1.1",
+    "query-string": "^6.1.0",
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
@@ -42,7 +42,7 @@
     "react-infinite": "^0.13.0",
     "react-intl": "^2.4.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts-ts": "2.15.1",
+    "react-scripts-ts": "2.16.0",
     "recompose": "^0.26.0"
   },
   "devDependencies": {
@@ -63,7 +63,7 @@
     "@types/react-intl": "^2.3.3",
     "@types/react-router-dom": "^4.2.3",
     "@types/react-test-renderer": "^16.0.0",
-    "@types/recompose": "^0.24.4",
+    "@types/recompose": "^0.26.1",
     "@types/webpack": "^3.8.4",
     "@types/webpack-env": "^1.13.5",
     "dotenv-cli": "^1.4.0",

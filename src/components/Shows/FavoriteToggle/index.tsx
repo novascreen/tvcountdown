@@ -1,5 +1,5 @@
 import * as React from 'react';
-import IconButton from 'material-ui/IconButton/IconButton';
+import IconButton from '@material-ui/core/IconButton/IconButton';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
 
@@ -30,8 +30,6 @@ export const FavoriteToggle: React.SFC<Props> = ({
   onToggle = () => null,
   createFavoriteShow = () => null,
   deleteFavoriteShow = () => null,
-  auth,
-  ...props
 }) => {
   const saving = createFavoriteShowLoading || deleteFavoriteShowLoading;
   const favoriteShows = (me && me.favoriteShows) || [];
@@ -65,7 +63,6 @@ export const FavoriteToggle: React.SFC<Props> = ({
       onClick={onClick}
       color="primary"
       disabled={loadingMyFavoriteShows}
-      {...props}
     >
       {isFavorite ? <Star /> : <StarBorder />}
     </IconButton>

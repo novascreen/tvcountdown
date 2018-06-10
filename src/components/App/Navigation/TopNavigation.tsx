@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Tab from 'material-ui/Tabs/Tab';
-import Grid from 'material-ui/Grid/Grid';
-import withStyles, { WithStyles } from 'material-ui/styles/withStyles';
-import { Theme } from 'material-ui/styles/createMuiTheme';
+import Tabs from '@material-ui/core/Tabs/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Grid from '@material-ui/core/Grid/Grid';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 import Box from 'components/UI/Box';
 import { NavigationItem } from './index';

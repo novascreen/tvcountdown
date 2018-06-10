@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedDate } from 'react-intl';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 
 import { Episode as EpisodeType, Show } from 'graphql/types';
 import EpisodeNumber from 'components/Episodes/EpisodeNumber';

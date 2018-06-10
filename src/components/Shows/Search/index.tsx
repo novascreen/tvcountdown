@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Input from 'material-ui/Input';
-import { Button } from 'material-ui';
+import Input from '@material-ui/core/Input';
+import { Button } from '@material-ui/core';
 
 type Props = {
   query: string;

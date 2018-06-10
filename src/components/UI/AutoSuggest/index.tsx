@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactAutosuggest from 'react-autosuggest';
 import { AutosuggestProps } from 'react-autosuggest';
-import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
-import { withStyles, WithStyles } from 'material-ui/styles';
-import { StyleRules } from 'material-ui/styles/withStyles';
-import { Theme } from 'material-ui/styles/createMuiTheme';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { StyleRules } from '@material-ui/core/styles/withStyles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 type Styles =
   | 'container'

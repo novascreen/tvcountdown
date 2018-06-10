@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { compose } from 'react-apollo';
-import Paper from 'material-ui/Paper';
-import List, { ListItem } from 'material-ui/List';
-import Grid from 'material-ui/Grid';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Grid from '@material-ui/core/Grid';
 import { FormattedDate, FormattedTime, FormattedRelative } from 'react-intl';
-import Typography from 'material-ui/Typography/Typography';
-import ListItemSecondaryAction from 'material-ui/List/ListItemSecondaryAction';
+import Typography from '@material-ui/core/Typography/Typography';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import * as Infinite from 'react-infinite';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
-import Avatar from 'material-ui/Avatar';
+import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import Avatar from '@material-ui/core/Avatar';
 
 import { Episode } from 'graphql/types';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
@@ -102,4 +103,7 @@ export class EpisodesList extends React.Component<
 }
 
 // withRouter<RouteComponentProps<{}> & Props>
-export default compose(withRouter, withWidth())(EpisodesList);
+export default compose(
+  withRouter,
+  withWidth(),
+)(EpisodesList);

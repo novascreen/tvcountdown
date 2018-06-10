@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import * as qs from 'query-string';
-import Tabs, { Tab } from 'material-ui/Tabs';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import LiveTv from '@material-ui/icons/LiveTv';
 import Star from '@material-ui/icons/Star';
 import Box from 'components/UI/Box';
 import AllShowsSchedule from 'components/Schedule/AllShowsSchedule';
 import FavoritesSchedule from 'components/Schedule/FavoritesSchedule';
 import TimeSelector from 'components/Schedule/TimeSelector';
-import Divider from 'material-ui/Divider';
+import Divider from '@material-ui/core/Divider';
 
 export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
   get query() {

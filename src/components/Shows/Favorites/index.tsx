@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Typography } from 'material-ui';
+import Typography from '@material-ui/core/Typography';
 import { Favorites as FavoritesType } from 'resolvers/favorites';
 import Loading from 'components/UI/Loading';
 import List from 'components/Shows/List';
