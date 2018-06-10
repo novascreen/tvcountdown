@@ -1,37 +1,21 @@
 import * as React from 'react';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { Episode } from 'graphql/types';
 import Loading from 'components/UI/Loading';
 import EpisodesList from 'components/Episodes/List';
+import Typography from '@material-ui/core/Typography';
 
-type InputProps = {
+interface Data {
+  scheduleAll: Episode[];
+}
+
+interface Variables {
   previous?: boolean;
-};
+}
 
-type Response = {
-  scheduleAll?: Episode[];
-};
-
-type MyQueryProps = {
-  error?: Error;
-  loading?: boolean;
-};
-
-export const AllShowsList: React.SFC<MyQueryProps & InputProps & Response> = ({
-  error,
-  loading = false,
-  scheduleAll = [],
-}) => {
-  if (loading) {
-    return <Loading />;
-  }
-  if (error || !scheduleAll) {
-    return <h1>ERROR</h1>;
-  }
-  return <EpisodesList episodes={scheduleAll} />;
-};
+class EpisodesQuery extends Query<Data, Variables> {}
 
 const GET_EPISODES = gql`
   query GetEpisodes($previous: Boolean!) {
@@ -52,9 +36,18 @@ const GET_EPISODES = gql`
   }
 `;
 
-export default graphql<InputProps, Response>(GET_EPISODES, {
-  options: ({ previous }) => ({
-    variables: { previous },
-  }),
-  props: ({ data }) => ({ ...data }),
-})(AllShowsList);
+type Props = {} & Variables;
+
+export const AllShowsList: React.SFC<Props> = ({ previous }) => (
+  <EpisodesQuery query={GET_EPISODES} variables={{ previous }}>
+    {({ loading, error, data }) => {
+      if (loading) return <Loading />;
+      if (!data || !data.scheduleAll) {
+        return <Typography>Episodes not found</Typography>;
+      }
+      return <EpisodesList episodes={data.scheduleAll} />;
+    }}
+  </EpisodesQuery>
+);
+
+export default AllShowsList;

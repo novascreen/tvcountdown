@@ -1,37 +1,22 @@
 import * as React from 'react';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-// import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 
 import { Show as ShowType } from 'graphql/types';
 import { Loading } from 'components/UI/Loading';
 import ShowDetails from 'components/Shows/Details';
+import Typography from '@material-ui/core/Typography';
 
-// type RouterParams = {
-//   showId: string;
-// };
+interface Data {
+  show: ShowType;
+}
 
-// type InputProps = RouteComponentProps<RouterParams>;
-type InputProps = any;
+interface Variables {
+  showId: number;
+}
 
-type Response = {
-  show?: ShowType;
-};
-
-type MyQueryProps = {
-  error?: Error;
-  loading?: boolean;
-};
-
-export const ShowDetailsPage: React.SFC<
-  MyQueryProps & InputProps & Response
-> = props => {
-  const { loading, show } = props;
-  if (loading) return <Loading />;
-  if (!show) return <>Show not found</>;
-
-  return <ShowDetails show={show} />;
-};
+class ShowQuery extends Query<Data, Variables> {}
 
 const GET_SHOW = gql`
   query GetShow($showId: Int!) {
@@ -77,13 +62,23 @@ const GET_SHOW = gql`
   }
 `;
 
-export default graphql<InputProps, Response>(GET_SHOW, {
-  options: ({
-    match: {
-      params: { showId },
-    },
-  }) => ({
-    variables: { showId: parseInt(showId, 10) },
-  }),
-  props: ({ data }) => ({ ...data }),
-})(ShowDetailsPage);
+type RouterParams = {
+  showId: string;
+};
+
+type Props = {} & RouteComponentProps<RouterParams>;
+
+export const ShowDetailsPage: React.SFC<Props> = ({ match }) => (
+  <ShowQuery
+    query={GET_SHOW}
+    variables={{ showId: parseInt(match.params.showId, 10) }}
+  >
+    {({ loading, error, data }) => {
+      if (loading) return <Loading />;
+      if (!data || !data.show) return <Typography>Show not found</Typography>;
+      return <ShowDetails show={data.show} />;
+    }}
+  </ShowQuery>
+);
+
+export default ShowDetailsPage;

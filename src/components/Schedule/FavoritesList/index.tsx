@@ -1,38 +1,21 @@
 import * as React from 'react';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import { Episode } from 'graphql/types';
 import Loading from 'components/UI/Loading';
 import EpisodesList from 'components/Episodes/List';
 
-type InputProps = {
+interface Data {
+  scheduleFavorites?: Episode[];
+}
+
+interface Variables {
   showIds: number[];
   previous?: boolean;
-};
+}
 
-type Response = {
-  scheduleFavorites?: Episode[];
-};
-
-type MyQueryProps = {
-  error?: Error;
-  loading?: boolean;
-};
-
-export const FavoritesList: React.SFC<MyQueryProps & InputProps & Response> = ({
-  error,
-  loading = false,
-  scheduleFavorites = [],
-}) => {
-  if (loading) {
-    return <Loading />;
-  }
-  if (error || !scheduleFavorites) {
-    return <h1>ERROR</h1>;
-  }
-  return <EpisodesList episodes={scheduleFavorites} />;
-};
+class EpisodesQuery extends Query<Data, Variables> {}
 
 const GET_EPISODES = gql`
   query GetEpisodes($showIds: [Int]!, $previous: Boolean) {
@@ -53,9 +36,16 @@ const GET_EPISODES = gql`
   }
 `;
 
-export default graphql<InputProps, Response>(GET_EPISODES, {
-  options: ({ showIds, previous }) => ({
-    variables: { showIds, previous },
-  }),
-  props: ({ data }) => ({ ...data }),
-})(FavoritesList);
+type Props = {} & Variables;
+
+export const FavoritesList: React.SFC<Props> = ({ showIds, previous }) => (
+  <EpisodesQuery query={GET_EPISODES} variables={{ showIds, previous }}>
+    {({ loading, error, data }) => {
+      if (loading) return <Loading />;
+      if (!data || !data.scheduleFavorites) return <>Episodes not found</>;
+      return <EpisodesList episodes={data.scheduleFavorites} />;
+    }}
+  </EpisodesQuery>
+);
+
+export default FavoritesList;
