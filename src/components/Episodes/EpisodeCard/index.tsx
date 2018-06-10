@@ -4,7 +4,7 @@ import { FormattedDate } from 'react-intl';
 import Typography from 'material-ui/Typography';
 
 import { Episode as EpisodeType, Show } from 'graphql/types';
-import SeasonNumber from 'components/Episodes/SeasonNumber';
+import EpisodeNumber from 'components/Episodes/EpisodeNumber';
 import HTML from 'components/Util/HTML';
 
 type Props = {
@@ -20,7 +20,7 @@ export const EpisodeCard = ({ title, episode, show }: Props) => (
       <Typography variant="subheading">{episode.name}</Typography>
     </Link>
     <Typography variant="body2" component="h4">
-      <SeasonNumber episode={episode} />
+      <EpisodeNumber episode={episode} />
       {episode.airstamp && (
         <>
           {' - '}

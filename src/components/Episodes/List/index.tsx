@@ -16,7 +16,7 @@ import { Episode } from 'graphql/types';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import Box from 'components/UI/Box';
 import getInitials from 'lib/getInitials';
-import getEpisodeNumber from 'lib/getEpisodeNumber';
+import EpisodeNumber from 'components/Episodes/EpisodeNumber';
 
 export interface Props {
   episodes?: Episode[];
@@ -40,10 +40,6 @@ export class EpisodesList extends React.Component<
 
               const show = episode.show;
               const showInitials = getInitials(show.name || '');
-              const episodeNumber = getEpisodeNumber(
-                episode.season || 0,
-                episode.number || 0,
-              );
               const isLast = episodes.length - 1 === i;
 
               return (
@@ -75,7 +71,7 @@ export class EpisodesList extends React.Component<
                         </Link>
                         <Link to={`/shows/${show.id}/episodes/${episode.id}`}>
                           <Typography variant="caption" component="div">
-                            {episodeNumber} - {episode.name}
+                            <EpisodeNumber episode={episode} /> - {episode.name}
                           </Typography>
                         </Link>
                       </>
