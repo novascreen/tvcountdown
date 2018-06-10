@@ -9,22 +9,13 @@ import withStyles, {
 
 import { NavigationItem } from './index';
 
-const styles: StyleRules<'root'> = {
-  root: {
-    top: 'auto',
-    bottom: 0,
-  },
-};
-
 type Props = {
   items: NavigationItem[];
   value: string;
   onChange: (e: any, value: string) => void;
 };
 
-type PropsWithStyles = WithStyles<'root'>;
-
-export const BottomNavigation: React.SFC<Props & PropsWithStyles> = ({
+export const BottomNavigation: React.SFC<Props & WithStyles<Styles>> = ({
   classes,
   items = [],
   value,
@@ -43,5 +34,14 @@ export const BottomNavigation: React.SFC<Props & PropsWithStyles> = ({
     </MUIBottomNavigation>
   </AppBar>
 );
+
+type Styles = 'root';
+
+const styles: StyleRules<Styles> = {
+  root: {
+    top: 'auto',
+    bottom: 0,
+  },
+};
 
 export default withStyles(styles)<Props>(BottomNavigation);

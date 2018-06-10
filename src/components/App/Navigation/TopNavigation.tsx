@@ -2,28 +2,13 @@ import * as React from 'react';
 import Tabs from '@material-ui/core/Tabs/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid/Grid';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import withStyles, {
+  WithStyles,
+  StyleRulesCallback,
+} from '@material-ui/core/styles/withStyles';
 
 import Box from 'components/UI/Box';
 import { NavigationItem } from './index';
-
-const styles = (theme: Theme) => ({
-  indicator: {
-    display: 'none',
-  },
-  tabRoot: {
-    [theme.breakpoints.up('md')]: {
-      minWidth: 72,
-    },
-  },
-  tabLabelContainer: {
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing.unit * 1.5,
-      paddingRight: theme.spacing.unit * 1.5,
-    },
-  },
-});
 
 type Props = {
   items: NavigationItem[];
@@ -31,11 +16,7 @@ type Props = {
   onChange: (e: any, value: string) => void;
 };
 
-type PropsWithStyles = WithStyles<
-  'indicator' | 'tabRoot' | 'tabLabelContainer'
->;
-
-export const TopNavigation: React.SFC<Props & PropsWithStyles> = ({
+export const TopNavigation: React.SFC<Props & WithStyles<Styles>> = ({
   classes,
   items = [],
   value,
@@ -68,5 +49,24 @@ export const TopNavigation: React.SFC<Props & PropsWithStyles> = ({
     ))}
   </Tabs>
 );
+
+type Styles = 'indicator' | 'tabRoot' | 'tabLabelContainer';
+
+const styles: StyleRulesCallback<Styles> = theme => ({
+  indicator: {
+    display: 'none',
+  },
+  tabRoot: {
+    [theme.breakpoints.up('md')]: {
+      minWidth: 72,
+    },
+  },
+  tabLabelContainer: {
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: theme.spacing.unit * 1.5,
+      paddingRight: theme.spacing.unit * 1.5,
+    },
+  },
+});
 
 export default withStyles(styles)<Props>(TopNavigation);

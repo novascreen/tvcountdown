@@ -4,34 +4,16 @@ import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import withStyles, {
   WithStyles,
-  StyleRules,
+  StyleRulesCallback,
 } from '@material-ui/core/styles/withStyles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Slide from '@material-ui/core/Slide';
 import { compose } from 'react-apollo';
 import Grid from '@material-ui/core/Grid/Grid';
-import { Theme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import Box from 'components/UI/Box';
-
-type Styles = 'search' | 'autoSuggestBox';
-
-const styles = (theme: Theme): StyleRules<Styles> => ({
-  search: {
-    position: 'absolute',
-    width: '100%',
-    top: 0,
-    right: 0,
-    zIndex: 1,
-    background: theme.palette.background.paper,
-    ...theme.mixins.toolbar,
-  },
-  autoSuggestBox: {
-    flexGrow: 1,
-  },
-});
 
 type State = {
   open: boolean;
@@ -109,6 +91,23 @@ export class Search extends React.Component<
     );
   }
 }
+
+type Styles = 'search' | 'autoSuggestBox';
+
+const styles: StyleRulesCallback<Styles> = theme => ({
+  search: {
+    position: 'absolute',
+    width: '100%',
+    top: 0,
+    right: 0,
+    zIndex: 1,
+    background: theme.palette.background.paper,
+    ...theme.mixins.toolbar,
+  },
+  autoSuggestBox: {
+    flexGrow: 1,
+  },
+});
 
 export default compose(
   withStyles(styles),

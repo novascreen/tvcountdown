@@ -3,19 +3,15 @@ import { compose } from 'react-apollo';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-
-const styles = (theme: Theme) => ({
-  spacer: theme.mixins.toolbar,
-});
+import withStyles, {
+  WithStyles,
+  StyleRulesCallback,
+} from '@material-ui/core/styles/withStyles';
 
 type Props = {};
 
-type PropsWithStyles = WithStyles<'spacer'>;
-
-export const Footer: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
+export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidthProps> = ({
   classes,
   width,
 }) => {
@@ -45,6 +41,12 @@ export const Footer: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
     </footer>
   );
 };
+
+type Styles = 'spacer';
+
+const styles: StyleRulesCallback<Styles> = theme => ({
+  spacer: theme.mixins.toolbar,
+});
 
 export default compose(
   withStyles(styles),

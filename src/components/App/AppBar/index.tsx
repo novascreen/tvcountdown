@@ -5,8 +5,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography/Typography';
 import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import withStyles, {
+  WithStyles,
+  StyleRulesCallback,
+} from '@material-ui/core/styles/withStyles';
 
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
@@ -14,37 +16,9 @@ import Box from 'components/UI/Box';
 import Login from '../Login';
 import { Link } from 'react-router-dom';
 
-const styles: any = (theme: Theme) => ({
-  '@global': {
-    html: {
-      overflowX: 'hidden',
-    },
-    p: {
-      marginTop: 0,
-      marginBottom: theme.spacing.unit,
-    },
-    a: {
-      color: 'inherit',
-      textDecoration: 'none',
-      '&:hover': {
-        textDecoration: 'underline',
-      },
-    },
-  },
-  root: {
-    width: '100%',
-  },
-  spacer: theme.mixins.toolbar,
-  flex: {
-    flex: 1,
-  },
-});
-
 type Props = {};
 
-type PropsWithStyles = WithStyles<'root' | 'spacer' | 'flex'>;
-
-export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
+export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidthProps> = ({
   classes,
   width,
 }) => {
@@ -90,6 +64,34 @@ export const AppBar: React.SFC<Props & PropsWithStyles & WithWidthProps> = ({
     </>
   );
 };
+
+type Styles = 'root' | 'spacer' | 'flex';
+
+const styles: StyleRulesCallback<Styles> = theme => ({
+  '@global': {
+    html: {
+      overflowX: 'hidden',
+    },
+    p: {
+      marginTop: 0,
+      marginBottom: theme.spacing.unit,
+    },
+    a: {
+      color: 'inherit',
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+  },
+  root: {
+    width: '100%',
+  },
+  spacer: theme.mixins.toolbar,
+  flex: {
+    flex: 1,
+  },
+});
 
 export default compose(
   withStyles(styles),
