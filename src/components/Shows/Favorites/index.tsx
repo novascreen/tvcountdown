@@ -3,7 +3,7 @@ import { Typography } from 'material-ui';
 import { Favorites as FavoritesType } from 'resolvers/favorites';
 import Loading from 'components/UI/Loading';
 import List from 'components/Shows/List';
-import { Show } from 'api/models';
+import { Show } from 'graphql/types';
 import withData from './withData';
 
 type Props = {

@@ -12,9 +12,11 @@ import { Link } from 'react-router-dom';
 import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
 import Avatar from 'material-ui/Avatar';
 
-import { Episode } from 'api/models';
+import { Episode } from 'graphql/types';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import Box from 'components/UI/Box';
+import getInitials from 'lib/getInitials';
+import getEpisodeNumber from 'lib/getEpisodeNumber';
 
 export interface Props {
   episodes?: Episode[];
@@ -37,11 +39,11 @@ export class EpisodesList extends React.Component<
               if (!episode.show) return null;
 
               const show = episode.show;
-              const showInitials = show.name.slice(0, 2).toUpperCase();
-              const episodeSeason = (episode.season || 0).toString();
-              const episodeNumber = (episode.number || 0)
-                .toString()
-                .padStart(2, '0');
+              const showInitials = getInitials(show.name || '');
+              const episodeNumber = getEpisodeNumber(
+                episode.season || 0,
+                episode.number || 0,
+              );
               const isLast = episodes.length - 1 === i;
 
               return (
@@ -50,7 +52,7 @@ export class EpisodesList extends React.Component<
                   divider={!isLast}
                 >
                   <Box mR={2}>
-                    {show.image ? (
+                    {show.image && show.image.medium ? (
                       smallScreen ? (
                         <img
                           src={show.image.medium}
@@ -73,21 +75,22 @@ export class EpisodesList extends React.Component<
                         </Link>
                         <Link to={`/shows/${show.id}/episodes/${episode.id}`}>
                           <Typography variant="caption" component="div">
-                            {episodeSeason}
-                            x{episodeNumber} - {episode.name}
+                            {episodeNumber} - {episode.name}
                           </Typography>
                         </Link>
                       </>
                     </Grid>
-                    <Grid item xs={12} sm={5}>
-                      <Typography>
-                        <FormattedRelative value={episode.airstamp} />
-                      </Typography>
-                      <Typography variant="caption" component="div">
-                        <FormattedDate value={episode.airstamp} />{' '}
-                        <FormattedTime value={episode.airstamp} />
-                      </Typography>
-                    </Grid>
+                    {episode.airstamp && (
+                      <Grid item xs={12} sm={5}>
+                        <Typography>
+                          <FormattedRelative value={episode.airstamp} />
+                        </Typography>
+                        <Typography variant="caption" component="div">
+                          <FormattedDate value={episode.airstamp} />{' '}
+                          <FormattedTime value={episode.airstamp} />
+                        </Typography>
+                      </Grid>
+                    )}
                   </Grid>
                   <ListItemSecondaryAction>
                     <FavoriteToggle showId={show.id} />

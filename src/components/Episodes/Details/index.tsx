@@ -5,7 +5,7 @@ import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
 import * as moment from 'moment';
 
-import { Episode } from 'api/models';
+import { Episode } from 'graphql/types';
 import Box from 'components/UI/Box';
 import HTML from 'components/Util/HTML';
 import InlineDivider from 'components/UI/InlineDivider';
@@ -16,7 +16,8 @@ type Props = {
 
 export const EpisodeDetails = ({ episode }: Props) => {
   const genres = (episode.show && episode.show.genres) || [];
-  const hasAired = moment(episode.airstamp).isBefore();
+
+  const hasAired = moment(episode.airstamp || undefined).isBefore();
   return (
     <>
       <Box mB={3} mT={3}>
@@ -38,27 +39,30 @@ export const EpisodeDetails = ({ episode }: Props) => {
               </>
             )}
             {hasAired ? 'Episode aired' : 'Episode airs'}{' '}
-            <FormattedDate
-              value={episode.airstamp}
-              month="long"
-              day="numeric"
-              year="numeric"
-            />
+            {episode.airstamp && (
+              <FormattedDate
+                value={episode.airstamp}
+                month="long"
+                day="numeric"
+                year="numeric"
+              />
+            )}
           </Typography>
         </Box>
         <Divider />
       </Box>
       <Box mB={4}>
         <Typography component="div">
-          {episode.image && (
-            <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
-              <img
-                src={episode.image.medium}
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            </Box>
-          )}
-          <HTML content={episode.summary} />
+          {episode.image &&
+            episode.image.medium && (
+              <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
+                <img
+                  src={episode.image.medium}
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
+              </Box>
+            )}
+          {episode.summary && <HTML content={episode.summary} />}
         </Typography>
       </Box>
     </>

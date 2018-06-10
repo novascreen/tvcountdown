@@ -2,8 +2,8 @@ import * as R from 'ramda';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { GET_FAVORITES, TOGGLE_FAVORITE } from 'resolvers/favorites';
-import fragments from 'api/fragments';
-import withMyFavoriteShows from 'api/withMyFavoriteShows';
+import fragments from 'graphql/fragments';
+import withMyFavoriteShows from 'graphql/withMyFavoriteShows';
 import withMutationState from 'components/Util/withMutationState';
 
 const CREATE_FAVORITE_SHOW = gql`

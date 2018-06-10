@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Episode } from 'api/models';
+import { Episode } from 'graphql/types';
 
 type Props = {
   episode: Episode;

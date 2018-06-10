@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormattedDate } from 'react-intl';
 import Typography from 'material-ui/Typography';
 
-import { Episode as EpisodeType, Show } from 'api/models';
+import { Episode as EpisodeType, Show } from 'graphql/types';
 import SeasonNumber from 'components/Episodes/SeasonNumber';
 import HTML from 'components/Util/HTML';
 
@@ -21,17 +21,23 @@ export const EpisodeCard = ({ title, episode, show }: Props) => (
     </Link>
     <Typography variant="body2" component="h4">
       <SeasonNumber episode={episode} />
-      {' - '}
-      <FormattedDate
-        value={episode.airstamp}
-        month="short"
-        day="numeric"
-        year="numeric"
-      />
+      {episode.airstamp && (
+        <>
+          {' - '}
+          <FormattedDate
+            value={episode.airstamp}
+            month="short"
+            day="numeric"
+            year="numeric"
+          />
+        </>
+      )}
     </Typography>
-    <Typography component="div">
-      <HTML content={episode.summary} />
-    </Typography>
+    {episode.summary && (
+      <Typography component="div">
+        <HTML content={episode.summary} />
+      </Typography>
+    )}
   </>
 );
 

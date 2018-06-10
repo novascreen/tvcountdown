@@ -3,7 +3,7 @@ import { graphql, ChildDataProps } from 'react-apollo';
 import gql from 'graphql-tag';
 // import { RouteComponentProps } from 'react-router';
 
-import { Episode as EpisodeType } from 'api/models';
+import { Episode as EpisodeType } from 'graphql/types';
 import { Loading } from 'components/UI/Loading';
 import EpisodeDetails from 'components/Episodes/Details';
 

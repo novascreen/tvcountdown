@@ -1,8 +1,8 @@
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { GET_FAVORITES } from 'resolvers/favorites';
-import withMyFavoriteShows from 'api/withMyFavoriteShows';
-import { FavoriteShow } from 'api/models';
+import withMyFavoriteShows from 'graphql/withMyFavoriteShows';
+import { FavoriteShow } from 'graphql/types';
 
 const GET_SHOWS = gql`
   query GetShows($ids: [Int]!) {

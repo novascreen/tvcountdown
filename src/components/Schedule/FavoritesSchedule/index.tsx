@@ -3,8 +3,8 @@ import { graphql, compose } from 'react-apollo';
 
 import FavoritesList from 'components/Schedule/FavoritesList';
 import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
-import withMyFavoriteShows from 'api/withMyFavoriteShows';
-import { User } from 'api/models';
+import withMyFavoriteShows from 'graphql/withMyFavoriteShows';
+import { User } from 'graphql/types';
 
 type InputProps = {
   previous?: boolean;

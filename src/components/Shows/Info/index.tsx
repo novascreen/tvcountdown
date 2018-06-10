@@ -2,7 +2,7 @@ import * as React from 'react';
 import Typography from 'material-ui/Typography';
 import Table, { TableBody, TableRow, TableCell } from 'material-ui/Table';
 
-import { Show } from 'api/models';
+import { Show } from 'graphql/types';
 
 type Props = {
   show: Show;

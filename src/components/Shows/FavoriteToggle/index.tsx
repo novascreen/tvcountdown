@@ -3,7 +3,7 @@ import IconButton from 'material-ui/IconButton/IconButton';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
 
-import { User, FavoriteShow } from 'api/models';
+import { User, FavoriteShow } from 'graphql/types';
 import withData from './withData';
 import { Favorites } from 'resolvers/favorites';
 
@@ -11,6 +11,7 @@ type Props = {
   favorites?: Favorites;
   showId: number;
   me?: User;
+  auth?: boolean;
   loadingMyFavoriteShows?: boolean;
   createFavoriteShowLoading?: boolean;
   deleteFavoriteShowLoading?: boolean;
@@ -29,6 +30,7 @@ export const FavoriteToggle: React.SFC<Props> = ({
   onToggle = () => null,
   createFavoriteShow = () => null,
   deleteFavoriteShow = () => null,
+  auth,
   ...props
 }) => {
   const saving = createFavoriteShowLoading || deleteFavoriteShowLoading;
@@ -57,6 +59,7 @@ export const FavoriteToggle: React.SFC<Props> = ({
       onToggle(showId);
     }
   };
+
   return (
     <IconButton
       onClick={onClick}

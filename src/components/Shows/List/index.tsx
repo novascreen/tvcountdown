@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Show } from 'api/models';
+import { Show } from 'graphql/types';
 // import { Grid, Typography } from 'material-ui';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import withWidth, { WithWidthProps } from 'material-ui/utils/withWidth';
@@ -26,9 +26,10 @@ export const List = ({ shows, width }: Props & WithWidthProps) => {
             secondaryText = secondaryText.concat(
               networkName ? [networkName] : [],
             );
+            if (!id) return null;
             return (
               <GridListTile key={id}>
-                {image && <img src={image.medium} />}
+                {image && image.medium && <img src={image.medium} />}
                 <GridListTileBar
                   title={name}
                   subtitle={secondaryText.join(', ')}

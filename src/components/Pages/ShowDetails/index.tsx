@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 // import { RouteComponentProps } from 'react-router';
 
-import { Show as ShowType } from 'api/models';
+import { Show as ShowType } from 'graphql/types';
 import { Loading } from 'components/UI/Loading';
 import ShowDetails from 'components/Shows/Details';
 

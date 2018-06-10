@@ -4,7 +4,7 @@ import Divider from 'material-ui/Divider';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 
-import { Show as ShowType } from 'api/models';
+import { Show as ShowType } from 'graphql/types';
 import Box from 'components/UI/Box';
 import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import HTML from 'components/Util/HTML';
@@ -47,15 +47,16 @@ export const ShowDetails = ({ show }: Props) => {
       </Box>
       <Box mB={4}>
         <Typography component="div">
-          {show.image && (
-            <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
-              <img
-                src={show.image.medium}
-                style={{ maxWidth: '100%', height: 'auto' }}
-              />
-            </Box>
-          )}
-          <HTML content={show.summary} />
+          {show.image &&
+            show.image.medium && (
+              <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
+                <img
+                  src={show.image.medium}
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
+              </Box>
+            )}
+          {show.summary && <HTML content={show.summary} />}
         </Typography>
       </Box>
       {episodes.length && (
