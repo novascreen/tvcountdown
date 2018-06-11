@@ -8,7 +8,7 @@ import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
 import FavoriteToggle from '../FavoriteToggle';
 
 type Props = {
-  shows: [Show];
+  shows: Show[];
 };
 
 export const List = ({ shows, width }: Props & WithWidthProps) => {

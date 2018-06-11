@@ -19,8 +19,6 @@ export class Shows extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
 
-    console.log(props);
-
     this.state = {
       query: getQuery(props),
     };
