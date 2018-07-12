@@ -78,7 +78,7 @@ const deleteFavoriteShow = ({
 
 type RenderProps = {
   loading: boolean;
-  onToggle: () => void;
+  onToggle: (e: React.MouseEvent<HTMLElement>) => void;
 };
 
 type Props = {
@@ -130,7 +130,9 @@ const ToggleMutation: React.SFC<Props> = ({
         toggleResult.loading || createResult.loading || deleteResult.loading;
       return children({
         loading,
-        onToggle: () => {
+        onToggle: e => {
+          e.stopPropagation();
+
           if (loading || !favoriteShows || !showId) return;
 
           if (userId) {

@@ -5,6 +5,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import appHistory from 'appHistory';
 import FavoriteToggle from '../FavoriteToggle';
 
 type Props = {
@@ -30,7 +31,12 @@ export const List = ({ shows, width }: Props & WithWidthProps) => {
             );
             if (!id) return null;
             return (
-              <GridListTile key={id}>
+              <GridListTile
+                key={id}
+                // TODO: Cleanup to use real Link
+                onClick={() => appHistory.push(`/shows/${id}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 {image && image.medium && <img src={image.medium} />}
                 <GridListTileBar
                   title={name}
