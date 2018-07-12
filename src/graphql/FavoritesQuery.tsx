@@ -35,7 +35,7 @@ interface FavoritesVariables {}
 
 class FavoritesQuery extends Query<FavoritesData, FavoritesVariables> {}
 
-type Result = {
+export type Result = {
   loading: boolean;
   error: ApolloError | undefined;
   favoriteShows: FavoriteShow[];

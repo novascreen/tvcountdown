@@ -35,7 +35,7 @@ export const ShowDetails = ({ show }: Props) => {
     <>
       <Box mB={3} mT={3}>
         <Typography variant="display1">
-          {show.name} <FavoriteToggle showId={show.id} />
+          {show.name} {show.id && <FavoriteToggle showId={show.id} />}
         </Typography>
         <Box mB={1}>
           <Typography variant="caption">

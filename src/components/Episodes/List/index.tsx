@@ -89,9 +89,11 @@ export class EpisodesList extends React.Component<
                       </Grid>
                     )}
                   </Grid>
-                  <ListItemSecondaryAction>
-                    <FavoriteToggle showId={show.id} />
-                  </ListItemSecondaryAction>
+                  {show.id && (
+                    <ListItemSecondaryAction>
+                      <FavoriteToggle showId={show.id} />
+                    </ListItemSecondaryAction>
+                  )}
                 </ListItem>
               );
             })}

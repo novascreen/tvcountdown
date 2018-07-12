@@ -12,13 +12,9 @@ type State = {
 };
 
 export class Search extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      query: props.query,
-    };
-  }
+  state = {
+    query: this.props.query,
+  };
 
   componentWillReceiveProps(nextProps: Props) {
     if (this.props.query !== nextProps.query) {
@@ -49,7 +45,7 @@ export class Search extends React.Component<Props, State> {
             'aria-label': 'Description',
           }}
           onChange={this.handleChange}
-          value={this.state.query}
+          value={this.state.query || ''}
         />
         <Button onClick={this.handleClear}>Clear</Button>
       </form>
