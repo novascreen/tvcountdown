@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
@@ -13,7 +14,6 @@
     "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src",
-    "baseUrl": "src",
     "paths": {
       "*": [
         "*"
