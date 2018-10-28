@@ -4,7 +4,7 @@ import MUIAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography/Typography';
-import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import withWidth, { WithWidth } from '@material-ui/core/withWidth';
 import withStyles, {
   WithStyles,
   StyleRulesCallback,
@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 
 type Props = {};
 
-export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidthProps> = ({
+export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
   classes,
   width,
 }) => {

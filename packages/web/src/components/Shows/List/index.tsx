@@ -4,7 +4,7 @@ import { Show } from 'graphql/types';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import withWidth, { WithWidth } from '@material-ui/core/withWidth';
 import appHistory from 'appHistory';
 import FavoriteToggle from '../FavoriteToggle';
 
@@ -12,7 +12,7 @@ type Props = {
   shows: Show[];
 };
 
-export const List = ({ shows, width }: Props & WithWidthProps) => {
+export const List = ({ shows, width }: Props & WithWidth) => {
   let cols = 5;
   if (width === 'md') cols = 4;
   if (width === 'sm') cols = 3;

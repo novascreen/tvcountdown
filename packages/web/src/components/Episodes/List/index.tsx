@@ -10,7 +10,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import * as Infinite from 'react-infinite';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import withWidth, { WithWidth } from '@material-ui/core/withWidth';
 import Avatar from '@material-ui/core/Avatar';
 
 import { Episode } from 'graphql/types';
@@ -24,7 +24,7 @@ export interface Props {
 }
 
 export class EpisodesList extends React.Component<
-  RouteComponentProps<{}> & Props & WithWidthProps
+  RouteComponentProps<{}> & Props & WithWidth
 > {
   render() {
     const { episodes = [], width } = this.props;

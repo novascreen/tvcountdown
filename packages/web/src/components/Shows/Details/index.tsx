@@ -39,7 +39,8 @@ export const ShowDetails = ({ show }: Props) => {
         </Typography>
         <Box mB={1}>
           <Typography variant="caption">
-            {show.airedYears} | {show.runtime} min<InlineDivider />
+            {show.airedYears} | {show.runtime} min
+            <InlineDivider />
             {show.genres && show.genres.join(', ')}
           </Typography>
         </Box>

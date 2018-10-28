@@ -31,7 +31,8 @@ export const EpisodeDetails = ({ episode }: Props) => {
         <Typography variant="display1">{episode.name}</Typography>
         <Box mB={1}>
           <Typography variant="caption">
-            {episode.runtime} min<InlineDivider />
+            {episode.runtime} min
+            <InlineDivider />
             {Boolean(genres.length) && (
               <>
                 {genres.join(', ')}

@@ -80,4 +80,4 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   },
 });
 
-export default withStyles(styles)<Props>(AutoSuggest);
+export default withStyles(styles)(AutoSuggest);

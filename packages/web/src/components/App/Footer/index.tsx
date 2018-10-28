@@ -3,7 +3,7 @@ import { compose } from 'react-apollo';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import withWidth, { WithWidthProps } from '@material-ui/core/withWidth';
+import withWidth, { WithWidth } from '@material-ui/core/withWidth';
 import withStyles, {
   WithStyles,
   StyleRulesCallback,
@@ -11,7 +11,7 @@ import withStyles, {
 
 type Props = {};
 
-export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidthProps> = ({
+export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
   classes,
   width,
 }) => {
