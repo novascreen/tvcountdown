@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "typeRoots" : [
+      "../../node_modules/@types",
+      "./node_modules/@types",
+      "./typings"
+    ],
     "target": "es5",
     "moduleResolution": "node",
     "module": "commonjs",

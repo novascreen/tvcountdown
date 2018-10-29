@@ -1,7 +1,7 @@
 # import FavoriteShow from "./generated/prisma.graphql"
 
-directive @isAuthenticated on QUERY | FIELD | MUTATION
-directive @isOwner(type: String) on QUERY | MUTATION
+directive @isAuthenticated on QUERY | FIELD_DEFINITION | MUTATION
+directive @isOwner(type: String) on QUERY | FIELD_DEFINITION  | MUTATION
 
 type Query {
   me: User @isAuthenticated
@@ -17,7 +17,7 @@ type Query {
 type Mutation {
   authenticate(idToken: String!): User
   createFavoriteShow(tvmaze: Int!): User @isAuthenticated
-  deleteFavoriteShow(id: ID!): User @isOwner(type: "FavoriteShow")
+  deleteFavoriteShow(id: ID!): User @isOwner(type: "favoriteShow")
 }
 
 type User {

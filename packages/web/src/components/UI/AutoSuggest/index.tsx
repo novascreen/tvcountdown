@@ -6,9 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { StyleRulesCallback } from '@material-ui/core/styles/withStyles';
 
-function renderInput(
-  inputProps: ReactAutosuggest.InputProps<any>,
-): JSX.Element {
+function renderInput(inputProps: any): JSX.Element {
   return (
     <TextField fullWidth inputRef={inputProps.ref} inputProps={inputProps} />
   );

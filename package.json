@@ -5,12 +5,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "lerna run --parallel dev"
+    "dev": "lerna run --parallel dev",
+    "build": "lerna run --parallel build"
   },
   "workspaces": [
     "packages/*"
   ],
   "dependencies": {
     "lerna": "^3.4.3"
+  },
+  "resolutions": {
+    "graphql": "^14.0.2"
   }
 }

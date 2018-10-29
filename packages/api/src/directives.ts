@@ -1,17 +1,25 @@
-import { isLoggedIn } from './utils';
+import { isLoggedIn, Context } from './utils';
 
-const isRequestingUserAlsoOwner = ({ ctx, userId, type, typeId }) =>
-  ctx.db.exists[type]({ id: typeId, user: { id: userId } });
+const isRequestingUserAlsoOwner = ({
+  ctx,
+  userId,
+  type,
+  typeId,
+}: {
+  ctx: Context;
+  userId: any;
+  type: any;
+  typeId: any;
+}) => ctx.db.$exists[type]({ id: typeId, user: { id: userId } });
 
 const directiveResolvers = {
-  isAuthenticated: (next, source, args, ctx) => {
+  isAuthenticated: (next, source, args, ctx: Context) => {
     isLoggedIn(ctx);
     return next();
   },
-  isOwner: async (next, source, { type }, ctx) => {
+  isOwner: async (next, source, { type }, ctx: Context) => {
     const { id: typeId } = ctx.request.body.variables;
     const { id: userId } = isLoggedIn(ctx);
-    console.log('------------------------\nisOwner', ctx.request.body);
     const isOwner = await isRequestingUserAlsoOwner({
       ctx,
       userId,

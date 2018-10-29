@@ -3,16 +3,13 @@ import * as jwt from 'jsonwebtoken';
 import { Context } from '../../utils';
 import validateAndParseIdToken from '../../utils/validateAndParseIdToken';
 
-async function createPrismaUser(ctx: any, idToken: any) {
-  console.log('IDTOKEN', idToken);
-  const user = await ctx.db.mutation.createUser({
-    data: {
-      identity: idToken.sub.split(`|`)[0],
-      auth0id: idToken.sub.split(`|`)[1],
-      name: idToken.name,
-      email: idToken.email,
-      avatar: idToken.picture,
-    },
+async function createPrismaUser(ctx: Context, idToken: any) {
+  const user = await ctx.db.createUser({
+    identity: idToken.sub.split(`|`)[0],
+    auth0id: idToken.sub.split(`|`)[1],
+    name: idToken.name,
+    email: idToken.email,
+    avatar: idToken.picture,
   });
   return user;
 }
@@ -21,7 +18,7 @@ export default {
   async authenticate(
     parent: any,
     { idToken }: { idToken: any },
-    ctx: any,
+    ctx: Context,
     info: any,
   ) {
     let userToken = null;
@@ -31,9 +28,9 @@ export default {
       throw new Error(err.message);
     }
     const auth0id = userToken.sub.split('|')[1];
-    let user = await ctx.db.query.user({ where: { auth0id } }, info);
+    let user = await ctx.db.user({ auth0id });
     if (!user) {
-      user = createPrismaUser(ctx, userToken);
+      user = await createPrismaUser(ctx, userToken);
     }
     return user;
   },

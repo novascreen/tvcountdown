@@ -8,8 +8,7 @@ import scheduleFavorites from './scheduleFavorites';
 export default {
   me(parent: any, args: any, ctx: Context, info: any) {
     const { auth0id } = isLoggedIn(ctx);
-    console.log(args, info);
-    return ctx.db.query.user({ where: { auth0id } }, info);
+    return ctx.db.user({ auth0id });
   },
   search(parent: any, { query }: { query: string }) {
     return search(query);

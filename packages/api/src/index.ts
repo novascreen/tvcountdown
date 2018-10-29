@@ -2,7 +2,7 @@ import * as path from 'path';
 import { GraphQLServer } from 'graphql-yoga';
 import { makeExecutableSchema } from 'graphql-tools';
 import { importSchema } from 'graphql-import';
-import { Prisma } from './generated/prisma';
+import { Prisma } from './generated';
 import resolvers from './resolvers';
 import checkJwt from './middleware/checkJwt';
 import getUser from './middleware/getUser';

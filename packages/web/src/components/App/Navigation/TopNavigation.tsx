@@ -69,4 +69,4 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   },
 });
 
-export default withStyles(styles)<Props>(TopNavigation);
+export default withStyles(styles)(TopNavigation);

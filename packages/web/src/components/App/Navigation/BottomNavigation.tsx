@@ -44,4 +44,4 @@ const styles: StyleRules<Styles> = {
   },
 };
 
-export default withStyles(styles)<Props>(BottomNavigation);
+export default withStyles(styles)(BottomNavigation);

@@ -1,5 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { Prisma } from '../generated/prisma';
+import { Prisma } from '../generated';
 
 export interface Context {
   db: Prisma;
@@ -25,9 +25,9 @@ export function getUserId(ctx: Context) {
   throw new AuthError();
 }
 
-export const ctxUser = ctx => ctx.request.user;
+export const ctxUser = (ctx: Context) => ctx.request.user;
 
-export const isLoggedIn = ctx => {
+export const isLoggedIn = (ctx: Context) => {
   if (!ctx.request.user) throw new Error(`Not logged in`);
   return ctxUser(ctx);
 };

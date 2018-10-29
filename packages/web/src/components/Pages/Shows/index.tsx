@@ -13,7 +13,10 @@ type State = {
   query: string;
 };
 
-const getQuery = (props: Props) => qs.parse(props.location.search).search;
+const getQuery = (props: Props) => {
+  const search = qs.parse(props.location.search).search;
+  return typeof search === 'string' ? search : '';
+};
 
 export class Shows extends React.Component<Props, State> {
   constructor(props: any) {

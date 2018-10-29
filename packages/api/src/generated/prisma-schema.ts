@@ -1,4 +1,4 @@
-type AggregateFavoriteShow {
+export const typeDefs = /* GraphQL */ `type AggregateFavoriteShow {
   count: Int!
 }
 
@@ -458,3 +458,4 @@ input UserWhereUniqueInput {
   auth0id: String
   email: String
 }
+`
