@@ -78,7 +78,6 @@ export default class Auth {
   };
 
   handlePopupAuthentication = (err: any, authResult: any) => {
-    console.log(authResult);
     if (authResult && authResult.accessToken && authResult.idToken) {
       this.setSession(authResult);
     } else if (err) {
@@ -88,7 +87,6 @@ export default class Auth {
 
   handleAuthentication = () => {
     this.auth0.parseHash((err: any, authResult: any) => {
-      console.log(authResult);
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
@@ -116,7 +114,6 @@ export default class Auth {
   };
 
   signinOrCreateAccount({ accessToken, idToken, expiresAt }: any) {
-    console.log(this.apolloClient);
     this.apolloClient
       .mutate({
         mutation: AUTHENTICATE,

@@ -56,7 +56,7 @@ export const Favorites = () => {
                 !showsResult.data.shows ||
                 !showsResult.data.shows.length
               ) {
-                return <Typography>No shows added to favorites yet</Typography>;
+                return <Typography>You haven't saved any shows yet</Typography>;
               }
               return <List shows={showsResult.data.shows} />;
             }}
