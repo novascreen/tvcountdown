@@ -1,4 +1,5 @@
 import * as _get from 'lodash/get';
+import { getShowEpisodes, getShowSeasons } from '../tvmaze/api';
 
 export default {
   airedYears: show => {
@@ -12,4 +13,6 @@ export default {
   },
   previousEpisode: show => _get(show, '_embedded.previousepisode', null),
   nextEpisode: show => _get(show, '_embedded.nextepisode', null),
+  episodes: show => getShowEpisodes(show.id),
+  seasons: show => getShowSeasons(show.id),
 };

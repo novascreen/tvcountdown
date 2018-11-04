@@ -12,6 +12,7 @@ type Query {
   scheduleByDate(date: String!): [Episode]
   scheduleFavorites(showIds: [Int]!, previous: Boolean ): [Episode]
   episode(id: Int!): Episode
+  episodes(showId: Int!): [Episode]
 }
 
 type Mutation {
@@ -83,6 +84,21 @@ type Episode {
   show: Show
 }
 
+type Season {
+  id: Int
+  url:	String
+  number: Int
+  name: String
+  episodeOrder: Int
+  premiereDate: String
+  endDate: String
+  network: Network
+  webChannel: WebChannel
+  image: Image
+  summary: String
+  episodes: [Episode]
+}
+
 # Information for a show including list of episodes
 type Show {
   id: Int
@@ -105,6 +121,7 @@ type Show {
   image: Image
   summary: String
   updated: Int
+  seasons: [Season]
   episodes: [Episode]
   previousEpisode: Episode
   nextEpisode: Episode
