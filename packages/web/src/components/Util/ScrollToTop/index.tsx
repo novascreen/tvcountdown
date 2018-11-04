@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
+import * as R from 'ramda';
 
 type Props = RouteComponentProps<{}>;
 
 export class ScrollToTop extends React.Component<Props> {
   componentDidUpdate(prevProps: Props) {
-    if (this.props.location !== prevProps.location) {
+    const noScroll = R.path(['state', 'noScroll'], this.props.location);
+
+    if (!noScroll && this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
     }
   }
