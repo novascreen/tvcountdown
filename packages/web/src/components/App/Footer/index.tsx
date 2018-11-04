@@ -28,6 +28,15 @@ export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
                 tvcountdown.info
               </a>
             </Typography>{' '}
+            |{' '}
+            <Typography color="inherit" component="span" variant="body2">
+              <a
+                href="https://github.com/novascreen/tvcountdown/issues"
+                target="_blank"
+              >
+                Feedback
+              </a>
+            </Typography>{' '}
             | Data source:{' '}
             <Typography color="inherit" component="span" variant="body2">
               <a href="https://tvmaze.com" target="_blank">
