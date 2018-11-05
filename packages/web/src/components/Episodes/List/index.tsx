@@ -21,22 +21,37 @@ import EpisodeNumber from 'components/Episodes/EpisodeNumber';
 
 export interface Props {
   episodes?: Episode[];
+  disableInfinite?: boolean;
 }
 
 export class EpisodesList extends React.Component<
   RouteComponentProps<{}> & Props & WithWidth
 > {
+  renderWrapper(children: React.ReactNode) {
+    const { disableInfinite, width } = this.props;
+    const smallScreen = width === 'xs';
+
+    if (disableInfinite) {
+      return <>{children}</>;
+    }
+
+    return (
+      <Infinite
+        elementHeight={smallScreen ? 118.5 : 65.5}
+        useWindowAsScrollContainer
+      >
+        {children}
+      </Infinite>
+    );
+  }
   render() {
     const { episodes = [], width } = this.props;
     const smallScreen = width === 'xs';
     return (
       <Paper>
         <List>
-          <Infinite
-            elementHeight={smallScreen ? 118.5 : 65.5}
-            useWindowAsScrollContainer
-          >
-            {episodes.map((episode, i) => {
+          {this.renderWrapper(
+            episodes.map((episode, i) => {
               if (!episode.show) return null;
 
               const show = episode.show;
@@ -96,8 +111,8 @@ export class EpisodesList extends React.Component<
                   )}
                 </ListItem>
               );
-            })}
-          </Infinite>
+            }),
+          )}
         </List>
       </Paper>
     );

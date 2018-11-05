@@ -3,6 +3,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { Route } from 'react-router';
 
 import { Show as ShowType } from 'graphql/types';
 import Box from 'components/UI/Box';
@@ -10,13 +13,17 @@ import FavoriteToggle from 'components/Shows/FavoriteToggle';
 import HTML from 'components/Util/HTML';
 import EpisodeCard from 'components/Episodes/EpisodeCard';
 import Info from 'components/Shows/Info';
+import Seasons from 'components/Shows/Seasons';
 import InlineDivider from 'components/UI/InlineDivider';
+import appHistory from 'appHistory';
 
 type Props = {
   show: ShowType;
+  url: String;
+  section: String;
 };
 
-export const ShowDetails = ({ show }: Props) => {
+export const ShowDetails = ({ url, show, section = '' }: Props) => {
   const episodes = [];
   if (show.nextEpisode) {
     episodes.push({
@@ -76,8 +83,34 @@ export const ShowDetails = ({ show }: Props) => {
         </Box>
       )}
       <Box mB={4}>
-        <Typography variant="title">Show info</Typography>
-        <Info show={show} />
+        <Box mB={3}>
+          <Tabs
+            fullWidth
+            indicatorColor="primary"
+            textColor="primary"
+            value={section}
+            onChange={(e, value) =>
+              appHistory.push(`/shows/${show.id}/${value}`, {
+                noScroll: true,
+              })
+            }
+          >
+            <Tab value="" label={<>Info</>} />
+            <Tab value="episodes" label={<>Episodes</>} />
+          </Tabs>
+          <Divider />
+        </Box>
+
+        <Route
+          exact
+          path={`/shows/${show.id}`}
+          component={() => <Info show={show} />}
+        />
+        <Route
+          exact
+          path={`/shows/${show.id}/episodes`}
+          component={() => <Seasons show={show} />}
+        />
       </Box>
     </>
   );

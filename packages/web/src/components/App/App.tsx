@@ -24,6 +24,11 @@ const App = () => (
               <Route exact path="/shows/:showId" component={ShowDetailsPage} />
               <Route
                 exact
+                path="/shows/:showId/:section"
+                component={ShowDetailsPage}
+              />
+              <Route
+                exact
                 path="/shows/:showId/episodes/:episodeId"
                 component={EpisodeDetailsPage}
               />

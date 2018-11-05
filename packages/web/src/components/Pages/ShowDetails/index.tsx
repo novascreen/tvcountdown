@@ -64,6 +64,7 @@ const GET_SHOW = gql`
 
 type RouterParams = {
   showId: string;
+  section: string;
 };
 
 type Props = {} & RouteComponentProps<RouterParams>;
@@ -76,7 +77,13 @@ export const ShowDetailsPage: React.SFC<Props> = ({ match }) => (
     {({ loading, error, data }) => {
       if (loading) return <Loading />;
       if (!data || !data.show) return <Typography>Show not found</Typography>;
-      return <ShowDetails show={data.show} />;
+      return (
+        <ShowDetails
+          url={match.url}
+          section={match.params.section}
+          show={data.show}
+        />
+      );
     }}
   </ShowQuery>
 );
