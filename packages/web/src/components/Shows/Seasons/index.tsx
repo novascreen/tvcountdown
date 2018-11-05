@@ -9,7 +9,7 @@ import { Episode, Show } from 'graphql/types';
 import Box from 'components/UI/Box';
 
 interface Data {
-  episodes: [Episode];
+  episodes: Episode[];
 }
 
 interface Variables {
@@ -34,6 +34,8 @@ type Props = {
   show: Show;
 } & Variables;
 
+const byDate = R.descend(R.prop('airstamp'));
+
 export const Seasons = ({ show }: Props) => {
   return (
     <EpisodesQuery query={EPISODES} variables={{ showId: show.id }}>
@@ -43,10 +45,8 @@ export const Seasons = ({ show }: Props) => {
           return <Typography>No episodes found</Typography>;
         }
         data.episodes.forEach(episode => (episode.show = show));
-        const seasons = R.groupBy(
-          episode => `${episode.season}`,
-          data.episodes,
-        );
+        const allEpisodes: Episode[] = R.sort(byDate, data.episodes);
+        const seasons = R.groupBy(episode => `${episode.season}`, allEpisodes);
         return Object.entries(seasons)
           .reverse()
           .map(([season, episodes]) => (
