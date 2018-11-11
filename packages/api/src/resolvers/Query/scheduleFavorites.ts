@@ -6,7 +6,6 @@ import {
   getEpisodeById,
   getScheduleByDate,
   search,
-  getEpisodes,
 } from '../../tvmaze/api';
 import { combineResults } from '../../utils';
 

@@ -1,11 +1,12 @@
 import * as React from 'react';
-import * as R from 'ramda';
-import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import Composer from 'react-composer';
+import { adopt } from 'react-adopt';
 import { TOGGLE_FAVORITE } from 'resolvers/favorites';
 import { FavoriteShow } from 'graphql/types';
 import fragments from 'graphql/fragments';
+import { adoptMutation } from 'graphql/adopt';
+import deleteFavoriteShow from 'graphql/deleteFavoriteShow';
+import createFavoriteShow from 'graphql/createFavoriteShow';
 
 const CREATE_FAVORITE_SHOW = gql`
   mutation CreateFavoriteShow($tvmaze: Int!) {
@@ -16,28 +17,6 @@ const CREATE_FAVORITE_SHOW = gql`
   ${fragments.myFavoriteShows}
 `;
 
-type CFS = {
-  mutate: any;
-  userId: string;
-  showId: number;
-  favoriteShows: FavoriteShow[];
-};
-const createFavoriteShow = ({ mutate, userId, showId, favoriteShows }: CFS) =>
-  mutate({
-    variables: { tvmaze: showId },
-    optimisticResponse: {
-      __typename: 'Mutation',
-      createFavoriteShow: {
-        __typename: 'User',
-        id: userId,
-        favoriteShows: [
-          ...favoriteShows,
-          { __typename: 'FavoriteShow', id: -1, tvmaze: showId },
-        ],
-      },
-    },
-  });
-
 const DELETE_FAVORITE_SHOW = gql`
   mutation DeleteFavoriteShow($id: ID!) {
     deleteFavoriteShow(id: $id) {
@@ -46,35 +25,6 @@ const DELETE_FAVORITE_SHOW = gql`
   }
   ${fragments.myFavoriteShows}
 `;
-
-type DFS = {
-  mutate: any;
-  userId: string;
-  favoriteShow: FavoriteShow;
-  favoriteShows: FavoriteShow[];
-};
-const deleteFavoriteShow = ({
-  mutate,
-  userId,
-  favoriteShow,
-  favoriteShows,
-}: DFS) => {
-  const favoriteShowIndex = R.findIndex(
-    R.propEq('id', favoriteShow.id),
-    favoriteShows,
-  );
-  return mutate({
-    variables: { id: favoriteShow.id },
-    optimisticResponse: {
-      __typename: 'Mutation',
-      deleteFavoriteShow: {
-        __typename: 'User',
-        id: userId,
-        favoriteShows: R.remove(favoriteShowIndex, 1, favoriteShows),
-      },
-    },
-  });
-};
 
 type RenderProps = {
   loading: boolean;
@@ -89,6 +39,28 @@ type Props = {
   children: (props: RenderProps) => React.ReactNode;
 };
 
+type ComposedRenderProps = {
+  toggleLocal: any;
+  createFav: any;
+  deleteFav: any;
+  loading: boolean;
+};
+
+const Composed = adopt<ComposedRenderProps>(
+  {
+    toggleLocal: adoptMutation({ mutation: TOGGLE_FAVORITE }),
+    createFav: adoptMutation({ mutation: CREATE_FAVORITE_SHOW }),
+    deleteFav: adoptMutation({ mutation: DELETE_FAVORITE_SHOW }),
+  },
+  (props: ComposedRenderProps) => ({
+    ...props,
+    loading:
+      props.toggleLocal.result.loading ||
+      props.createFav.result.loading ||
+      props.deleteFav.result.loading,
+  }),
+);
+
 const ToggleMutation: React.SFC<Props> = ({
   userId,
   showId,
@@ -96,41 +68,11 @@ const ToggleMutation: React.SFC<Props> = ({
   favoriteShows,
   children,
 }) => (
-  <Composer
-    components={[
-      ({ render }: any) => (
-        <Mutation
-          key="toggleLocal"
-          mutation={TOGGLE_FAVORITE}
-          children={(toggle, result) => render([toggle, result])}
-        />
-      ),
-      ({ render }: any) => (
-        <Mutation
-          key="create"
-          mutation={CREATE_FAVORITE_SHOW}
-          children={(toggle, result) => render([toggle, result])}
-        />
-      ),
-      ({ render }: any) => (
-        <Mutation
-          key="delete"
-          mutation={DELETE_FAVORITE_SHOW}
-          children={(toggle, result) => render([toggle, result])}
-        />
-      ),
-    ]}
-  >
-    {([
-      [toggleFavorite, toggleResult],
-      [createFavorite, createResult],
-      [deleteFavorite, deleteResult],
-    ]: any[]) => {
-      const loading =
-        toggleResult.loading || createResult.loading || deleteResult.loading;
-      return children({
+  <Composed
+    render={({ toggleLocal, createFav, deleteFav, loading }: any) =>
+      children({
         loading,
-        onToggle: e => {
+        onToggle: (e: any) => {
           e.stopPropagation();
 
           if (loading || !favoriteShows || !showId) return;
@@ -138,7 +80,7 @@ const ToggleMutation: React.SFC<Props> = ({
           if (userId) {
             if (favoriteShow) {
               deleteFavoriteShow({
-                mutate: deleteFavorite,
+                mutate: deleteFav.run,
                 userId,
                 favoriteShow,
                 favoriteShows,
@@ -146,7 +88,7 @@ const ToggleMutation: React.SFC<Props> = ({
               return;
             }
             createFavoriteShow({
-              mutate: createFavorite,
+              mutate: createFav.run,
               userId,
               showId,
               favoriteShows,
@@ -154,11 +96,11 @@ const ToggleMutation: React.SFC<Props> = ({
             return;
           }
 
-          toggleFavorite({ variables: { showId } });
+          toggleLocal.run({ variables: { showId } });
         },
-      });
-    }}
-  </Composer>
+      })
+    }
+  />
 );
 
 export default ToggleMutation;
