@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "yarn dev",
+    "start": "serve",
     "dev": "react-scripts-ts start",
     "dev:all": "npm-run-all -p dev styleguide",
     "gen-types": "gql-gen --schema http://localhost:4000 --template graphql-codegen-typescript-template --out ./src/graphql/types.ts",
@@ -14,8 +14,7 @@
     "eject": "react-scripts-ts eject",
     "styleguide": "dotenv -- styleguidist server",
     "styleguide:build": "styleguidist build",
-    "deploy": "cd build && now -A ../now.json -E ../.env.production",
-    "alias": "cd build && now alias -A ../now.json"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@material-ui/core": "^3.3.2",
@@ -45,6 +44,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts-ts": "3.1.0",
     "recompose": "^0.30.0",
+    "serve": "^10.1.1",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

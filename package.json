@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "dev": "lerna run --parallel dev",
-    "build": "lerna run --parallel build"
+    "build": "lerna run --parallel build",
+    "deploy:api": "git subtree push --prefix packages/api heroku-api master",
+    "deploy:web": "git subtree push --prefix packages/web heroku-web master"
   },
   "workspaces": [
     "packages/*"
