@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "yarn dev",
+    "start": "node index.js",
     "dev": "nodemon --config nodemon.json src/index.ts",
     "build": "rimraf dist && tsc",
-    "predist": "npm run build",
-    "dist": "pkg -c pkg.json -o dist/api.bin index.js",
-    "deploy": "now --docker -E .env.prod"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
