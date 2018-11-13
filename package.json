@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "postinstall": "cpy yarn.lock pagackes/api && cpy yarn.lock packages/web",
     "dev": "lerna run --parallel dev",
     "build": "lerna run --parallel build",
     "deploy:api": "git subtree push --prefix packages/api heroku-api master",
@@ -14,6 +15,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "cpy-cli": "^2.0.0",
     "lerna": "^3.4.3"
   },
   "resolutions": {
