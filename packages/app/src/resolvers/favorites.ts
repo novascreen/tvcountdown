@@ -6,7 +6,7 @@ export type Favorites = number[];
 
 export type Defaults = {
   favorites: Favorites;
-};
+} | null;
 
 export const GET_FAVORITES = gql`
   query GetFavorites {
@@ -40,6 +40,8 @@ export default {
         { cache }: { cache: InMemoryCache },
       ): null {
         const state: Defaults = cache.readQuery({ query: GET_FAVORITES });
+        if (!state) return null;
+        
         const favorites = toggle(showId, state.favorites);
         try {
           localStorage.setItem('favorites', JSON.stringify(favorites));
