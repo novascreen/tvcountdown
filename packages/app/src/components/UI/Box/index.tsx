@@ -56,7 +56,7 @@ interface BoxProps<T> extends React.HTMLAttributes<T> {
   borderWidth?: number;
   borderRadius?: number;
   style?: React.CSSProperties;
-  children?: React.ReactNode;
+  children?: any;
 }
 
 export const Box: React.SFC<WithTheme & BoxProps<{}>> = ({
