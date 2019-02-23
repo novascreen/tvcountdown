@@ -26,7 +26,22 @@
     -->
     <title>TVCountdown</title>
     <meta name="description" content="Quickly find upcoming or missed episodes of your favorite shows"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="preconnect" href="https://ajax.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://static.tvmaze.com">
+    <script>
+      WebFontConfig = {
+          google: { families: ['Roboto:300,400,500'] }
+      };
+
+      (function(d) {
+          var wf = d.createElement('script'), s = d.scripts[0];
+          wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+          wf.async = true;
+          s.parentNode.insertBefore(wf, s);
+      })(document);
+    </script>
   </head>
   <body>
     <noscript>

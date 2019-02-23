@@ -24,7 +24,7 @@ export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
           <Typography color="inherit">
             Copyright © {year}{' '}
             <Typography color="inherit" component="span" variant="body2">
-              <a href="https://tvcountdown.info" target="_blank">
+              <a href="https://tvcountdown.info" rel="noopener noreferrer">
                 tvcountdown.info
               </a>
             </Typography>{' '}
@@ -32,14 +32,14 @@ export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
             <Typography color="inherit" component="span" variant="body2">
               <a
                 href="https://github.com/novascreen/tvcountdown/issues"
-                target="_blank"
+                rel="noopener noreferrer"
               >
                 Feedback
               </a>
             </Typography>{' '}
             | Data source:{' '}
             <Typography color="inherit" component="span" variant="body2">
-              <a href="https://tvmaze.com" target="_blank">
+              <a href="https://tvmaze.com" rel="noopener noreferrer">
                 TVmaze
               </a>
             </Typography>

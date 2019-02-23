@@ -84,7 +84,7 @@ export const Info = ({ show }: Props) => (
             <Typography>Official site:</Typography>
           </TableCell>
           <TableCell>
-            <a href={show.officialSite}>
+            <a href={show.officialSite} rel="noopener noreferrer">
               <Typography>{show.officialSite}</Typography>
             </a>
           </TableCell>

@@ -68,6 +68,10 @@
       "dest": "/packages/app/precache-manifest.$1"
     },
     {
+      "src": "^/robots.txt",
+      "dest": "/packages/app/robots.txt"
+    },
+    {
       "src": "^/(.*)",
       "dest": "/packages/app/index.html"
     }
