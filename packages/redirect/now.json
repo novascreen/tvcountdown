@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "name": "tvcountdown-redirect",
+  "alias": ["www.tvcountdown.info"],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "status": 301,
+      "headers": { "Location": "https://tvcountdown.info/$1" }
+    }
+  ]
+}

@@ -1,25 +1,13 @@
 {
-  "name": "tvcountdown",
-  "repository": "git@github.com:novascreen/tvcountdown.git",
+  "name": "tvcountdown-now",
+  "private": true,
   "author": "Thomas Hermann <novascreen@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
-    "postinstall": "cpy yarn.lock packages/api && cpy yarn.lock packages/web",
-    "dev": "lerna run --parallel dev",
-    "build": "lerna run --parallel build",
-    "deploy:api": "git subtree push --prefix packages/api heroku-api master",
-    "deploy:web": "git subtree push --prefix packages/web heroku-web master"
+    "postinstall": "lerna bootstrap"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "cpy-cli": "^2.0.0",
-    "lerna": "^3.4.3"
-  },
-  "resolutions": {
-    "graphql": "^14.0.2",
-    "event-stream": "^4.0.1"
+    "lerna": "^3.10.5"
   }
 }

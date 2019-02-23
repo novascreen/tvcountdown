@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "name": "tvcountdown",
+  "alias": "tvcountdown",
+  "builds": [{
+      "src": "packages/graphql/src/index.ts",
+      "use": "@now/node@canary",
+      "config": {
+        "maxLambdaSize": "6mb"
+      }
+    },
+    {
+      "src": "packages/app/package.json",
+      "use": "@now/static-build"
+    }
+  ],
+  "build": {
+    "env": {
+      "REACT_APP_AUTH_DOMAIN": "@tvcountdown-auth-domain",
+      "REACT_APP_AUTH_CLIENT_ID": "@tvcountdown-auth-client-id",
+      "REACT_APP_AUTH_REDIRECT_URI": "@tvcountdown-auth-redirect-uri",
+      "REACT_APP_AUTH_DB_CONNECTION_NAME": "Username-Password-Authentication",
+      "REACT_APP_AUTH_AUDIENCE": "@tvcountdown-auth-audience",
+      "NODE_PATH": "src"
+    }
+  },
+  "env": {
+    "PRISMA_STAGE": "prod",
+    "PRISMA_ENDPOINT": "@tvcountdown-prisma-endpoint",
+    "PRISMA_SECRET": "@tvcountdown-prisma-secret",
+    "APP_SECRET": "@tvcountdown-app-secret",
+    "AUTH_DOMAIN": "@tvcountdown-auth-domain",
+    "AUTH_AUDIENCE": "@tvcountdown-auth-audience"
+  },
+  "routes": [{
+      "src": "^/graphql",
+      "dest": "/packages/graphql/src/index.ts"
+    },
+    {
+      "src": "^/graphql/(.*)",
+      "dest": "/packages/graphql/src/index.ts"
+    },
+    {
+      "src": "^/static/(.*)",
+      "dest": "/packages/app/static/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/packages/app/favicon.ico"
+    },
+    {
+      "src": "^/asset-manifest.json",
+      "dest": "/packages/app/asset-manifest.json"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/packages/app/manifest.json"
+    },
+    {
+      "src": "^/service-worker.js",
+      "headers": {
+        "cache-control": "s-maxage=0"
+      },
+      "dest": "/packages/app/service-worker.js"
+    },
+    {
+      "src": "^/precache-manifest.(.*)",
+      "dest": "/packages/app/precache-manifest.$1"
+    },
+    {
+      "src": "^/robots.txt",
+      "dest": "/packages/app/robots.txt"
+    },
+    {
+      "src": "^/(.*)",
+      "dest": "/packages/app/index.html"
+    }
+  ]
+}
