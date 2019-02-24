@@ -1,8 +1,15 @@
 {
   "version": 2,
   "name": "tvcountdown-redirect",
-  "alias": ["www.tvcountdown.info"],
+  "alias": "www.tvcountdown.info",
   "routes": [
+    {
+      "src": "^/service-worker.js",
+      "headers": {
+        "cache-control": "s-maxage=0"
+      },
+      "dest": "/service-worker.js"
+    },
     {
       "src": "/(.*)",
       "status": 301,
