@@ -6,7 +6,7 @@
       "src": "packages/graphql/src/index.ts",
       "use": "@now/node@canary",
       "config": {
-        "maxLambdaSize": "6mb"
+        "maxLambdaSize": "7mb"
       }
     },
     {

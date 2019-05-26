@@ -69,6 +69,7 @@ export class EpisodesList extends React.Component<
                         <img
                           src={show.image.medium}
                           style={{ width: 40, height: 'auto' }}
+                          alt={`${show.name}`}
                         />
                       ) : (
                         <Avatar src={show.image.medium} />

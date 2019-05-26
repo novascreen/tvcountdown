@@ -6,5 +6,5 @@ export const adoptQuery = (props: any, Component = Query) => ({
 }: any) => <Component {...props} children={() => null} />;
 
 export const adoptMutation = (props: any) => ({ render }: any) => (
-  <Mutation {...props} children={(run, result) => render({ run, result })} />
+  <Mutation {...props} children={(run:any, result:any) => render({ run, result })} />
 );
