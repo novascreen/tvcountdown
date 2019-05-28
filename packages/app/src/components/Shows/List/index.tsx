@@ -37,7 +37,7 @@ export const List = ({ shows, width }: Props & WithWidth) => {
                 onClick={() => appHistory.push(`/shows/${id}`)}
                 style={{ cursor: 'pointer' }}
               >
-                {image && image.medium && <img src={image.medium} />}
+                {image && image.medium && <img src={image.medium} alt={`${show.name}`} />}
                 <GridListTileBar
                   title={name}
                   subtitle={secondaryText.join(', ')}

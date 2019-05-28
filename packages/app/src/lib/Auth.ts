@@ -52,7 +52,7 @@ export default class Auth {
       {
         clientID: AUTH_CONFIG.clientID,
         connection: 'google-oauth2',
-        redirectUri: `${location.origin}/auth/popup`,
+        redirectUri: `${window.location.origin}/auth/popup`,
       },
       (err: any, authResult: any) => {
         this.handlePopupAuthentication(err, authResult);
@@ -68,7 +68,7 @@ export default class Auth {
       {
         clientID: AUTH_CONFIG.clientID,
         connection: 'facebook',
-        redirectUri: `${location.origin}/auth/popup`,
+        redirectUri: `${window.location.origin}/auth/popup`,
       },
       (err: any, authResult: any) => {
         this.handlePopupAuthentication(err, authResult);

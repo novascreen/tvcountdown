@@ -61,6 +61,7 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
                 <img
                   src={show.image.medium}
                   style={{ maxWidth: '100%', height: 'auto' }}
+                  alt={`${show.name}`}
                 />
               </Box>
             )}

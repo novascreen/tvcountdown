@@ -60,6 +60,7 @@ export const EpisodeDetails = ({ episode }: Props) => {
                 <img
                   src={episode.image.medium}
                   style={{ maxWidth: '100%', height: 'auto' }}
+                  alt={`${episode.name}`}
                 />
               </Box>
             )}
