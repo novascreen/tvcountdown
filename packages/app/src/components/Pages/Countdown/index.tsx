@@ -38,7 +38,7 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
 
     return (
       <>
-        <Box mB={2}>
+        <Box mb={2}>
           <AppBar position="static" color="inherit" elevation={0} square>
             <Toolbar
               disableGutters
@@ -49,19 +49,19 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
                 textColor="primary"
                 value={shows}
                 onChange={this.handleShowsChange}
-                variant="fullWidth"
+                variant="scrollable"
               >
                 <Tab label="All shows" icon={<LiveTv />} value="all" />
                 <Tab label="Favorite shows" icon={<Star />} value="favorites" />
               </Tabs>
-              <Box mV={2}>
+              <Box my={2}>
                 <TimeSelector value={time} onChange={this.handleTimeChange} />
               </Box>
             </Toolbar>
           </AppBar>
           <Divider />
         </Box>
-        <Box mB={2}>
+        <Box mb={2}>
           {shows === 'all' && <AllShowsSchedule previous={previous} />}
           {shows === 'favorites' && <FavoritesSchedule previous={previous} />}
         </Box>

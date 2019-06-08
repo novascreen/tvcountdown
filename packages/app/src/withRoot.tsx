@@ -74,7 +74,7 @@ export const theme = createMuiTheme({
   },
   props: {
     MuiTypography: {
-      headlineMapping: {
+      variantMapping: {
         h1: 'h1',
         h2: 'h1',
         h3: 'h1',
@@ -86,19 +86,12 @@ export const theme = createMuiTheme({
         body1: 'p',
         body2: 'p',
         caption: 'div',
-        display4: 'h1',
-        display3: 'h1',
-        display2: 'h1',
-        display1: 'h1',
-        headline: 'h1',
-        title: 'h2',
-        subheading: 'h3',
         button: 'button',
         overline: 'div',
-        srOnly: 'div'
+        srOnly: 'div',
       },
-    }
-  }
+    },
+  },
 });
 
 function withRoot(Component: React.ReactType) {

@@ -50,8 +50,8 @@ export const Seasons = ({ show }: Props) => {
         return Object.entries(seasons)
           .reverse()
           .map(([season, episodes]) => (
-            <Box mB={2} key={season}>
-              <Box mB={1}>
+            <Box mb={2} key={season}>
+              <Box mb={1}>
                 <Typography variant="h6" gutterBottom>
                   Season {season}
                 </Typography>

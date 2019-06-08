@@ -9,12 +9,12 @@ import withStyles, {
   WithStyles,
   StyleRulesCallback,
 } from '@material-ui/core/styles/withStyles';
+import { Link } from 'react-router-dom';
 
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
 import Login from '../Login';
-import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -31,11 +31,11 @@ export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
             container
             alignItems="center"
             justify="space-between"
-            spacing={16}
+            spacing={2}
           >
             <Grid item>
-              <Grid container alignItems="center" spacing={16}>
-                <Box mR={2}>
+              <Grid container alignItems="center" spacing={2}>
+                <Box mr={2}>
                   <Link to="/">
                     <Typography variant="h6" color="inherit">
                       TVCountdown
@@ -50,7 +50,7 @@ export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
                 container
                 alignItems="center"
                 justify="flex-end"
-                spacing={16}
+                spacing={2}
               >
                 <Search />
                 <Login />
@@ -74,7 +74,7 @@ const styles: StyleRulesCallback<Styles> = theme => ({
     },
     p: {
       marginTop: 0,
-      marginBottom: theme.spacing.unit,
+      marginBottom: theme.spacing(1),
     },
     a: {
       color: 'inherit',

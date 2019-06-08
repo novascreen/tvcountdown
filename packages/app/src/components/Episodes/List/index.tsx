@@ -48,7 +48,7 @@ export class EpisodesList extends React.Component<
     const { episodes = [], width } = this.props;
     const smallScreen = width === 'xs';
     return (
-      <Paper>
+      <Paper elevation={2}>
         <List>
           {this.renderWrapper(
             episodes.map((episode, i) => {
@@ -63,7 +63,7 @@ export class EpisodesList extends React.Component<
                   key={`${episode.id}-${episode.airstamp}`}
                   divider={!isLast}
                 >
-                  <Box mR={2}>
+                  <Box mr={2}>
                     {show.image && show.image.medium ? (
                       smallScreen ? (
                         <img
@@ -78,7 +78,7 @@ export class EpisodesList extends React.Component<
                       <Avatar>{showInitials}</Avatar>
                     )}
                   </Box>
-                  <Grid container spacing={16}>
+                  <Grid container spacing={2}>
                     <Grid item xs={12} sm={7}>
                       <>
                         <Link to={`/shows/${show.id}`}>
