@@ -46,6 +46,7 @@ export const auth: any = new Auth(
 
 // A theme with custom primary and secondary color.
 // It's optional.
+
 export const theme = createMuiTheme({
   palette: {
     primary: {
@@ -68,6 +69,26 @@ export const theme = createMuiTheme({
     MuiTypography: {
       root: {
         display: undefined,
+      },
+    },
+  },
+  props: {
+    MuiTypography: {
+      variantMapping: {
+        h1: 'h1',
+        h2: 'h1',
+        h3: 'h1',
+        h4: 'h1',
+        h5: 'h1',
+        h6: 'h2',
+        subtitle1: 'h3',
+        subtitle2: 'h4',
+        body1: 'p',
+        body2: 'p',
+        caption: 'div',
+        button: 'button',
+        overline: 'div',
+        srOnly: 'div',
       },
     },
   },

@@ -20,16 +20,16 @@ export const EpisodeDetails = ({ episode }: Props) => {
   const hasAired = moment(episode.airstamp || undefined).isBefore();
   return (
     <>
-      <Box mB={3} mT={3}>
+      <Box mb={3} mt={3}>
         {episode.show && (
           <Link to={`/shows/${episode.show.id}`}>
-            <Typography variant="subheading">
+            <Typography variant="subtitle1">
               {episode.show.name} ({episode.show.airedYears})
             </Typography>
           </Link>
         )}
-        <Typography variant="display1">{episode.name}</Typography>
-        <Box mB={1}>
+        <Typography variant="h4">{episode.name}</Typography>
+        <Box mb={1}>
           <Typography variant="caption">
             {episode.runtime} min
             <InlineDivider />
@@ -52,18 +52,17 @@ export const EpisodeDetails = ({ episode }: Props) => {
         </Box>
         <Divider />
       </Box>
-      <Box mB={4}>
+      <Box mb={4}>
         <Typography component="div">
-          {episode.image &&
-            episode.image.medium && (
-              <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
-                <img
-                  src={episode.image.medium}
-                  style={{ maxWidth: '100%', height: 'auto' }}
-                  alt={`${episode.name}`}
-                />
-              </Box>
-            )}
+          {episode.image && episode.image.medium && (
+            <Box pr={2} style={{ float: 'left', maxWidth: '40%' }}>
+              <img
+                src={episode.image.medium}
+                style={{ maxWidth: '100%', height: 'auto' }}
+                alt={`${episode.name}`}
+              />
+            </Box>
+          )}
           {episode.summary && <HTML content={episode.summary} />}
         </Typography>
       </Box>

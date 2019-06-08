@@ -58,7 +58,7 @@ export class Login extends React.Component {
         >
           <DialogTitle id="loginDialog">Login</DialogTitle>
           <DialogContent>
-            <Box mB={1}>
+            <Box mb={1}>
               <Button
                 fullWidth
                 onClick={this.handleLoginWithGoogle}

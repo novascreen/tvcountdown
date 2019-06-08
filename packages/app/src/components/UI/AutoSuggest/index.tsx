@@ -18,7 +18,7 @@ function renderSuggestionsContainer(
   const { containerProps, children } = options;
 
   return (
-    <Paper {...containerProps} square>
+    <Paper elevation={2} {...containerProps} square>
       {children}
     </Paper>
   );
@@ -60,8 +60,8 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   },
   suggestionsContainerOpen: {
     position: 'absolute',
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
     marginLeft: 'auto',
     marginRight: 'auto',
     left: 0,

@@ -40,11 +40,11 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
 
   return (
     <>
-      <Box mB={3} mT={3}>
-        <Typography variant="display1">
+      <Box mb={3} mt={3}>
+        <Typography variant="h4">
           {show.name} {show.id && <FavoriteToggle showId={show.id} />}
         </Typography>
-        <Box mB={1}>
+        <Box mb={1}>
           <Typography variant="caption">
             {show.airedYears} | {show.runtime} min
             <InlineDivider />
@@ -53,27 +53,26 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
         </Box>
         <Divider />
       </Box>
-      <Box mB={4}>
+      <Box mb={4}>
         <Typography component="div">
-          {show.image &&
-            show.image.medium && (
-              <Box pR={2} style={{ float: 'left', maxWidth: '40%' }}>
-                <img
-                  src={show.image.medium}
-                  style={{ maxWidth: '100%', height: 'auto' }}
-                  alt={`${show.name}`}
-                />
-              </Box>
-            )}
+          {show.image && show.image.medium && (
+            <Box pr={2} style={{ float: 'left', maxWidth: '40%' }}>
+              <img
+                src={show.image.medium}
+                style={{ maxWidth: '100%', height: 'auto' }}
+                alt={`${show.name}`}
+              />
+            </Box>
+          )}
           {show.summary && <HTML content={show.summary} />}
         </Typography>
       </Box>
       {episodes.length && (
-        <Box mB={4}>
-          <Grid container spacing={16}>
+        <Box mb={4}>
+          <Grid container spacing={2}>
             {episodes.map(episode => (
               <Grid item xs={12} sm={6} key={episode.title}>
-                <Paper style={{ height: '100%' }}>
+                <Paper style={{ height: '100%' }} elevation={2}>
                   <Box p={2}>
                     <EpisodeCard {...episode} show={show} />
                   </Box>
@@ -83,10 +82,10 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
           </Grid>
         </Box>
       )}
-      <Box mB={4}>
-        <Box mB={3}>
+      <Box mb={4}>
+        <Box mb={3}>
           <Tabs
-            fullWidth
+            variant="fullWidth"
             indicatorColor="primary"
             textColor="primary"
             value={section}

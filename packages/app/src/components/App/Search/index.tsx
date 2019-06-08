@@ -61,31 +61,30 @@ export class Search extends React.Component<
           <SearchIcon />
         </IconButton>
         <Slide direction="left" in={open}>
-          <ClickAwayListener onClickAway={this.handleClose}>
-            <Grid
-              className={classes.search}
-              container
-              justify="space-between"
-              alignItems="center"
-            >
-              <Box mL={2} className={classes.autoSuggestBox}>
-                {open && (
-                  <form onSubmit={this.handleSubmit}>
-                    <Input
-                      value={value}
-                      onChange={this.handleChange}
-                      placeholder="Search all shows"
-                      autoFocus
-                      fullWidth
-                    />
-                  </form>
-                )}
-              </Box>
-              <IconButton onClick={this.handleClose}>
-                <Close />
-              </IconButton>
-            </Grid>
-          </ClickAwayListener>
+          <div className={classes.search}>
+            {open && (
+              <ClickAwayListener onClickAway={this.handleClose}>
+                <Grid container justify="space-between" alignItems="center">
+                  <Box ml={2} className={classes.autoSuggestBox}>
+                    {open && (
+                      <form onSubmit={this.handleSubmit}>
+                        <Input
+                          value={value}
+                          onChange={this.handleChange}
+                          placeholder="Search all shows"
+                          autoFocus
+                          fullWidth
+                        />
+                      </form>
+                    )}
+                  </Box>
+                  <IconButton onClick={this.handleClose}>
+                    <Close />
+                  </IconButton>
+                </Grid>
+              </ClickAwayListener>
+            )}
+          </div>
         </Slide>
       </>
     );
@@ -96,6 +95,7 @@ type Styles = 'search' | 'autoSuggestBox';
 
 const styles: StyleRulesCallback<Styles> = theme => ({
   search: {
+    display: 'flex',
     position: 'absolute',
     width: '100%',
     top: 0,

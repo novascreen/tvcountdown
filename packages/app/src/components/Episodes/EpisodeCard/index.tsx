@@ -15,9 +15,9 @@ type Props = {
 
 export const EpisodeCard = ({ title, episode, show }: Props) => (
   <>
-    <Typography variant="title">{title}</Typography>
+    <Typography variant="h6">{title}</Typography>
     <Link to={`/shows/${show.id}/episodes/${episode.id}`}>
-      <Typography variant="subheading">{episode.name}</Typography>
+      <Typography variant="subtitle1">{episode.name}</Typography>
     </Link>
     <Typography variant="body2" component="h4">
       <EpisodeNumber episode={episode} />

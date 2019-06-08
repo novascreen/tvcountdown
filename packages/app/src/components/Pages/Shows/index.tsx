@@ -35,14 +35,14 @@ export class Shows extends React.Component<Props, State> {
     const query = getQuery(this.props);
     return (
       <>
-        <Box mV={3}>
+        <Box my={3}>
           <Grid container justify="center">
             <Search query={query} onSubmit={this.handleSubmit} />
           </Grid>
         </Box>
-        <Box mV={3}>
+        <Box my={3}>
           {query && <SearchResults query={query} />}
-          <Box mT={3}>
+          <Box mt={3}>
             <Favorites />
           </Box>
         </Box>

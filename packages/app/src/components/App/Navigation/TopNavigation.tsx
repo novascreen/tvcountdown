@@ -32,12 +32,11 @@ export const TopNavigation: React.SFC<Props & WithStyles<Styles>> = ({
         key={item.value}
         classes={{
           root: classes.tabRoot,
-          labelContainer: classes.tabLabelContainer,
         }}
         label={
-          <Box pH={2}>
-            <Grid container alignItems="center" spacing={16}>
-              <Box mR={1}>
+          <Box px={2}>
+            <Grid container alignItems="center" spacing={2}>
+              <Box mr={1}>
                 <Icon />
               </Box>
               {label}
@@ -50,7 +49,7 @@ export const TopNavigation: React.SFC<Props & WithStyles<Styles>> = ({
   </Tabs>
 );
 
-type Styles = 'indicator' | 'tabRoot' | 'tabLabelContainer';
+type Styles = 'indicator' | 'tabRoot';
 
 const styles: StyleRulesCallback<Styles> = theme => ({
   indicator: {
@@ -59,12 +58,8 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   tabRoot: {
     [theme.breakpoints.up('md')]: {
       minWidth: 72,
-    },
-  },
-  tabLabelContainer: {
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing.unit * 1.5,
-      paddingRight: theme.spacing.unit * 1.5,
+      paddingLeft: theme.spacing(1.5),
+      paddingRight: theme.spacing(1.5),
     },
   },
 });
