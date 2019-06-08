@@ -36,7 +36,7 @@ const GET_SHOWS = gql`
 export const Favorites = () => {
   return (
     <>
-      <Typography variant="title" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Favorites
       </Typography>
       <FavoritesQuery>

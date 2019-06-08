@@ -49,7 +49,7 @@ export class CountdownPage extends React.Component<RouteComponentProps<{}>> {
                 textColor="primary"
                 value={shows}
                 onChange={this.handleShowsChange}
-                fullWidth
+                variant="fullWidth"
               >
                 <Tab label="All shows" icon={<LiveTv />} value="all" />
                 <Tab label="Favorite shows" icon={<Star />} value="favorites" />

@@ -23,12 +23,12 @@ export const EpisodeDetails = ({ episode }: Props) => {
       <Box mB={3} mT={3}>
         {episode.show && (
           <Link to={`/shows/${episode.show.id}`}>
-            <Typography variant="subheading">
+            <Typography variant="subtitle1">
               {episode.show.name} ({episode.show.airedYears})
             </Typography>
           </Link>
         )}
-        <Typography variant="display1">{episode.name}</Typography>
+        <Typography variant="h4">{episode.name}</Typography>
         <Box mB={1}>
           <Typography variant="caption">
             {episode.runtime} min

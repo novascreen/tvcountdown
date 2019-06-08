@@ -37,7 +37,7 @@ type Props = {} & Variables;
 export const SearchResults = ({ query }: Props) => {
   return (
     <>
-      <Typography variant="title" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Search results for: {query}
       </Typography>
       <SearchQuery query={SEARCH} variables={{ query }}>

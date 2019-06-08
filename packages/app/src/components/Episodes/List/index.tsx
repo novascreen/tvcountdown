@@ -82,7 +82,7 @@ export class EpisodesList extends React.Component<
                     <Grid item xs={12} sm={7}>
                       <>
                         <Link to={`/shows/${show.id}`}>
-                          <Typography variant="subheading">
+                          <Typography variant="subtitle1">
                             {show.name}
                           </Typography>
                         </Link>

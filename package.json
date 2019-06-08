@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "cpy-cli": "^2.0.0",
-    "lerna": "^3.13.0"
+    "lerna": "^3.14.1"
   }
 }

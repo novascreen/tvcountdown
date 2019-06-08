@@ -37,7 +37,7 @@ export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
               <Grid container alignItems="center" spacing={16}>
                 <Box mR={2}>
                   <Link to="/">
-                    <Typography variant="title" color="inherit">
+                    <Typography variant="h6" color="inherit">
                       TVCountdown
                     </Typography>
                   </Link>

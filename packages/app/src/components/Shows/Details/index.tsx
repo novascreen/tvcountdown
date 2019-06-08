@@ -41,7 +41,7 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
   return (
     <>
       <Box mB={3} mT={3}>
-        <Typography variant="display1">
+        <Typography variant="h4">
           {show.name} {show.id && <FavoriteToggle showId={show.id} />}
         </Typography>
         <Box mB={1}>
@@ -86,7 +86,7 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
       <Box mB={4}>
         <Box mB={3}>
           <Tabs
-            fullWidth
+            variant="fullWidth"
             indicatorColor="primary"
             textColor="primary"
             value={section}

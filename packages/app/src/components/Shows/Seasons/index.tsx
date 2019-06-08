@@ -52,7 +52,7 @@ export const Seasons = ({ show }: Props) => {
           .map(([season, episodes]) => (
             <Box mB={2} key={season}>
               <Box mB={1}>
-                <Typography variant="title" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                   Season {season}
                 </Typography>
               </Box>
