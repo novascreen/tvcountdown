@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 import { getScheduleByDate } from '../../tvmaze/api';
 import { combineResults } from '../../utils';
+import { QueryScheduleAllArgs } from '../../types';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
@@ -11,7 +12,7 @@ const eqIdAirstamp = (a, b) =>
 
 export default function scheduleAll(
   parent: any,
-  { previous }: { previous: boolean },
+  { previous }: QueryScheduleAllArgs,
 ) {
   const date = new Date();
   const dates = [

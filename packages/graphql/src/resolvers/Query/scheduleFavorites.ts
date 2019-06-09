@@ -8,17 +8,13 @@ import {
   search,
 } from '../../tvmaze/api';
 import { combineResults } from '../../utils';
+import { QueryScheduleFavoritesArgs } from '../../types';
 
 const sortByDate = (results: any[]) => _sortBy(results, 'airstamp');
 
-type Params = {
-  showIds: string[];
-  previous: boolean;
-};
-
 export default function scheduleFavorites(
   parent: any,
-  { showIds, previous = false }: Params,
+  { showIds, previous = false }: QueryScheduleFavoritesArgs,
 ) {
   return Promise.all(
     showIds.map(async showId => {
