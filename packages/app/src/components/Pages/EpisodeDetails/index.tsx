@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router';
 
@@ -15,8 +15,6 @@ interface Data {
 interface Variables {
   episodeId: number;
 }
-
-class EpisodeQuery extends Query<Data, Variables> {}
 
 const GET_EPISODE = gql`
   query GetEpisode($episodeId: Int!) {
@@ -49,7 +47,7 @@ type RouterParams = {
 type Props = {} & RouteComponentProps<RouterParams>;
 
 export const EpisodeDetailsPage: React.SFC<Props> = ({ match }) => (
-  <EpisodeQuery
+  <Query<Data, Variables>
     query={GET_EPISODE}
     variables={{ episodeId: parseInt(match.params.episodeId, 10) }}
   >
@@ -60,7 +58,7 @@ export const EpisodeDetailsPage: React.SFC<Props> = ({ match }) => (
       }
       return <EpisodeDetails episode={data.episode} />;
     }}
-  </EpisodeQuery>
+  </Query>
 );
 
 export default EpisodeDetailsPage;

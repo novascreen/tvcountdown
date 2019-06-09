@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router';
 
@@ -15,8 +15,6 @@ interface Data {
 interface Variables {
   showId: number;
 }
-
-class ShowQuery extends Query<Data, Variables> {}
 
 const GET_SHOW = gql`
   query GetShow($showId: Int!) {
@@ -70,7 +68,7 @@ type RouterParams = {
 type Props = {} & RouteComponentProps<RouterParams>;
 
 export const ShowDetailsPage: React.SFC<Props> = ({ match }) => (
-  <ShowQuery
+  <Query<Data, Variables>
     query={GET_SHOW}
     variables={{ showId: parseInt(match.params.showId, 10) }}
   >
@@ -85,7 +83,7 @@ export const ShowDetailsPage: React.SFC<Props> = ({ match }) => (
         />
       );
     }}
-  </ShowQuery>
+  </Query>
 );
 
 export default ShowDetailsPage;

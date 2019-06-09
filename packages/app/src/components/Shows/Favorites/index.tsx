@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
 import Loading from 'components/UI/Loading';
@@ -14,8 +14,6 @@ interface Data {
 interface Variables {
   ids: number[];
 }
-
-class ShowsQuery extends Query<Data, Variables> {}
 
 const GET_SHOWS = gql`
   query GetShows($ids: [Int]!) {
@@ -41,7 +39,7 @@ export const Favorites = () => {
       </Typography>
       <FavoritesQuery>
         {favoritesResult => (
-          <ShowsQuery
+          <Query<Data, Variables>
             query={GET_SHOWS}
             variables={{
               ids: favoritesResult.favoriteShowsIds,
@@ -60,7 +58,7 @@ export const Favorites = () => {
               }
               return <List shows={showsResult.data.shows} />;
             }}
-          </ShowsQuery>
+          </Query>
         )}
       </FavoritesQuery>
     </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose } from 'react-apollo';
+import compose from 'recompose/compose';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -121,7 +121,7 @@ export class EpisodesList extends React.Component<
 }
 
 // withRouter<RouteComponentProps<{}> & Props>
-export default compose(
+export default compose<any, any>(
   withRouter,
   withWidth(),
 )(EpisodesList);

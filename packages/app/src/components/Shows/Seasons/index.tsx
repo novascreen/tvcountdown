@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import { Typography } from '@material-ui/core';
 import * as R from 'ramda';
@@ -15,8 +15,6 @@ interface Data {
 interface Variables {
   showId?: number | null;
 }
-
-class EpisodesQuery extends Query<Data, Variables> {}
 
 const EPISODES = gql`
   query Episodes($showId: Int!) {
@@ -38,7 +36,7 @@ const byDate = R.descend(R.prop<string>('airstamp'));
 
 export const Seasons = ({ show }: Props) => {
   return (
-    <EpisodesQuery query={EPISODES} variables={{ showId: show.id }}>
+    <Query<Data, Variables> query={EPISODES} variables={{ showId: show.id }}>
       {({ loading, error, data }) => {
         if (loading) return <Loading />;
         if (!data || !data.episodes || !data.episodes.length) {
@@ -47,20 +45,24 @@ export const Seasons = ({ show }: Props) => {
         data.episodes.forEach(episode => (episode.show = show));
         const allEpisodes: Episode[] = R.sort(byDate, data.episodes);
         const seasons = R.groupBy(episode => `${episode.season}`, allEpisodes);
-        return Object.entries(seasons)
-          .reverse()
-          .map(([season, episodes]) => (
-            <Box mb={2} key={season}>
-              <Box mb={1}>
-                <Typography variant="h6" gutterBottom>
-                  Season {season}
-                </Typography>
-              </Box>
-              <List show={show} episodes={episodes} disableInfinite />
-            </Box>
-          ));
+        return (
+          <>
+            {Object.entries(seasons)
+              .reverse()
+              .map(([season, episodes]) => (
+                <Box mb={2} key={season}>
+                  <Box mb={1}>
+                    <Typography variant="h6" gutterBottom>
+                      Season {season}
+                    </Typography>
+                  </Box>
+                  <List show={show} episodes={episodes} disableInfinite />
+                </Box>
+              ))}
+          </>
+        );
       }}
-    </EpisodesQuery>
+    </Query>
   );
 };
 

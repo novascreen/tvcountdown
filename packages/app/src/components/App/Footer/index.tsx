@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose } from 'react-apollo';
+import compose from 'recompose/compose';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -57,7 +57,7 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   spacer: theme.mixins.toolbar,
 });
 
-export default compose(
+export default compose<any, any>(
   withStyles(styles),
   withWidth(),
 )(Footer);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 
 import { Episode } from 'graphql/types';
@@ -14,8 +14,6 @@ interface Data {
 interface Variables {
   previous?: boolean;
 }
-
-class EpisodesQuery extends Query<Data, Variables> {}
 
 const GET_EPISODES = gql`
   query GetEpisodes($previous: Boolean!) {
@@ -39,7 +37,7 @@ const GET_EPISODES = gql`
 type Props = {} & Variables;
 
 export const AllShowsList: React.SFC<Props> = ({ previous }) => (
-  <EpisodesQuery query={GET_EPISODES} variables={{ previous }}>
+  <Query<Data, Variables> query={GET_EPISODES} variables={{ previous }}>
     {({ loading, error, data }) => {
       if (loading) return <Loading />;
       if (!data || !data.scheduleAll) {
@@ -47,7 +45,7 @@ export const AllShowsList: React.SFC<Props> = ({ previous }) => (
       }
       return <EpisodesList episodes={data.scheduleAll} />;
     }}
-  </EpisodesQuery>
+  </Query>
 );
 
 export default AllShowsList;

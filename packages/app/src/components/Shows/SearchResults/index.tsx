@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import { Typography } from '@material-ui/core';
 import Loading from 'components/UI/Loading';
@@ -13,8 +13,6 @@ interface Data {
 interface Variables {
   query?: string;
 }
-
-class SearchQuery extends Query<Data, Variables> {}
 
 const SEARCH = gql`
   query Search($query: String!) {
@@ -40,7 +38,7 @@ export const SearchResults = ({ query }: Props) => {
       <Typography variant="h6" gutterBottom>
         Search results for: {query}
       </Typography>
-      <SearchQuery query={SEARCH} variables={{ query }}>
+      <Query<Data, Variables> query={SEARCH} variables={{ query }}>
         {({ loading, error, data }) => {
           if (loading) return <Loading />;
           if (!data || !data.search || !data.search.length) {
@@ -48,7 +46,7 @@ export const SearchResults = ({ query }: Props) => {
           }
           return <List shows={data.search} />;
         }}
-      </SearchQuery>
+      </Query>
     </>
   );
 };

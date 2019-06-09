@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose } from 'react-apollo';
+import compose from 'recompose/compose';
 import MUIAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid/Grid';
@@ -93,7 +93,7 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   },
 });
 
-export default compose(
+export default compose<any, any>(
   withStyles(styles),
   withWidth(),
 )(AppBar);

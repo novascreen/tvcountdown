@@ -8,7 +8,7 @@ import { withClientState } from 'apollo-link-state';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-components';
 import * as R from 'ramda';
 
 import Auth, { isAuthenticated } from './lib/Auth';

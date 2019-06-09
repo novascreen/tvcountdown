@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import uuid from 'uuid/v4';
 import { ApolloError } from 'apollo-client';
@@ -16,8 +16,6 @@ interface Data {
 
 interface Variables {}
 
-class MeQuery extends Query<Data, Variables> {}
-
 const GET_MY_FAVORITE_SHOWS = gql`
   query GetMyFavoriteShows {
     me {
@@ -33,8 +31,6 @@ interface FavoritesData {
 
 interface FavoritesVariables {}
 
-class FavoritesQuery extends Query<FavoritesData, FavoritesVariables> {}
-
 export type Result = {
   loading: boolean;
   error: ApolloError | undefined;
@@ -49,9 +45,9 @@ type Props = {
 
 export default withProps(() => ({ auth: isAuthenticated() }))(
   ({ auth, children = () => null }: Props) => (
-    <FavoritesQuery query={GET_FAVORITES}>
+    <Query<FavoritesData, FavoritesVariables> query={GET_FAVORITES}>
       {favoritesResult => (
-        <MeQuery query={GET_MY_FAVORITE_SHOWS} skip={!auth}>
+        <Query<Data, Variables> query={GET_MY_FAVORITE_SHOWS} skip={!auth}>
           {meResult => {
             let favoriteShows: FavoriteShow[] = [];
             let userId;
@@ -74,16 +70,21 @@ export default withProps(() => ({ auth: isAuthenticated() }))(
               favorite => favorite.tvmaze,
             );
 
-            return children({
-              loading: (auth && meResult.loading) || favoritesResult.loading,
-              error: meResult.error || favoritesResult.error,
-              favoriteShows,
-              favoriteShowsIds,
-              userId,
-            });
+            return (
+              <>
+                {children({
+                  loading:
+                    (auth && meResult.loading) || favoritesResult.loading,
+                  error: meResult.error || favoritesResult.error,
+                  favoriteShows,
+                  favoriteShowsIds,
+                  userId,
+                })}
+              </>
+            );
           }}
-        </MeQuery>
+        </Query>
       )}
-    </FavoritesQuery>
+    </Query>
   ),
 );

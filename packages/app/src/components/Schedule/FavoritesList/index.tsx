@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
 
@@ -15,8 +15,6 @@ interface Variables {
   showIds: number[];
   previous?: boolean;
 }
-
-class EpisodesQuery extends Query<Data, Variables> {}
 
 const GET_EPISODES = gql`
   query GetEpisodes($showIds: [Int]!, $previous: Boolean) {
@@ -40,7 +38,10 @@ const GET_EPISODES = gql`
 type Props = {} & Variables;
 
 export const FavoritesList: React.SFC<Props> = ({ showIds, previous }) => (
-  <EpisodesQuery query={GET_EPISODES} variables={{ showIds, previous }}>
+  <Query<Data, Variables>
+    query={GET_EPISODES}
+    variables={{ showIds, previous }}
+  >
     {({ loading, error, data }) => {
       if (loading) return <Loading />;
       if (!data || !data.scheduleFavorites) {
@@ -51,7 +52,7 @@ export const FavoritesList: React.SFC<Props> = ({ showIds, previous }) => (
       }
       return <EpisodesList episodes={data.scheduleFavorites} />;
     }}
-  </EpisodesQuery>
+  </Query>
 );
 
 export default FavoritesList;

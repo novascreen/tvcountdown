@@ -8,7 +8,7 @@ import withStyles, {
 } from '@material-ui/core/styles/withStyles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Slide from '@material-ui/core/Slide';
-import { compose } from 'react-apollo';
+import compose from 'recompose/compose';
 import Grid from '@material-ui/core/Grid/Grid';
 import Input from '@material-ui/core/Input';
 import { withRouter, RouteComponentProps } from 'react-router';
@@ -109,7 +109,7 @@ const styles: StyleRulesCallback<Styles> = theme => ({
   },
 });
 
-export default compose(
+export default compose<any, any>(
   withStyles(styles),
   withRouter,
 )(Search);
