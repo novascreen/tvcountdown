@@ -3,18 +3,10 @@ import { Query } from '@apollo/react-components';
 import gql from 'graphql-tag';
 import { RouteComponentProps } from 'react-router';
 
-import { Episode as EpisodeType } from 'graphql/types';
+import { GetEpisodeQuery, GetEpisodeQueryVariables } from 'graphql/types';
 import { Loading } from 'components/UI/Loading';
 import EpisodeDetails from 'components/Episodes/Details';
 import Typography from '@material-ui/core/Typography';
-
-interface Data {
-  episode: EpisodeType;
-}
-
-interface Variables {
-  episodeId: number;
-}
 
 const GET_EPISODE = gql`
   query GetEpisode($episodeId: Int!) {
@@ -47,7 +39,7 @@ type RouterParams = {
 type Props = {} & RouteComponentProps<RouterParams>;
 
 export const EpisodeDetailsPage: React.SFC<Props> = ({ match }) => (
-  <Query<Data, Variables>
+  <Query<GetEpisodeQuery, GetEpisodeQueryVariables>
     query={GET_EPISODE}
     variables={{ episodeId: parseInt(match.params.episodeId, 10) }}
   >

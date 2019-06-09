@@ -16,8 +16,8 @@ interface Variables {
   previous?: boolean;
 }
 
-const GET_EPISODES = gql`
-  query GetEpisodes($showIds: [Int]!, $previous: Boolean) {
+const GET_SCHEDULE_FAVORITES = gql`
+  query GetScheduleFavorites($showIds: [Int]!, $previous: Boolean) {
     scheduleFavorites(showIds: $showIds, previous: $previous) {
       id
       name
@@ -39,7 +39,7 @@ type Props = {} & Variables;
 
 export const FavoritesList: React.SFC<Props> = ({ showIds, previous }) => (
   <Query<Data, Variables>
-    query={GET_EPISODES}
+    query={GET_SCHEDULE_FAVORITES}
     variables={{ showIds, previous }}
   >
     {({ loading, error, data }) => {

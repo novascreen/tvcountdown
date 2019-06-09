@@ -197,3 +197,207 @@ export type WebChannel = {
   name?: Maybe<Scalars['String']>;
   country?: Maybe<Country>;
 };
+export type GetEpisodeQueryVariables = {
+  episodeId: Scalars['Int'];
+};
+
+export type GetEpisodeQuery = { __typename?: 'Query' } & {
+  episode: Maybe<
+    { __typename?: 'Episode' } & Pick<
+      Episode,
+      'id' | 'name' | 'summary' | 'season' | 'number' | 'airstamp' | 'runtime'
+    > & {
+        image: Maybe<{ __typename?: 'Image' } & Pick<Image, 'medium'>>;
+        show: Maybe<
+          { __typename?: 'Show' } & Pick<
+            Show,
+            'id' | 'name' | 'airedYears' | 'genres'
+          >
+        >;
+      }
+  >;
+};
+
+export type GetShowQueryVariables = {
+  showId: Scalars['Int'];
+};
+
+export type GetShowQuery = { __typename?: 'Query' } & {
+  show: Maybe<
+    { __typename?: 'Show' } & Pick<
+      Show,
+      | 'id'
+      | 'name'
+      | 'airedYears'
+      | 'summary'
+      | 'runtime'
+      | 'genres'
+      | 'status'
+      | 'officialSite'
+    > & {
+        image: Maybe<{ __typename?: 'Image' } & Pick<Image, 'medium'>>;
+        network: Maybe<{ __typename?: 'Network' } & Pick<Network, 'name'>>;
+        webChannel: Maybe<
+          { __typename?: 'WebChannel' } & Pick<WebChannel, 'name'>
+        >;
+        schedule: Maybe<
+          { __typename?: 'Schedule' } & Pick<Schedule, 'time' | 'days'>
+        >;
+        previousEpisode: Maybe<
+          { __typename?: 'Episode' } & Pick<
+            Episode,
+            'id' | 'name' | 'airstamp' | 'season' | 'number' | 'summary'
+          >
+        >;
+        nextEpisode: Maybe<
+          { __typename?: 'Episode' } & Pick<
+            Episode,
+            'id' | 'name' | 'airstamp' | 'season' | 'number' | 'summary'
+          >
+        >;
+      }
+  >;
+};
+
+export type GetScheduleAllQueryVariables = {
+  previous: Scalars['Boolean'];
+};
+
+export type GetScheduleAllQuery = { __typename?: 'Query' } & {
+  scheduleAll: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Episode' } & Pick<
+          Episode,
+          'id' | 'name' | 'season' | 'number' | 'airstamp'
+        > & {
+            show: Maybe<
+              { __typename?: 'Show' } & Pick<Show, 'id' | 'name'> & {
+                  image: Maybe<
+                    { __typename?: 'Image' } & Pick<Image, 'medium'>
+                  >;
+                }
+            >;
+          }
+      >
+    >
+  >;
+};
+
+export type GetScheduleFavoritesQueryVariables = {
+  showIds: Array<Maybe<Scalars['Int']>>;
+  previous?: Maybe<Scalars['Boolean']>;
+};
+
+export type GetScheduleFavoritesQuery = { __typename?: 'Query' } & {
+  scheduleFavorites: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Episode' } & Pick<
+          Episode,
+          'id' | 'name' | 'season' | 'number' | 'airstamp'
+        > & {
+            show: Maybe<
+              { __typename?: 'Show' } & Pick<Show, 'id' | 'name'> & {
+                  image: Maybe<
+                    { __typename?: 'Image' } & Pick<Image, 'medium'>
+                  >;
+                }
+            >;
+          }
+      >
+    >
+  >;
+};
+
+export type GetShowsQueryVariables = {
+  ids: Array<Maybe<Scalars['Int']>>;
+};
+
+export type GetShowsQuery = { __typename?: 'Query' } & {
+  shows: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Show' } & Pick<Show, 'id' | 'name' | 'premiered'> & {
+            image: Maybe<{ __typename?: 'Image' } & Pick<Image, 'medium'>>;
+            network: Maybe<{ __typename?: 'Network' } & Pick<Network, 'name'>>;
+          }
+      >
+    >
+  >;
+};
+
+export type CreateFavoriteShowMutationVariables = {
+  tvmaze: Scalars['Int'];
+};
+
+export type CreateFavoriteShowMutation = { __typename?: 'Mutation' } & {
+  createFavoriteShow: Maybe<{ __typename?: 'User' } & MyFavoriteShowsFragment>;
+};
+
+export type DeleteFavoriteShowMutationVariables = {
+  id: Scalars['ID'];
+};
+
+export type DeleteFavoriteShowMutation = { __typename?: 'Mutation' } & {
+  deleteFavoriteShow: Maybe<{ __typename?: 'User' } & MyFavoriteShowsFragment>;
+};
+
+export type SearchQueryVariables = {
+  query: Scalars['String'];
+};
+
+export type SearchQuery = { __typename?: 'Query' } & {
+  search: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Show' } & Pick<Show, 'id' | 'name' | 'premiered'> & {
+            image: Maybe<{ __typename?: 'Image' } & Pick<Image, 'medium'>>;
+            network: Maybe<{ __typename?: 'Network' } & Pick<Network, 'name'>>;
+          }
+      >
+    >
+  >;
+};
+
+export type EpisodesQueryVariables = {
+  showId: Scalars['Int'];
+};
+
+export type EpisodesQuery = { __typename?: 'Query' } & {
+  episodes: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Episode' } & Pick<
+          Episode,
+          'id' | 'name' | 'season' | 'number' | 'airstamp'
+        >
+      >
+    >
+  >;
+};
+
+export type GetMyFavoriteShowsQueryVariables = {};
+
+export type GetMyFavoriteShowsQuery = { __typename?: 'Query' } & {
+  me: Maybe<{ __typename?: 'User' } & MyFavoriteShowsFragment>;
+};
+
+export type MyFavoriteShowsFragment = { __typename?: 'User' } & Pick<
+  User,
+  'id'
+> & {
+    favoriteShows: Array<
+      { __typename?: 'FavoriteShow' } & Pick<FavoriteShow, 'id' | 'tvmaze'>
+    >;
+  };
+
+export type AuthenticateMutationVariables = {
+  idToken: Scalars['String'];
+};
+
+export type AuthenticateMutation = { __typename?: 'Mutation' } & {
+  authenticate: Maybe<
+    { __typename?: 'User' } & Pick<User, 'id' | 'name' | 'email'>
+  >;
+};

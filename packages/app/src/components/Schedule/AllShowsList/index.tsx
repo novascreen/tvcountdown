@@ -15,8 +15,8 @@ interface Variables {
   previous?: boolean;
 }
 
-const GET_EPISODES = gql`
-  query GetEpisodes($previous: Boolean!) {
+const GET_SCHEDULE_ALL = gql`
+  query GetScheduleAll($previous: Boolean!) {
     scheduleAll(previous: $previous) {
       id
       name
@@ -37,7 +37,7 @@ const GET_EPISODES = gql`
 type Props = {} & Variables;
 
 export const AllShowsList: React.SFC<Props> = ({ previous }) => (
-  <Query<Data, Variables> query={GET_EPISODES} variables={{ previous }}>
+  <Query<Data, Variables> query={GET_SCHEDULE_ALL} variables={{ previous }}>
     {({ loading, error, data }) => {
       if (loading) return <Loading />;
       if (!data || !data.scheduleAll) {
