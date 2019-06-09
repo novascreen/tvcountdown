@@ -1,7 +1,8 @@
 import { getShowById } from '../../tvmaze/api';
 import { combineResults } from '../../utils';
+import { QueryShowsArgs } from '../../types';
 
-export default function(parent: any, { ids }: { ids: [string] }) {
+export default function(parent, { ids }: QueryShowsArgs) {
   return Promise.all(
     ids.map(async showId => {
       let show;

@@ -1,9 +1,13 @@
 import { isLoggedIn, Context } from '../../utils';
+import {
+  MutationCreateFavoriteShowArgs,
+  MutationDeleteFavoriteShowArgs,
+} from '../../types';
 
 export default {
   createFavoriteShow: async (
     parent: any,
-    { tvmaze }: any,
+    { tvmaze }: MutationCreateFavoriteShowArgs,
     ctx: Context,
     info: any,
   ) => {
@@ -15,14 +19,14 @@ export default {
   },
   deleteFavoriteShow: async (
     parent: any,
-    data: any,
+    args: MutationDeleteFavoriteShowArgs,
     ctx: Context,
     info: any,
   ) => {
     const { id } = isLoggedIn(ctx);
     return ctx.db.updateUser({
       where: { id },
-      data: { favoriteShows: { delete: [{ id: data.id }] } },
+      data: { favoriteShows: { delete: [{ id: args.id }] } },
     });
   },
 };

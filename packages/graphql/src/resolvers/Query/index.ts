@@ -1,4 +1,4 @@
-import { getUserId, isLoggedIn, Context } from '../../utils';
+import { isLoggedIn, Context } from '../../utils';
 import {
   getShowById,
   getEpisodeById,
@@ -9,26 +9,35 @@ import shows from './shows';
 import scheduleAll from './scheduleAll';
 import scheduleByDate from './scheduleByDate';
 import scheduleFavorites from './scheduleFavorites';
+import {
+  QueryEpisodeArgs,
+  QueryEpisodesArgs,
+  QueryShowArgs,
+  QuerySearchArgs,
+  QueryResolvers,
+} from '../../types';
 
-export default {
-  me(parent: any, args: any, ctx: Context, info: any) {
+const Query: QueryResolvers = {
+  me(parent, args, ctx): any {
     const { auth0id } = isLoggedIn(ctx);
     return ctx.db.user({ auth0id });
   },
-  search(parent: any, { query }: { query: string }) {
+  search(parent, { query }) {
     return search(query);
   },
-  show(parent: any, { id }: { id: string }) {
+  show(parent, { id }) {
     return getShowById(id);
   },
   shows,
   scheduleAll,
   scheduleByDate,
   scheduleFavorites,
-  episode(parent: any, { id }: { id: string }) {
+  episode(parent, { id }) {
     return getEpisodeById(id);
   },
-  episodes(parent: any, { showId }: { showId: string }) {
+  episodes(parent, { showId }) {
     return getShowEpisodes(showId);
   },
 };
+
+export default Query;

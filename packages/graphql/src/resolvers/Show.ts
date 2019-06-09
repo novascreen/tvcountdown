@@ -1,7 +1,8 @@
 import * as _get from 'lodash/get';
 import { getShowEpisodes, getShowSeasons } from '../tvmaze/api';
+import { ShowResolvers } from '../types';
 
-export default {
+const Show: ShowResolvers = {
   airedYears: show => {
     const fromYear = _get((show.premiered || '').split('-'), [0], '');
     const previousEpisode = _get(show, '_embedded.previousepisode', null);
@@ -16,3 +17,5 @@ export default {
   episodes: show => getShowEpisodes(show.id),
   seasons: show => getShowSeasons(show.id),
 };
+
+export default Show;

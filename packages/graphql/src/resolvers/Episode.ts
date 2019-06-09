@@ -1,5 +1,8 @@
 import * as _get from 'lodash/get';
+import { EpisodeResolvers } from '../types';
 
-export default {
+const Episode: EpisodeResolvers = {
   show: episode => episode.show || _get(episode, '_embedded.show', null),
 };
+
+export default Episode;

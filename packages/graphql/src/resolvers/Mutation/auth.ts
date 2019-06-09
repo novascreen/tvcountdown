@@ -2,6 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { Context } from '../../utils';
 import validateAndParseIdToken from '../../utils/validateAndParseIdToken';
+import { MutationAuthenticateArgs } from '../../types';
 
 async function createPrismaUser(ctx: Context, idToken: any) {
   const user = await ctx.db.createUser({
@@ -17,7 +18,7 @@ async function createPrismaUser(ctx: Context, idToken: any) {
 export default {
   async authenticate(
     parent: any,
-    { idToken }: { idToken: any },
+    { idToken }: MutationAuthenticateArgs,
     ctx: Context,
     info: any,
   ) {

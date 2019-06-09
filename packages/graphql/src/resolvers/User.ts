@@ -1,7 +1,10 @@
 import { Context } from '../utils';
 import { User } from '../generated/prisma-client';
+import { UserResolvers } from '../types';
 
-export default {
-  favoriteShows: (parent: User, args, ctx: Context) =>
+const User: UserResolvers = {
+  favoriteShows: (parent, args, ctx) =>
     ctx.db.user({ id: parent.id }).favoriteShows(),
 };
+
+export default User;
