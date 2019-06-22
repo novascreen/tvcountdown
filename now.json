@@ -49,6 +49,10 @@
       "dest": "/packages/app/favicon/$1"
     },
     {
+      "src": "^/fonts/(.*)",
+      "dest": "/packages/app/fonts/$1"
+    },
+    {
       "src": "^/favicon.ico",
       "dest": "/packages/app/favicon.ico"
     },
