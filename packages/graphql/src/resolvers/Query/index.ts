@@ -4,6 +4,7 @@ import {
   getEpisodeById,
   search,
   getShowEpisodes,
+  getShowCast,
 } from '../../tvmaze/api';
 import shows from './shows';
 import scheduleAll from './scheduleAll';
@@ -37,6 +38,9 @@ const Query: QueryResolvers = {
   },
   episodes(parent, { showId }) {
     return getShowEpisodes(showId);
+  },
+  cast(parent, { showId }) {
+    return getShowCast(showId);
   },
 };
 

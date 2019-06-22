@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from '@apollo/react-components';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import uuid from 'uuid/v4';
 import { ApolloError } from 'apollo-client';
@@ -9,6 +9,7 @@ import { GET_FAVORITES, Favorites } from 'resolvers/favorites';
 import { isAuthenticated } from 'lib/Auth';
 import fragments from './fragments';
 import { User, FavoriteShow } from './types';
+import { useFavorites } from 'components/Shows/Favorites/Provider';
 
 interface Data {
   me: User;
@@ -44,47 +45,54 @@ type Props = {
 };
 
 export default withProps(() => ({ auth: isAuthenticated() }))(
-  ({ auth, children = () => null }: Props) => (
-    <Query<FavoritesData, FavoritesVariables> query={GET_FAVORITES}>
-      {favoritesResult => (
-        <Query<Data, Variables> query={GET_MY_FAVORITE_SHOWS} skip={!auth}>
-          {meResult => {
-            let favoriteShows: FavoriteShow[] = [];
-            let userId;
+  ({ auth, children = () => null }: Props) => {
+    const context = useFavorites();
 
-            // Return locally stored favorites
-            if (favoritesResult.data && favoritesResult.data.favorites) {
-              favoriteShows = favoritesResult.data.favorites.map(favorite => ({
-                id: uuid(),
-                tvmaze: favorite,
-              }));
-            }
+    console.log({ context });
+    return (
+      <Query<FavoritesData, FavoritesVariables> query={GET_FAVORITES}>
+        {favoritesResult => (
+          <Query<Data, Variables> query={GET_MY_FAVORITE_SHOWS} skip={!auth}>
+            {meResult => {
+              let favoriteShows: FavoriteShow[] = [];
+              let userId;
 
-            // Return favorites from profile if authenticated
-            if (auth && meResult.data && meResult.data.me) {
-              userId = meResult.data.me.id;
-              favoriteShows = meResult.data.me.favoriteShows;
-            }
+              // Return locally stored favorites
+              if (favoritesResult.data && favoritesResult.data.favorites) {
+                favoriteShows = favoritesResult.data.favorites.map(
+                  favorite => ({
+                    id: uuid(),
+                    tvmaze: favorite,
+                  }),
+                );
+              }
 
-            const favoriteShowsIds = favoriteShows.map(
-              favorite => favorite.tvmaze,
-            );
+              // Return favorites from profile if authenticated
+              if (auth && meResult.data && meResult.data.me) {
+                userId = meResult.data.me.id;
+                favoriteShows = meResult.data.me.favoriteShows;
+              }
 
-            return (
-              <>
-                {children({
-                  loading:
-                    (auth && meResult.loading) || favoritesResult.loading,
-                  error: meResult.error || favoritesResult.error,
-                  favoriteShows,
-                  favoriteShowsIds,
-                  userId,
-                })}
-              </>
-            );
-          }}
-        </Query>
-      )}
-    </Query>
-  ),
+              const favoriteShowsIds = favoriteShows.map(
+                favorite => favorite.tvmaze,
+              );
+
+              return (
+                <>
+                  {children({
+                    loading:
+                      (auth && meResult.loading) || favoritesResult.loading,
+                    error: meResult.error || favoritesResult.error,
+                    favoriteShows,
+                    favoriteShowsIds,
+                    userId,
+                  })}
+                </>
+              );
+            }}
+          </Query>
+        )}
+      </Query>
+    );
+  },
 );

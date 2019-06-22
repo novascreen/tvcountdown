@@ -5,6 +5,7 @@ import withRoot, { auth } from 'withRoot';
 import appHistory from 'appHistory';
 import { Loading } from 'components/UI/Loading';
 import App from './App';
+import { FavoritesProvider } from 'components/Shows/Favorites/Provider';
 
 const handleAuthentication = ({ location }: any) => {
   if (/access_token|id_token|error/.test(location.hash)) {
@@ -31,20 +32,22 @@ class Popup extends React.Component {
 }
 
 export const AppContainer = () => (
-  <Router history={appHistory}>
-    <Switch>
-      <Route exact path="/auth/popup" component={Popup} />
-      <Route
-        exact
-        path="/auth/callback"
-        render={props => {
-          handleAuthentication(props);
-          return <Loading />;
-        }}
-      />
-      <Route component={App} />
-    </Switch>
-  </Router>
+  <FavoritesProvider>
+    <Router history={appHistory}>
+      <Switch>
+        <Route exact path="/auth/popup" component={Popup} />
+        <Route
+          exact
+          path="/auth/callback"
+          render={props => {
+            handleAuthentication(props);
+            return <Loading />;
+          }}
+        />
+        <Route component={App} />
+      </Switch>
+    </Router>
+  </FavoritesProvider>
 );
 
 export default withRoot(AppContainer);

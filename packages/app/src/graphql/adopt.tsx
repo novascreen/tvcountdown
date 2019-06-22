@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query, Mutation } from '@apollo/react-components';
+import { Query, Mutation } from 'react-apollo';
 
 export const adoptQuery = (props: any, Component = Query) => ({
   render,

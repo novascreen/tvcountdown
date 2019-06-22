@@ -16,6 +16,7 @@ import Info from 'components/Shows/Info';
 import Seasons from 'components/Shows/Seasons';
 import InlineDivider from 'components/UI/InlineDivider';
 import appHistory from 'appHistory';
+import Cast from '../Cast';
 
 type Props = {
   show: ShowType;
@@ -97,6 +98,7 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
           >
             <Tab value="" label={<>Info</>} />
             <Tab value="episodes" label={<>Episodes</>} />
+            <Tab value="cast" label={<>Cast</>} />
           </Tabs>
           <Divider />
         </Box>
@@ -110,6 +112,11 @@ export const ShowDetails = ({ url, show, section = '' }: Props) => {
           exact
           path={`/shows/${show.id}/episodes`}
           component={() => <Seasons show={show} />}
+        />
+        <Route
+          exact
+          path={`/shows/${show.id}/cast`}
+          component={() => (show.id ? <Cast showId={show.id} /> : null)}
         />
       </Box>
     </>

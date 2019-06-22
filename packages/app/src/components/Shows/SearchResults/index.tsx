@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from '@apollo/react-components';
+import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Typography } from '@material-ui/core';
 import Loading from 'components/UI/Loading';
