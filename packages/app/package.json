@@ -55,7 +55,7 @@
     "react-autosuggest": "^9.4.3",
     "react-dom": "^16.8.6",
     "react-infinite": "^0.13.0",
-    "react-intl": "^2.9.0",
+    "react-intl": "^3.0.0",
     "react-router-dom": "^5.0.1",
     "recompose": "^0.30.0",
     "typescript": "^3.3.3333",
