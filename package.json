@@ -9,7 +9,7 @@
     "gen-types": "graphql-codegen"
   },
   "dependencies": {
-    "@graphql-codegen/cli": "^1.2.1",
+    "@graphql-codegen/cli": "^1.6.1",
     "@graphql-codegen/typescript": "^1.2.1",
     "@graphql-codegen/typescript-operations": "^1.2.1",
     "@graphql-codegen/typescript-resolvers": "^1.2.1",
