@@ -12,7 +12,7 @@
     "@graphql-codegen/cli": "^1.2.1",
     "@graphql-codegen/typescript": "^1.2.1",
     "@graphql-codegen/typescript-operations": "^1.2.1",
-    "@graphql-codegen/typescript-resolvers": "^1.2.1",
+    "@graphql-codegen/typescript-resolvers": "^1.6.1",
     "cpy-cli": "^2.0.0",
     "graphql": "^14.3.1",
     "lerna": "^3.14.1"
