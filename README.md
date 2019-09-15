@@ -7,7 +7,7 @@
 Install dependencies
 
 ```bash
-npm ci
+yarn
 ```
 
 This will install dependencies for managing the monorepo as well as the individual packages via `lerna bootstrap`.
@@ -21,7 +21,7 @@ Set up `.env` files for Prisma and Auth0 connections:
 Start app and API:
 
 ```bash
-npm start
+yarn start
 ```
 
-Alternatively you can start go to `packages/app` and `packages/graphql` individually and run `npm start` in both of them.
+Alternatively you can start go to `packages/app` and `packages/graphql` individually and run `yarn start` in both of them.
