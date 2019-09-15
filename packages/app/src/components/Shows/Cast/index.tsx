@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  Show,
-  CastMembersQuery,
-  CastMembersQueryVariables,
-} from 'graphql/types';
+import { oc } from 'ts-optchain';
+import { CastMembersQuery, CastMembersQueryVariables } from 'graphql/types';
 import { useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 import Loading from 'components/UI/Loading';
 import { Grid, Typography, makeStyles } from '@material-ui/core';
-import * as R from 'ramda';
 import Box from 'components/UI/Box';
 
 type Props = {
@@ -45,57 +41,43 @@ const useStyles = makeStyles({
   },
 });
 
-function getPath<T>(path: string[], obj: any, d: T): T {
-  return R.path(path, obj) || d;
-}
+const useCastMembers = (showId: number) =>
+  useQuery<CastMembersQuery, CastMembersQueryVariables>(CAST_MEMBERS, {
+    variables: { showId },
+  });
 
 export default function Cast({ showId }: Props) {
   const classes = useStyles();
-  const { data, loading } = useQuery<
-    CastMembersQuery,
-    CastMembersQueryVariables
-  >(CAST_MEMBERS, { variables: { showId } });
-  console.log({ loading, data });
+  const { data, loading } = useCastMembers(showId);
+
   if (loading) return <Loading />;
-  if (!data || !data.cast || !data.cast.length)
-    return <>No cast members found</>;
+  if (!oc(data).cast.length(0)) return <>No cast members found</>;
+
   return (
     <Grid container>
-      {data.cast.map((castMember, idx) => {
-        const characterId = getPath<number>(
-          ['character', 'id'],
-          castMember,
-          idx,
-        );
-        const personName = getPath<string>(['person', 'name'], castMember, '');
-        const characterName = getPath<string>(
-          ['character', 'name'],
-          castMember,
-          '',
-        );
-        const personImage = getPath<string>(
-          ['person', 'image', 'medium'],
-          castMember,
-          '',
-        );
-        const characterImage = getPath<string>(
-          ['character', 'image', 'medium'],
-          castMember,
-          '',
-        );
-        const image: string = characterImage || personImage || '';
-        return (
-          <Grid key={characterId} item xs={12} sm={6}>
-            <Box mr={2} className={classes.imageWrapper}>
-              {image && (
-                <img className={classes.img} src={image} alt={characterName} />
-              )}
-            </Box>
-            <Typography>{characterName}</Typography>
-            <Typography> as {personName}</Typography>
-          </Grid>
-        );
-      })}
+      {oc(data)
+        .cast([])
+        .map((castMember, idx) => {
+          const character = oc(castMember).character();
+          const person = oc(castMember).person();
+          const image: string =
+            oc(character).image.medium() || oc(person).image.medium('');
+          return (
+            <Grid key={oc(character).id(idx)} item xs={12} sm={6}>
+              <Box mr={2} className={classes.imageWrapper}>
+                {image && (
+                  <img
+                    className={classes.img}
+                    src={image}
+                    alt={oc(character).name('')}
+                  />
+                )}
+              </Box>
+              <Typography variant="body2">{oc(person).name()}</Typography>
+              <Typography> as {oc(character).name()}</Typography>
+            </Grid>
+          );
+        })}
     </Grid>
   );
 }

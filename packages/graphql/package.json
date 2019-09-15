@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "ts-node-dev --inspect -- src/index.ts"
+    "start": "ts-node-dev --inspect --transpileOnly src/index.ts"
   },
   "author": "",
   "license": "MIT",
