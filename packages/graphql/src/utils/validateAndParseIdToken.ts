@@ -13,7 +13,7 @@ const validateAndParseIdToken = idToken =>
   new Promise((resolve, reject) => {
     const { header, payload } = jwt.decode(idToken, { complete: true });
     if (!header || !header.kid || !payload) reject(new Error('Invalid Token'));
-    jwks.getSigningKey(header.kid, (err, key) => {
+    jwks.getSigningKey(header.kid, (err, key: jwksClient.CertSigningKey) => {
       if (err) reject(new Error('Error getting signing key: ' + err.message));
       jwt.verify(
         idToken,
