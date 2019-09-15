@@ -3,8 +3,37 @@ import ReactAutosuggest from 'react-autosuggest';
 import { AutosuggestProps } from 'react-autosuggest';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import { StyleRulesCallback } from '@material-ui/core/styles/withStyles';
+import {
+  withStyles,
+  WithStyles,
+  Theme,
+  createStyles,
+} from '@material-ui/core/styles';
+
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      flexGrow: 1,
+    },
+    suggestionsContainerOpen: {
+      position: 'absolute',
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(3),
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      left: 0,
+      right: 0,
+      maxWidth: 400,
+    },
+    suggestion: {
+      display: 'block',
+    },
+    suggestionsList: {
+      margin: 0,
+      padding: 0,
+      listStyleType: 'none',
+    },
+  });
 
 function renderInput(inputProps: any): JSX.Element {
   return (
@@ -26,7 +55,7 @@ function renderSuggestionsContainer(
 
 type Props = AutosuggestProps<any>;
 
-const AutoSuggest: React.SFC<Props & WithStyles<Styles>> = ({
+const AutoSuggest: React.SFC<Props & WithStyles<typeof styles>> = ({
   classes,
   inputProps,
   ...props
@@ -47,35 +76,5 @@ const AutoSuggest: React.SFC<Props & WithStyles<Styles>> = ({
     {...props}
   />
 );
-
-type Styles =
-  | 'container'
-  | 'suggestionsContainerOpen'
-  | 'suggestion'
-  | 'suggestionsList';
-
-const styles: StyleRulesCallback<Styles> = theme => ({
-  container: {
-    flexGrow: 1,
-  },
-  suggestionsContainerOpen: {
-    position: 'absolute',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(3),
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    left: 0,
-    right: 0,
-    maxWidth: 400,
-  },
-  suggestion: {
-    display: 'block',
-  },
-  suggestionsList: {
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none',
-  },
-});
 
 export default withStyles(styles)(AutoSuggest);

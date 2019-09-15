@@ -5,23 +5,48 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid/Grid';
 import Typography from '@material-ui/core/Typography/Typography';
 import withWidth, { WithWidth } from '@material-ui/core/withWidth';
-import withStyles, {
-  WithStyles,
-  StyleRulesCallback,
-} from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 
 import Navigation from 'components/App/Navigation';
 import Search from 'components/App/Search';
 import Box from 'components/UI/Box';
 import Login from '../Login';
+import { createStyles, Theme } from '@material-ui/core';
 
-type Props = {};
+const styles = ({ mixins, spacing }: Theme) =>
+  createStyles({
+    '@global': {
+      html: {
+        overflowX: 'hidden',
+      },
+      p: {
+        marginTop: 0,
+        marginBottom: spacing(1),
+      },
+      a: {
+        color: 'inherit',
+        textDecoration: 'none',
+        '&:hover': {
+          textDecoration: 'underline',
+        },
+      },
+    },
+    root: {
+      width: '100%',
+    },
+    spacer: mixins.toolbar,
+    flex: {
+      flex: 1,
+    },
+  });
 
-export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
-  classes,
-  width,
-}) => {
+type Props = WithStyles<typeof styles> & {
+  foo: number;
+  bar: boolean;
+};
+
+export const AppBar: React.SFC<Props & WithWidth> = ({ classes, width }) => {
   const smallScreen = width === 'xs';
   return (
     <>
@@ -64,34 +89,6 @@ export const AppBar: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
     </>
   );
 };
-
-type Styles = 'root' | 'spacer' | 'flex';
-
-const styles: StyleRulesCallback<Styles> = theme => ({
-  '@global': {
-    html: {
-      overflowX: 'hidden',
-    },
-    p: {
-      marginTop: 0,
-      marginBottom: theme.spacing(1),
-    },
-    a: {
-      color: 'inherit',
-      textDecoration: 'none',
-      '&:hover': {
-        textDecoration: 'underline',
-      },
-    },
-  },
-  root: {
-    width: '100%',
-  },
-  spacer: theme.mixins.toolbar,
-  flex: {
-    flex: 1,
-  },
-});
 
 export default compose<any, any>(
   withStyles(styles),

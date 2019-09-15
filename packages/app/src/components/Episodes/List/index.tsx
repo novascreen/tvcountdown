@@ -4,9 +4,10 @@ import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Grid from '@material-ui/core/Grid';
-import { FormattedDate, FormattedTime, FormattedRelative } from 'react-intl';
+import { FormattedDate, FormattedTime } from 'react-intl';
 import Typography from '@material-ui/core/Typography/Typography';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import moment from 'moment';
 import Infinite from 'react-infinite';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -96,7 +97,7 @@ export class EpisodesList extends React.Component<
                     {episode.airstamp && (
                       <Grid item xs={12} sm={5}>
                         <Typography>
-                          <FormattedRelative value={episode.airstamp} />
+                          {moment(episode.airstamp).fromNow()}
                         </Typography>
                         <Typography variant="caption" component="div">
                           <FormattedDate value={episode.airstamp} />{' '}
@@ -120,7 +121,6 @@ export class EpisodesList extends React.Component<
   }
 }
 
-// withRouter<RouteComponentProps<{}> & Props>
 export default compose<any, any>(
   withRouter,
   withWidth(),

@@ -2,10 +2,7 @@ import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import withStyles, {
-  WithStyles,
-  StyleRulesCallback,
-} from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Slide from '@material-ui/core/Slide';
 import compose from 'recompose/compose';
@@ -14,6 +11,24 @@ import Input from '@material-ui/core/Input';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import Box from 'components/UI/Box';
+import { createStyles, Theme } from '@material-ui/core';
+
+const styles = (theme: Theme) =>
+  createStyles({
+    search: {
+      display: 'flex',
+      position: 'absolute',
+      width: '100%',
+      top: 0,
+      right: 0,
+      zIndex: 1,
+      background: theme.palette.background.paper,
+      ...theme.mixins.toolbar,
+    },
+    autoSuggestBox: {
+      flexGrow: 1,
+    },
+  });
 
 type State = {
   open: boolean;
@@ -21,7 +36,7 @@ type State = {
 };
 
 export class Search extends React.Component<
-  WithStyles<Styles> & RouteComponentProps<{}>,
+  WithStyles<typeof styles> & RouteComponentProps<{}>,
   State
 > {
   state = {
@@ -90,24 +105,6 @@ export class Search extends React.Component<
     );
   }
 }
-
-type Styles = 'search' | 'autoSuggestBox';
-
-const styles: StyleRulesCallback<Styles> = theme => ({
-  search: {
-    display: 'flex',
-    position: 'absolute',
-    width: '100%',
-    top: 0,
-    right: 0,
-    zIndex: 1,
-    background: theme.palette.background.paper,
-    ...theme.mixins.toolbar,
-  },
-  autoSuggestBox: {
-    flexGrow: 1,
-  },
-});
 
 export default compose<any, any>(
   withStyles(styles),

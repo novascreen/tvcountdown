@@ -43,7 +43,8 @@ export class Navigation extends React.Component<
 
   render() {
     const { position = 'top', location } = this.props;
-    const Component: any = position === 'top' ? TopNavigation : BottomNavigation;
+    const Component: any =
+      position === 'top' ? TopNavigation : BottomNavigation;
     const match = items.find(item => item.match.test(location.pathname));
     const value = match ? match.value : '';
 
@@ -59,4 +60,4 @@ export class Navigation extends React.Component<
   }
 }
 
-export default withRouter<RouteComponentProps<{}> & Props>(Navigation);
+export default withRouter(Navigation);

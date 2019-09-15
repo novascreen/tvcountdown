@@ -4,17 +4,20 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import withWidth, { WithWidth } from '@material-ui/core/withWidth';
-import withStyles, {
-  WithStyles,
-  StyleRulesCallback,
-} from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { createStyles, Theme } from '@material-ui/core';
 
-type Props = {};
+const styles = ({ mixins }: Theme) =>
+  createStyles({
+    spacer: mixins.toolbar,
+  });
 
-export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
-  classes,
-  width,
-}) => {
+type Props = WithStyles<typeof styles> & {
+  foo: number;
+  bar: boolean;
+};
+
+export const Footer: React.SFC<Props & WithWidth> = ({ classes, width }) => {
   const year = new Date().getFullYear();
   const smallScreen = width === 'xs';
   return (
@@ -50,12 +53,6 @@ export const Footer: React.SFC<Props & WithStyles<Styles> & WithWidth> = ({
     </footer>
   );
 };
-
-type Styles = 'spacer';
-
-const styles: StyleRulesCallback<Styles> = theme => ({
-  spacer: theme.mixins.toolbar,
-});
 
 export default compose<any, any>(
   withStyles(styles),
