@@ -15,6 +15,6 @@
     "@graphql-codegen/typescript-resolvers": "^1.2.1",
     "cpy-cli": "^2.0.0",
     "graphql": "^14.3.1",
-    "lerna": "^3.14.1"
+    "lerna": "^3.18.2"
   }
 }
