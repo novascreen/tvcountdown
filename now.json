@@ -2,18 +2,6 @@
   "version": 2,
   "name": "tvcountdown",
   "alias": "tvcountdown.info",
-  "builds": [{
-      "src": "packages/graphql/src/index.ts",
-      "use": "@now/node",
-      "config": {
-        "maxLambdaSize": "7mb"
-      }
-    },
-    {
-      "src": "packages/app/package.json",
-      "use": "@now/static-build"
-    }
-  ],
   "build": {
     "env": {
       "REACT_APP_AUTH_DOMAIN": "@tvcountdown-auth-domain",
@@ -31,57 +19,5 @@
     "APP_SECRET": "@tvcountdown-app-secret",
     "AUTH_DOMAIN": "@tvcountdown-auth-domain",
     "AUTH_AUDIENCE": "@tvcountdown-auth-audience"
-  },
-  "routes": [{
-      "src": "^/graphql",
-      "dest": "/packages/graphql/src/index.ts"
-    },
-    {
-      "src": "^/graphql/(.*)",
-      "dest": "/packages/graphql/src/index.ts"
-    },
-    {
-      "src": "^/static/(.*)",
-      "dest": "/packages/app/static/$1"
-    },
-    {
-      "src": "^/favicon/(.*)",
-      "dest": "/packages/app/favicon/$1"
-    },
-    {
-      "src": "^/fonts/(.*)",
-      "dest": "/packages/app/fonts/$1"
-    },
-    {
-      "src": "^/favicon.ico",
-      "dest": "/packages/app/favicon.ico"
-    },
-    {
-      "src": "^/asset-manifest.json",
-      "dest": "/packages/app/asset-manifest.json"
-    },
-    {
-      "src": "^/manifest.json",
-      "dest": "/packages/app/manifest.json"
-    },
-    {
-      "src": "^/service-worker.js",
-      "headers": {
-        "cache-control": "s-maxage=0"
-      },
-      "dest": "/packages/app/service-worker.js"
-    },
-    {
-      "src": "^/precache-manifest.(.*)",
-      "dest": "/packages/app/precache-manifest.$1"
-    },
-    {
-      "src": "^/robots.txt",
-      "dest": "/packages/app/robots.txt"
-    },
-    {
-      "src": "^/(.*)",
-      "dest": "/packages/app/index.html"
-    }
-  ]
+  }
 }
