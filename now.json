@@ -8,8 +8,7 @@
       "REACT_APP_AUTH_CLIENT_ID": "@tvcountdown-auth-client-id",
       "REACT_APP_AUTH_REDIRECT_URI": "@tvcountdown-auth-redirect-uri",
       "REACT_APP_AUTH_DB_CONNECTION_NAME": "Username-Password-Authentication",
-      "REACT_APP_AUTH_AUDIENCE": "@tvcountdown-auth-audience",
-      "NODE_PATH": "src"
+      "REACT_APP_AUTH_AUDIENCE": "@tvcountdown-auth-audience"
     }
   },
   "env": {

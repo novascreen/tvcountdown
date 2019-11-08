@@ -88,6 +88,7 @@
     "craco-workbox": "^0.1.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "prisma": "^1.34.10",
     "tsconfig-paths": "^3.9.0"
   },
   "engines": {
