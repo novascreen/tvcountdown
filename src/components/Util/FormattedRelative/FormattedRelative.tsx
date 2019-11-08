@@ -1,17 +1,12 @@
 import React from 'react';
-import { FormattedRelativeTime } from 'react-intl';
-import { selectUnit } from '@formatjs/intl-utils';
+import moment from 'moment';
 
 type FormattedRelativeProps = {
-  value: number;
+  value: string;
 };
 
 export const FormattedRelative: React.FC<FormattedRelativeProps> = ({
-  value
+  value,
 }) => {
-  const { value: actualValue, unit } = selectUnit(value);
-
-  return (
-    <FormattedRelativeTime value={actualValue} unit={unit} numeric="auto" />
-  );
+  return <>{moment(value).fromNow()}</>;
 };

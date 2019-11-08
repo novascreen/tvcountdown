@@ -23,7 +23,7 @@ import { FormattedRelative } from 'components/Util/FormattedRelative/FormattedRe
 const Wrapper: React.FC<WithWidth & { disableInfinite?: boolean }> = ({
   disableInfinite,
   width,
-  children
+  children,
 }) => {
   const smallScreen = width === 'xs';
 
@@ -50,7 +50,7 @@ export type Props = RouteComponentProps<{}> &
 export const EpisodesList: React.FC<Props> = ({
   episodes = [],
   width,
-  disableInfinite
+  disableInfinite,
 }) => {
   const smallScreen = width === 'xs';
   return (
@@ -100,7 +100,7 @@ export const EpisodesList: React.FC<Props> = ({
                   {episode.airstamp && (
                     <Grid item xs={12} sm={5}>
                       <Typography>
-                        <FormattedRelative value={Number(episode.airstamp)} />
+                        <FormattedRelative value={episode.airstamp} />
                       </Typography>
                       <Typography variant="caption" component="div">
                         <FormattedDate value={episode.airstamp} />{' '}
@@ -125,5 +125,5 @@ export const EpisodesList: React.FC<Props> = ({
 
 export default compose<any, any>(
   withRouter,
-  withWidth()
+  withWidth(),
 )(EpisodesList);
