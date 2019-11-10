@@ -3,17 +3,17 @@ import moment from 'moment';
 
 import { getScheduleByDate } from '../../tvmaze/api';
 import { combineResults } from '../../utils/utils';
-import { QueryScheduleAllArgs } from '../../types';
+import { QueryResolvers } from '../../types';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
 const eqIdAirstamp = (a: any, b: any) =>
   R.eqProps('id', a, b) && R.eqProps('airstamp', a, b);
 
-export default function scheduleAll(
-  parent: any,
-  { previous }: QueryScheduleAllArgs
-) {
+export const scheduleAll: QueryResolvers['scheduleAll'] = (
+  parent,
+  { previous },
+) => {
   const date = new Date();
   const dates = [
     moment(date)
@@ -22,7 +22,7 @@ export default function scheduleAll(
     moment(date).format(DATE_FORMAT),
     moment(date)
       .add(1, 'day')
-      .format(DATE_FORMAT)
+      .format(DATE_FORMAT),
   ];
   return (
     Promise.all(dates.map(d => getScheduleByDate(d)))
@@ -35,8 +35,8 @@ export default function scheduleAll(
           return previous
             ? episodeDate.isSameOrBefore(date)
             : episodeDate.isSameOrAfter(date);
-        })
+        }),
       )
       .then(results => (previous ? R.reverse(results) : results))
   );
-}
+};

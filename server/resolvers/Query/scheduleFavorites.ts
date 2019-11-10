@@ -1,22 +1,17 @@
 import _get from 'lodash/get';
 import _sortBy from 'lodash/sortBy';
 import _reverse from 'lodash/reverse';
-import {
-  getShowById,
-  getEpisodeById,
-  getScheduleByDate,
-  search
-} from '../../tvmaze/api';
+import { getShowById } from '../../tvmaze/api';
 import { combineResults } from '../../utils/utils';
-import { QueryScheduleFavoritesArgs } from '../../types';
+import { QueryResolvers } from '../../types';
 
 const sortByDate = (results: any[]) => _sortBy(results, 'airstamp');
 
-export default function scheduleFavorites(
-  parent: any,
-  { showIds, previous = false }: QueryScheduleFavoritesArgs
-) {
-  return Promise.all(
+export const scheduleFavorites: QueryResolvers['scheduleFavorites'] = (
+  parent,
+  { showIds, previous = false },
+) =>
+  Promise.all(
     showIds.map(async showId => {
       if (!showId) return [];
       let show;
@@ -33,9 +28,8 @@ export default function scheduleFavorites(
 
       episode.show = show;
       return [episode];
-    })
+    }),
   )
     .then(combineResults)
     .then(sortByDate)
     .then(results => (previous ? _reverse(results) : results));
-}

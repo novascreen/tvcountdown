@@ -13,6 +13,22 @@ export type Scalars = {
 
 
 
+export type CastMember = {
+   __typename?: 'CastMember',
+  character?: Maybe<Character>,
+  person?: Maybe<Person>,
+  self?: Maybe<Scalars['Boolean']>,
+  voide?: Maybe<Scalars['Boolean']>,
+};
+
+export type Character = {
+   __typename?: 'Character',
+  id?: Maybe<Scalars['Int']>,
+  url?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  image?: Maybe<Image>,
+};
+
 export type Country = {
    __typename?: 'Country',
   name?: Maybe<Scalars['String']>,
@@ -88,6 +104,18 @@ export type Network = {
   country?: Maybe<Country>,
 };
 
+export type Person = {
+   __typename?: 'Person',
+  id?: Maybe<Scalars['Int']>,
+  url?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  image?: Maybe<Image>,
+  country?: Maybe<Country>,
+  birthday?: Maybe<Scalars['String']>,
+  deathday?: Maybe<Scalars['String']>,
+  gender?: Maybe<Scalars['String']>,
+};
+
 export type Query = {
    __typename?: 'Query',
   me?: Maybe<User>,
@@ -99,6 +127,7 @@ export type Query = {
   scheduleFavorites?: Maybe<Array<Maybe<Episode>>>,
   episode?: Maybe<Episode>,
   episodes?: Maybe<Array<Maybe<Episode>>>,
+  cast?: Maybe<Array<Maybe<CastMember>>>,
 };
 
 
@@ -139,6 +168,11 @@ export type QueryEpisodeArgs = {
 
 
 export type QueryEpisodesArgs = {
+  showId: Scalars['Int']
+};
+
+
+export type QueryCastArgs = {
   showId: Scalars['Int']
 };
 
@@ -302,6 +336,9 @@ export type ResolversTypes = {
   Season: ResolverTypeWrapper<Season>,
   Episode: ResolverTypeWrapper<Episode>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  CastMember: ResolverTypeWrapper<CastMember>,
+  Character: ResolverTypeWrapper<Character>,
+  Person: ResolverTypeWrapper<Person>,
   Mutation: ResolverTypeWrapper<{}>,
 };
 
@@ -324,12 +361,29 @@ export type ResolversParentTypes = {
   Season: Season,
   Episode: Episode,
   Boolean: Scalars['Boolean'],
+  CastMember: CastMember,
+  Character: Character,
+  Person: Person,
   Mutation: {},
 };
 
 export type IsAuthenticatedDirectiveResolver<Result, Parent, ContextType = Context, Args = {  }> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type IsOwnerDirectiveResolver<Result, Parent, ContextType = Context, Args = {   type?: Maybe<Maybe<Scalars['String']>> }> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
+export type CastMemberResolvers<ContextType = Context, ParentType extends ResolversParentTypes['CastMember'] = ResolversParentTypes['CastMember']> = {
+  character?: Resolver<Maybe<ResolversTypes['Character']>, ParentType, ContextType>,
+  person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType>,
+  self?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  voide?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+};
+
+export type CharacterResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Character'] = ResolversParentTypes['Character']> = {
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType>,
+};
 
 export type CountryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Country'] = ResolversParentTypes['Country']> = {
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -384,6 +438,17 @@ export type NetworkResolvers<ContextType = Context, ParentType extends Resolvers
   country?: Resolver<Maybe<ResolversTypes['Country']>, ParentType, ContextType>,
 };
 
+export type PersonResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = {
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  image?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType>,
+  country?: Resolver<Maybe<ResolversTypes['Country']>, ParentType, ContextType>,
+  birthday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  deathday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  gender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+};
+
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>,
   search?: Resolver<Maybe<Array<Maybe<ResolversTypes['Show']>>>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'query'>>,
@@ -394,6 +459,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   scheduleFavorites?: Resolver<Maybe<Array<Maybe<ResolversTypes['Episode']>>>, ParentType, ContextType, RequireFields<QueryScheduleFavoritesArgs, 'showIds'>>,
   episode?: Resolver<Maybe<ResolversTypes['Episode']>, ParentType, ContextType, RequireFields<QueryEpisodeArgs, 'id'>>,
   episodes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Episode']>>>, ParentType, ContextType, RequireFields<QueryEpisodesArgs, 'showId'>>,
+  cast?: Resolver<Maybe<Array<Maybe<ResolversTypes['CastMember']>>>, ParentType, ContextType, RequireFields<QueryCastArgs, 'showId'>>,
 };
 
 export type RatingResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Rating'] = ResolversParentTypes['Rating']> = {
@@ -463,6 +529,8 @@ export type WebChannelResolvers<ContextType = Context, ParentType extends Resolv
 };
 
 export type Resolvers<ContextType = Context> = {
+  CastMember?: CastMemberResolvers<ContextType>,
+  Character?: CharacterResolvers<ContextType>,
   Country?: CountryResolvers<ContextType>,
   Episode?: EpisodeResolvers<ContextType>,
   Externals?: ExternalsResolvers<ContextType>,
@@ -470,6 +538,7 @@ export type Resolvers<ContextType = Context> = {
   Image?: ImageResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   Network?: NetworkResolvers<ContextType>,
+  Person?: PersonResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Rating?: RatingResolvers<ContextType>,
   Schedule?: ScheduleResolvers<ContextType>,

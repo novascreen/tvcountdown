@@ -1,9 +1,9 @@
 import { getShowById } from '../../tvmaze/api';
 import { combineResults } from '../../utils/utils';
-import { QueryShowsArgs } from '../../types';
+import { QueryResolvers } from '../../types';
 
-export default function(parent: any, { ids }: QueryShowsArgs) {
-  return Promise.all(
+export const shows: QueryResolvers['shows'] = (parent, { ids }) =>
+  Promise.all(
     ids.map(async showId => {
       if (!showId) return [];
       let show;
@@ -14,6 +14,5 @@ export default function(parent: any, { ids }: QueryShowsArgs) {
         throw e;
       }
       return [];
-    })
+    }),
   ).then(combineResults);
-}

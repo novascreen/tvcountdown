@@ -1,21 +1,16 @@
-import { isLoggedIn, Context } from '../../utils/utils';
+import { isLoggedIn } from '../../utils/utils';
 import {
   getShowById,
   getEpisodeById,
   search,
-  getShowEpisodes
+  getShowEpisodes,
+  getShowCast,
 } from '../../tvmaze/api';
-import shows from './shows';
-import scheduleAll from './scheduleAll';
-import scheduleByDate from './scheduleByDate';
-import scheduleFavorites from './scheduleFavorites';
-import {
-  QueryEpisodeArgs,
-  QueryEpisodesArgs,
-  QueryShowArgs,
-  QuerySearchArgs,
-  QueryResolvers
-} from '../../types';
+import { shows } from './shows';
+import { scheduleAll } from './scheduleAll';
+import { scheduleByDate } from './scheduleByDate';
+import { scheduleFavorites } from './scheduleFavorites';
+import { QueryResolvers } from '../../types';
 
 const Query: QueryResolvers = {
   me(parent, args, ctx): any {
@@ -37,7 +32,10 @@ const Query: QueryResolvers = {
   },
   episodes(parent, { showId }) {
     return getShowEpisodes(showId);
-  }
+  },
+  cast(parent, { showId }) {
+    return getShowCast(showId);
+  },
 };
 
 export default Query;
