@@ -2,15 +2,15 @@ import * as R from 'ramda';
 
 import { getScheduleByDate } from '../../tvmaze/api';
 import { combineResults } from '../../utils/utils';
-import { QueryScheduleByDateArgs } from '../../types';
+import { QueryResolvers } from '../../types';
 
 const eqIdAirstamp = (a: any, b: any) =>
   R.eqProps('id', a, b) && R.eqProps('airstamp', a, b);
 
-export default function scheduleByDate(
-  parent: any,
-  { date }: QueryScheduleByDateArgs
-) {
+export const scheduleByDate: QueryResolvers['scheduleByDate'] = (
+  parent,
+  { date },
+) => {
   const dates = date.split(',');
   if (dates.length > 1) {
     return (
@@ -21,4 +21,4 @@ export default function scheduleByDate(
     );
   }
   return getScheduleByDate(date);
-}
+};

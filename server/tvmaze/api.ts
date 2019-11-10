@@ -43,6 +43,14 @@ export const getShowEpisodes = memoize(
   { maxAge: hours(CACHE_HOURS) },
 );
 
+export const getShowCast = memoize(
+  (showId: number) =>
+    fetch(`${BASE_URL}/shows/${showId}/cast`)
+      .then(getJSON)
+      .catch(console.error),
+  { maxAge: hours(CACHE_HOURS) },
+);
+
 export const getShowSeasons = memoize(
   (showId: number) =>
     fetch(`${BASE_URL}/shows/${showId}/seasons`)

@@ -10,6 +10,22 @@ export type Scalars = {
 
 
 
+export type CastMember = {
+   __typename?: 'CastMember',
+  character?: Maybe<Character>,
+  person?: Maybe<Person>,
+  self?: Maybe<Scalars['Boolean']>,
+  voide?: Maybe<Scalars['Boolean']>,
+};
+
+export type Character = {
+   __typename?: 'Character',
+  id?: Maybe<Scalars['Int']>,
+  url?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  image?: Maybe<Image>,
+};
+
 export type Country = {
    __typename?: 'Country',
   name?: Maybe<Scalars['String']>,
@@ -85,6 +101,18 @@ export type Network = {
   country?: Maybe<Country>,
 };
 
+export type Person = {
+   __typename?: 'Person',
+  id?: Maybe<Scalars['Int']>,
+  url?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  image?: Maybe<Image>,
+  country?: Maybe<Country>,
+  birthday?: Maybe<Scalars['String']>,
+  deathday?: Maybe<Scalars['String']>,
+  gender?: Maybe<Scalars['String']>,
+};
+
 export type Query = {
    __typename?: 'Query',
   me?: Maybe<User>,
@@ -96,6 +124,7 @@ export type Query = {
   scheduleFavorites?: Maybe<Array<Maybe<Episode>>>,
   episode?: Maybe<Episode>,
   episodes?: Maybe<Array<Maybe<Episode>>>,
+  cast?: Maybe<Array<Maybe<CastMember>>>,
 };
 
 
@@ -136,6 +165,11 @@ export type QueryEpisodeArgs = {
 
 
 export type QueryEpisodesArgs = {
+  showId: Scalars['Int']
+};
+
+
+export type QueryCastArgs = {
   showId: Scalars['Int']
 };
 
@@ -298,6 +332,33 @@ export type GetScheduleFavoritesQuery = (
     & { show: Maybe<(
       { __typename?: 'Show' }
       & Pick<Show, 'id' | 'name'>
+      & { image: Maybe<(
+        { __typename?: 'Image' }
+        & Pick<Image, 'medium'>
+      )> }
+    )> }
+  )>>> }
+);
+
+export type CastMembersQueryVariables = {
+  showId: Scalars['Int']
+};
+
+
+export type CastMembersQuery = (
+  { __typename?: 'Query' }
+  & { cast: Maybe<Array<Maybe<(
+    { __typename?: 'CastMember' }
+    & { person: Maybe<(
+      { __typename?: 'Person' }
+      & Pick<Person, 'name'>
+      & { image: Maybe<(
+        { __typename?: 'Image' }
+        & Pick<Image, 'medium'>
+      )> }
+    )>, character: Maybe<(
+      { __typename?: 'Character' }
+      & Pick<Character, 'id' | 'name'>
       & { image: Maybe<(
         { __typename?: 'Image' }
         & Pick<Image, 'medium'>

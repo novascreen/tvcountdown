@@ -21,6 +21,7 @@ export const typeDefs = gql`
     scheduleFavorites(showIds: [Int]!, previous: Boolean): [Episode]
     episode(id: Int!): Episode
     episodes(showId: Int!): [Episode]
+    cast(showId: Int!): [CastMember]
   }
 
   type Mutation {
@@ -133,5 +134,30 @@ export const typeDefs = gql`
     episodes: [Episode]
     previousEpisode: Episode
     nextEpisode: Episode
+  }
+
+  type CastMember {
+    character: Character
+    person: Person
+    self: Boolean
+    voide: Boolean
+  }
+
+  type Person {
+    id: Int
+    url: String
+    name: String
+    image: Image
+    country: Country
+    birthday: String
+    deathday: String
+    gender: String
+  }
+
+  type Character {
+    id: Int
+    url: String
+    name: String
+    image: Image
   }
 `;
