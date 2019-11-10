@@ -36,7 +36,7 @@ const byDate = R.descend(R.prop<string>('airstamp'));
 
 export const Seasons = ({ show }: Props) => {
   const { loading, data } = useQuery<Data, Variables>(EPISODES, {
-    variables: { showId: show.id }
+    variables: { showId: show.id },
   });
   if (loading) return <Loading />;
   if (!data || !data.episodes || !data.episodes.length) {
@@ -56,7 +56,12 @@ export const Seasons = ({ show }: Props) => {
                 Season {season}
               </Typography>
             </Box>
-            <List show={show} episodes={episodes} disableInfinite />
+            <List
+              show={show}
+              episodes={episodes}
+              disableInfinite
+              hideShowTitle
+            />
           </Box>
         ))}
     </>

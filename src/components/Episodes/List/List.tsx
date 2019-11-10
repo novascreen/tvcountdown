@@ -45,12 +45,14 @@ export type Props = RouteComponentProps<{}> &
   WithWidth & {
     episodes?: Episode[];
     disableInfinite?: boolean;
+    hideShowTitle?: boolean;
   };
 
 export const EpisodesList: React.FC<Props> = ({
   episodes = [],
   width,
   disableInfinite,
+  hideShowTitle = false,
 }) => {
   const smallScreen = width === 'xs';
   return (
@@ -87,11 +89,18 @@ export const EpisodesList: React.FC<Props> = ({
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={7}>
                     <>
-                      <Link to={`/shows/${show.id}`}>
-                        <Typography variant="subtitle1">{show.name}</Typography>
-                      </Link>
+                      {!hideShowTitle && (
+                        <Link to={`/shows/${show.id}`}>
+                          <Typography variant="subtitle1">
+                            {show.name}
+                          </Typography>
+                        </Link>
+                      )}
                       <Link to={`/shows/${show.id}/episodes/${episode.id}`}>
-                        <Typography variant="caption" component="div">
+                        <Typography
+                          variant={hideShowTitle ? 'subtitle1' : 'caption'}
+                          component="div"
+                        >
                           <EpisodeNumber episode={episode} /> - {episode.name}
                         </Typography>
                       </Link>
