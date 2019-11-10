@@ -2,7 +2,6 @@ import React from 'react';
 import { useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 import Typography from '@material-ui/core/Typography';
-import { oc } from 'ts-optchain';
 import Loading from 'components/UI/Loading';
 import List from 'components/Shows/List';
 import { Show, QueryShowsArgs } from 'graphql/types';
@@ -36,7 +35,7 @@ const useGetShows = (ids: QueryShowsArgs['ids']) => {
 export const Favorites = () => {
   const favoritesResult = useFavoritesQuery();
   const showsResult = useGetShows(favoritesResult.favoriteShowsIds);
-  const shows = oc(showsResult).data.shows([]);
+  const shows = showsResult?.data?.shows ?? [];
 
   if (favoritesResult.loading || showsResult.loading) {
     return <Loading />;

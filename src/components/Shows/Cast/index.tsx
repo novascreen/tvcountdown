@@ -2,11 +2,9 @@ import React from 'react';
 import { useQuery } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Grid, Typography, makeStyles } from '@material-ui/core';
-import * as R from 'ramda';
 import { CastMembersQuery, CastMembersQueryVariables } from 'graphql/types';
 import Loading from 'components/UI/Loading';
 import Box from 'components/UI/Box';
-import { oc } from 'ts-optchain';
 
 type Props = {
   showId: number;
@@ -54,11 +52,11 @@ export default function Cast({ showId }: Props) {
   return (
     <Grid container>
       {data.cast.map((castMember, idx) => {
-        const characterId = oc(castMember).character.id(idx);
-        const personName = oc(castMember).person.name();
-        const personImage = oc(castMember).person.image.medium();
-        const characterName = oc(castMember).character.name('');
-        const characterImage = oc(castMember).character.image.medium();
+        const characterId = castMember?.character?.id ?? idx;
+        const personName = castMember?.person?.name;
+        const personImage = castMember?.person?.image?.medium;
+        const characterName = castMember?.character?.name ?? '';
+        const characterImage = castMember?.character?.image?.medium;
         const image: string = characterImage || personImage || '';
         return (
           <Grid key={characterId} item xs={12} sm={6}>
