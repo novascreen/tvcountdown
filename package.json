@@ -68,7 +68,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@craco/craco": "^5.6.1",
     "@graphql-codegen/cli": "^1.8.3",
-    "@graphql-codegen/typescript": "^1.8.3",
+    "@graphql-codegen/typescript": "^1.10.0",
     "@graphql-codegen/typescript-operations": "^1.8.3",
     "@graphql-codegen/typescript-resolvers": "^1.8.3",
     "@types/auth0-js": "^9.10.6",
