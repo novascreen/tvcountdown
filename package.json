@@ -72,7 +72,7 @@
     "@graphql-codegen/typescript-operations": "^1.8.3",
     "@graphql-codegen/typescript-resolvers": "^1.8.3",
     "@types/auth0-js": "^9.10.6",
-    "@types/jsonwebtoken": "^8.3.5",
+    "@types/jsonwebtoken": "8.3.8",
     "@types/lodash": "^4.14.146",
     "@types/memoizee": "^0.4.3",
     "@types/microrouter": "^3.1.1",
