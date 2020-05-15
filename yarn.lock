@@ -2186,10 +2186,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-infinite@^0.0.34":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@types/react-infinite/-/react-infinite-0.0.34.tgz#0b514f65c4ba80ad22dea079075e04345ddcaae2"
-  integrity sha512-QymnFjmUUjeqhT8ztQpK5dmNgCGv+FSB5IsImj5OwXpz58xIrnucIJZtF3ZqjyfmCEMBGUpnQZHh5Mkc2Yhj8w==
+"@types/react-infinite@^0.0.35":
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/@types/react-infinite/-/react-infinite-0.0.35.tgz#0199474dcafe4a41c30d22a19ccafd8901634fb6"
+  integrity sha512-NQB2qfrs6Q4RBpfmKNzAH9KYO/kbYybQ5H6rsj7pYbwtXtBDsWSlf7OiTs7Hp2ZA+F3tfEzvx6UfVdjhRareyw==
   dependencies:
     "@types/react" "*"
 
