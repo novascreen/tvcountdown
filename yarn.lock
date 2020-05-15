@@ -1789,10 +1789,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/auth0-js@^9.10.6":
-  version "9.10.6"
-  resolved "https://registry.yarnpkg.com/@types/auth0-js/-/auth0-js-9.10.6.tgz#9782ac28ea9cff5a2594b780fd3fd0caa615d1e6"
-  integrity sha512-tPdhjqzQRJOdILFLssr/zrinjNvYsKKrEzS74XK80ZkQJKejjTERbIh3+T5niFKxx3XYPB3140ys8Y4Q2UFwHw==
+"@types/auth0-js@^9.12.5":
+  version "9.12.5"
+  resolved "https://registry.yarnpkg.com/@types/auth0-js/-/auth0-js-9.12.5.tgz#ef6dea12787d74b6f5680fbc950f282e9f546b7c"
+  integrity sha512-/JBw8RePWzNIqUSqT8OPeh2l1GZZxY4uFAGqxKakeIrSt/qQCiiJ5nygZP492SISdcz4YPdRlYSRvVTW9oxgWA==
 
 "@types/babel__core@^7.1.0":
   version "7.1.3"
