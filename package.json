@@ -39,7 +39,7 @@
     "history": "^4.10.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^1.6.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "memoizee": "^0.4.14",
     "micro": "^9.3.5-canary.3",
     "microrouter": "^3.1.3",
